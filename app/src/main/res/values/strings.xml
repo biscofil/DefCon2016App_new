@@ -12,7 +12,7 @@
     <string name="sito_web">Sito web</string>
     <string name="hello_world">Ciao mondo!</string>
 
-    <string name="title_activity_loading">Caricamento</string>
+    <string name="title_activity_loading">EcoMe</string>
     <string name="action_refresh">Aggiorna</string>
     <string name="checking_connection">Controllo la connessione</string>
     <string name="downloading_data">Scarico i dati</string>
