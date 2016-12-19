@@ -25,7 +25,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -45,9 +44,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(((EcoMe)getApplication()).offlineMode) {
+        if (((EcoMe) getApplication()).offlineMode) {
             setContentView(R.layout.activity_main);
-        }else{
+        } else {
             setContentView(R.layout.activity_main);
 
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        if(!((EcoMe)getApplication()).offlineMode) {
+        if (!((EcoMe) getApplication()).offlineMode) {
             mMap = googleMap;
             try {
                 // Customise the styling of the base map using a JSON object defined
@@ -88,9 +87,9 @@ public class MainActivity extends AppCompatActivity
             }
 
             mMap.setOnMarkerClickListener(this);
-            //Disable Map Toolbar:
             mMap.getUiSettings().setMapToolbarEnabled(false);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(45, 12), 6));
+
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(((EcoMe) getApplication()).mapCenter, 6));
             addHeatMap(((EcoMe) getApplication()).list);
             addMarkers();
         }
@@ -147,6 +146,9 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(getString(R.string.web_url)));
             startActivity(i);
+        } else if (id == R.id.nav_tec) {
+            Intent intent = new Intent(this, GuidaCalcoloIndice.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -177,7 +179,7 @@ public class MainActivity extends AppCompatActivity
 
         // Create the gradient.
         int[] colors = {
-                Color.rgb(0, 255,0), // green
+                Color.rgb(0, 255, 0), // green
                 Color.rgb(255, 0, 0)    // red
         };
 

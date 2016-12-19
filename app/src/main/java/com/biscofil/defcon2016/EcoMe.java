@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.biscofil.defcon2016.map.ValuedLatLng;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +22,8 @@ public class EcoMe extends Application {
     public boolean offlineMode = false;
     public List<ValuedLatLng> list = new ArrayList<>();
     public Map<Integer,Struttura> strutture = new HashMap<>();
+    public LatLng mapCenter = new LatLng(41.8919300, 12.5113300);
+
 
     @Override
     public void onCreate() {

@@ -21,7 +21,7 @@
     <string name="xhr_controller" translatable="false">xhr/</string>
     <string name="data_method" translatable="false">xhr_data</string>
     <string name="web_url" translatable="false">http://defcon2016.altervista.org/index.php/</string>
-    <string name="sidney">Marcatore a Sydney</string>
+    <string name="sidney">Marcatore a Roma</string>
     <string name="title_activity_details">Dettagli</string>
     <string name="large_text" translatable="false">
         "Material is the metaphor.\n\n"
@@ -42,4 +42,5 @@
 
     <string name="guida_uso">Guida all\'uso</string>
     <string name="licenze_versioni">Licenze e versioni</string>
+    <string name="str_menu_tec">Calcolo dell\'indice</string>
 </resources>
