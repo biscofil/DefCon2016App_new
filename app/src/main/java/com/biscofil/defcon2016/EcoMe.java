@@ -6,8 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.biscofil.defcon2016.map.ValuedLatLng;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.maps.android.heatmaps.WeightedLatLng;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +26,6 @@ public class EcoMe extends Application {
     public void onCreate() {
         super.onCreate();
     }
-
 
     public boolean isOnline() {
         ConnectivityManager cm;
