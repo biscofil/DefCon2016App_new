@@ -22,8 +22,7 @@ public class EcoMe extends Application {
     public boolean offlineMode = false;
     public List<ValuedLatLng> list = new ArrayList<>();
     public Map<Integer,Struttura> strutture = new HashMap<>();
-    public LatLng mapCenter = new LatLng(41.8919300, 12.5113300);
-
+    public LatLng mapCenter = new LatLng(41.8919300, 12.5113300); //roma
 
     @Override
     public void onCreate() {

@@ -1,9 +1,11 @@
 package com.biscofil.defcon2016;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -30,6 +32,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
+
+import org.json.JSONObject;
 
 import java.util.Iterator;
 import java.util.List;
@@ -158,9 +162,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Intent intent = new Intent(this, DetailsActivity.class);
-        intent.putExtra("id", (Integer) marker.getTag());
-        startActivity(intent);
+        int id = (Integer) marker.getTag();
+        new DetailsDownloadTask(this, id).execute();
         return true;
     }
 
@@ -206,6 +209,51 @@ public class MainActivity extends AppCompatActivity
         float[] hsv = new float[3];
         Color.colorToHSV(Color.parseColor(color), hsv);
         return BitmapDescriptorFactory.defaultMarker(hsv[0]);
+    }
+
+    private class DetailsDownloadTask extends AsyncTask<Void, Void, Struttura> {
+
+        Activity act;
+        Snackbar snack;
+        int _id;
+
+        public DetailsDownloadTask(Activity act, int id) {
+            this.act = act;
+            _id = id;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            snack = Snackbar.make(act.getCurrentFocus(), "Scarico i dettagli...", Snackbar.LENGTH_LONG);
+            snack.show();
+        }
+
+        @Override
+        protected void onPostExecute(Struttura out) {
+            super.onPostExecute(out);
+            snack.dismiss();
+            Intent intent = new Intent(act, DetailsActivity.class);
+            intent.putExtra("struttura", out);
+            startActivity(intent);
+        }
+
+        @Override
+        protected Struttura doInBackground(Void... params) {
+            Struttura out = null;
+            try {
+                String url = getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.struttura_method) + "/" + _id;
+                JSONObject object = new XhrInterface().getObject(url);
+                out = new Struttura();
+                out.id = object.getInt("id");
+                out.nome = object.getString("nome");
+                out.descrizione = object.getString("descrizione");
+                return out;
+            } catch (Exception e) {
+                Log.e("ECOME", e.getLocalizedMessage());
+            }
+            return null;
+        }
     }
 
 }

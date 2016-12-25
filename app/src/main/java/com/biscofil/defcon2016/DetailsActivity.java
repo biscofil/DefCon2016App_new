@@ -2,11 +2,8 @@ package com.biscofil.defcon2016;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 
 public class DetailsActivity extends AppCompatActivity {
@@ -17,15 +14,12 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
 
         Intent i = getIntent();
-        int _id = i.getIntExtra("id",0);
+        Struttura s = (Struttura) i.getSerializableExtra("struttura");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        toolbar.setTitle(">>" + _id);
+        ((CollapsingToolbarLayout) findViewById(R.id.toolbar_layout)).setTitle(s.nome);
 
         TextView tv = (TextView) findViewById(R.id.details_text);
-        tv.setText(">>" + _id);
+        tv.setText(s.descrizione);
 
     }
 }

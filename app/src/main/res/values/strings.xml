@@ -38,6 +38,7 @@
         "seams, divides space, and indicates moving parts.\n\n"
     </string>
     <string name="strutture_method" translatable="false">xhr_strutture</string>
+    <string name="struttura_method" translatable="false">xhr_struttura</string>
     <string name="downloading_structures_data">Scarico i dati delle strutture</string>
 
     <string name="guida_uso">Guida all\'uso</string>
