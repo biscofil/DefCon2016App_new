@@ -8,6 +8,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.biscofil.defcon2016.Guida_Activity">
+    tools:context="com.biscofil.defcon2016.fragments.Guida_fragment">
 
 </RelativeLayout>

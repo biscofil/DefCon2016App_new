@@ -6,12 +6,13 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-public class DetailsActivity extends AppCompatActivity {
+public class Details_activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+
+        setContentView(R.layout.fragment_details);
 
         Intent i = getIntent();
         Struttura s = (Struttura) i.getSerializableExtra("struttura");
@@ -22,4 +23,5 @@ public class DetailsActivity extends AppCompatActivity {
         tv.setText(s.descrizione);
 
     }
+
 }

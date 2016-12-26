@@ -44,4 +44,16 @@
     <string name="guida_uso">Guida all\'uso</string>
     <string name="licenze_versioni">Licenze e versioni</string>
     <string name="str_menu_tec">Calcolo dell\'indice</string>
+    <string name="menu_credits">Credits</string>
+    <string name="credits_value">
+        <![CDATA[CEVID - Centro Veneto di Innovazione Digitale per Cittadini, Imprese e Pubblica Amministrazione.\n
+        Università Ca\' Foscari & Regione del Veneto\n\n
+        Azione 1: Open Data della Regione Veneto:\n
+        dal paradigma DaaS per la fruizione dei dati alle smart app\n\n
+        coordinatore: prof. A.Cortesi\n\n
+        app progettata e realizzata da:\n
+         - Filippo Bisconcin\n
+         - Marco Cabianca\n
+         - Francesco Busolin\n\n\n
+         Corso di laurea in Informatica - Università Ca\' Foscari]]></string>
 </resources>

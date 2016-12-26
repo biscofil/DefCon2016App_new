@@ -36,12 +36,9 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".DetailsActivity"
+            android:name=".Details_activity"
             android:label="@string/title_activity_details"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Guida_Activity" />
-        <activity android:name=".Licenze_Activity" />
-        <activity android:name=".GuidaCalcoloIndice"></activity>
     </application>
 
 </manifest>
