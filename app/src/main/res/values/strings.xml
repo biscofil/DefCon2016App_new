@@ -45,7 +45,7 @@
     <string name="licenze_versioni">Licenze e versioni</string>
     <string name="str_menu_tec">Calcolo dell\'indice</string>
     <string name="menu_credits">Credits</string>
-    <string name="credits_value">
+    <string name="credits_value" translatable="false">
         <![CDATA[CEVID - Centro Veneto di Innovazione Digitale per Cittadini, Imprese e Pubblica Amministrazione.\n
         Università Ca\' Foscari & Regione del Veneto\n\n
         Azione 1: Open Data della Regione Veneto:\n
@@ -56,4 +56,5 @@
          - Marco Cabianca\n
          - Francesco Busolin\n\n\n
          Corso di laurea in Informatica - Università Ca\' Foscari]]></string>
+    <string name="str_menu_map">Mappa</string>
 </resources>

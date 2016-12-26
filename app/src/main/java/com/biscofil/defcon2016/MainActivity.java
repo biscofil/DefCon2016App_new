@@ -1,5 +1,7 @@
 package com.biscofil.defcon2016;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -14,7 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.biscofil.defcon2016.fragments.Credits_fragment;
+import com.biscofil.defcon2016.fragments.GuidaCalcoloIndice_fragment;
 import com.biscofil.defcon2016.fragments.Guida_fragment;
+import com.biscofil.defcon2016.fragments.Licenze_fragment;
 import com.biscofil.defcon2016.fragments.Map_fragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,61 +42,63 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
+        drawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
         nvDrawer = (NavigationView) findViewById(R.id.nav_view);
         // Setup drawer view
-        setupDrawerContent(nvDrawer);
-    }
-
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
-                        return true;
-                    }
-                });
+        nvDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                selectDrawerItem(menuItem);
+                return true;
+            }
+        });
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
-        switch (menuItem.getItemId()) {
-            case R.id.menu_map:
-                fragmentClass = Map_fragment.class;
-                break;
-            case R.id.nav_tec:
-                fragmentClass = Credits_fragment.class;
-                break;
-            case R.id.nav_view:
-                fragmentClass = Details_activity.class;
-                break;
-            case R.id.nav_web:
-                fragmentClass = Guida_fragment.class;
-                break;
-            default:
-                fragmentClass = Map_fragment.class;
-        }
+        if (menuItem.getItemId() == R.id.menu_web) {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(getString(R.string.web_url)));
+            startActivity(i);
+        } else {
+            switch (menuItem.getItemId()) {
+                case R.id.menu_map:
+                    fragmentClass = Map_fragment.class;
+                    break;
+                case R.id.menu_guida:
+                    fragmentClass = Guida_fragment.class;
+                    break;
+                case R.id.menu_calc:
+                    fragmentClass = GuidaCalcoloIndice_fragment.class;
+                    break;
+                case R.id.menu_license:
+                    fragmentClass = Licenze_fragment.class;
+                    break;
+                case R.id.menu_credits:
+                    fragmentClass = Credits_fragment.class;
+                    break;
+                default:
+                    fragmentClass = Map_fragment.class;
+            }
 
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            // Highlight the selected item has been done by NavigationView
+            menuItem.setChecked(true);
+            // Set action bar title
+            setTitle(menuItem.getTitle());
+            // Close the navigation drawer
+            mDrawer.closeDrawers();
         }
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-        // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked(true);
-        // Set action bar title
-        setTitle(menuItem.getTitle());
-        // Close the navigation drawer
-        mDrawer.closeDrawers();
     }
 
     @Override

@@ -6,26 +6,29 @@
         <item
             android:id="@+id/menu_map"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Mappa" />
+            android:title="@string/str_menu_map" />
 
         <item
-            android:id="@+id/guida"
+            android:id="@+id/menu_guida"
             android:icon="@drawable/ic_menu_share"
             android:title="@string/guida_uso" />
         <item
-            android:id="@+id/nav_tec"
+            android:id="@+id/menu_calc"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/str_menu_tec" />
+
         <item
-            android:id="@+id/nav_web"
-            android:icon="@drawable/ic_menu_send"
-            android:title="@string/sito_web" />
-        <item
-            android:id="@+id/licenze_versioni"
+            android:id="@+id/menu_license"
             android:icon="@drawable/ic_menu_share"
             android:title="@string/licenze_versioni" />
+
         <item
-            android:id="@+id/credits"
+            android:id="@+id/menu_web"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/sito_web" />
+
+        <item
+            android:id="@+id/menu_credits"
             android:icon="@drawable/ic_menu_share"
             android:title="@string/menu_credits" />
 

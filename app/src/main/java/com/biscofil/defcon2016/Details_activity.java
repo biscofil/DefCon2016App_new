@@ -12,7 +12,7 @@ public class Details_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.fragment_details);
+        setContentView(R.layout.activity_details);
 
         Intent i = getIntent();
         Struttura s = (Struttura) i.getSerializableExtra("struttura");

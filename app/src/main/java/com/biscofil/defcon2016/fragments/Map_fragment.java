@@ -50,7 +50,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_maps, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);

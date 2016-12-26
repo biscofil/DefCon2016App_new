@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.biscofil.defcon2016.Details_activity"
-    tools:showIn="@layout/fragment_details">
+    tools:showIn="@layout/activity_details">
 
     <LinearLayout
         android:orientation="vertical"
