@@ -16,7 +16,7 @@ public class Licenze_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_licenze, container, false);
-        getActivity().setTitle("BOH");
+        getActivity().setTitle(getString(R.string.licenze_fragment_title));
         return rootView;
     }
 

@@ -16,7 +16,7 @@ public class Guida_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_guida, container, false);
-        getActivity().setTitle("BOH");
+        getActivity().setTitle(getString(R.string.guida_fragment_title));
         return rootView;
     }
 

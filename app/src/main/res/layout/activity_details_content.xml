@@ -13,19 +13,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:text="Punteggio: "
-            android:layout_width="match_parent"
+        <RatingBar
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:id="@+id/textView2" />
+            android:id="@+id/ratingBar"
+            android:numStars="5"
+            android:isIndicator="true"
+            android:rating="0" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:id="@+id/details_text"
-            android:text="@string/large_text" />
+            android:text="@string/descrizione_struttura" />
+
+        <TextView
+            android:text="@string/punteggio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:id="@+id/textView" />
+
+        <TextView
+            android:text="@string/dati_risalenti_a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:id="@+id/textView2" />
     </LinearLayout>
 
 

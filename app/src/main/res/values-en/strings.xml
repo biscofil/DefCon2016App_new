@@ -23,4 +23,13 @@
     <string name="str_menu_tec">Index calculation</string>
     <string name="menu_credits">Credits</string>
     <string name="str_menu_map">Maps</string>
+    <string name="sto_aggiornando">Updating</string>
+    <string name="credits_fragment_title">Credits</string>
+    <string name="calcolo_fragment_title">Index calculation</string>
+    <string name="dati_risalenti_a">Last update:</string>
+    <string name="descrizione_struttura">Description</string>
+    <string name="guida_fragment_title">Guide</string>
+    <string name="licenze_fragment_title">License</string>
+    <string name="mappa_fragment_title">Mappa</string>
+    <string name="punteggio">Value:</string>
 </resources>

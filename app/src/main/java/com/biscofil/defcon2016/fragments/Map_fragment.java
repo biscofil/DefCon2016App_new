@@ -10,6 +10,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -46,11 +49,13 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
     private GoogleMap mMap;
 
     public Map_fragment() {
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+        getActivity().setTitle(getString(R.string.mappa_fragment_title));
 
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
@@ -65,7 +70,30 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
 
         mMapView.getMapAsync(this);
 
+        setHasOptionsMenu(true);
+
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.map_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_refresh) {
+            Snackbar.make(getView(), R.string.sto_aggiornando, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -212,6 +240,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
                 out.id = object.getInt("id");
                 out.nome = object.getString("nome");
                 out.descrizione = object.getString("descrizione");
+                out.sito_web = object.getString("sito_web");
                 return out;
             } catch (Exception e) {
                 Log.e("ECOME", e.getLocalizedMessage());

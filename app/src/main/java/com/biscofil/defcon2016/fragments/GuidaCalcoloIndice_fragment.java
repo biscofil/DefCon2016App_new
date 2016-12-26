@@ -16,7 +16,7 @@ public class GuidaCalcoloIndice_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_guida_calcolo_indice, container, false);
-        getActivity().setTitle("BOH");
+        getActivity().setTitle(getString(R.string.calcolo_fragment_title));
         return rootView;
     }
 }

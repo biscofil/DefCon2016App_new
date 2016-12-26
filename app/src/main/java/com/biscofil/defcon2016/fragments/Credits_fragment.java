@@ -16,7 +16,7 @@ public class Credits_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_credits, container, false);
-        getActivity().setTitle("BOH");
+        getActivity().setTitle(getString(R.string.credits_fragment_title));
         return rootView;
     }
 

@@ -13,6 +13,6 @@ public class Struttura implements Serializable {
     public String nome;
     public LatLng lat_lng;
     public String descrizione;
-
+    public String sito_web;
 
 }
