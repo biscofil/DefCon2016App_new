@@ -19,6 +19,7 @@ import com.biscofil.defcon2016.fragments.GuidaCalcoloIndice_fragment;
 import com.biscofil.defcon2016.fragments.Guida_fragment;
 import com.biscofil.defcon2016.fragments.Licenze_fragment;
 import com.biscofil.defcon2016.fragments.Map_fragment;
+import com.biscofil.defcon2016.fragments.Menu_fragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +27,20 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
+
+    public Fragment setFragmentContent(Class fragmentClass) {
+        try {
+            Fragment fragment = (Fragment) fragmentClass.newInstance();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            return fragment;
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         if (((EcoMe) getApplication()).offlineMode) {
 
         } else {
+
         }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -56,12 +72,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        setFragmentContent(Menu_fragment.class);
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
-        Class fragmentClass;
         if (menuItem.getItemId() == R.id.menu_web) {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(getString(R.string.web_url)));
@@ -69,32 +83,23 @@ public class MainActivity extends AppCompatActivity {
         } else {
             switch (menuItem.getItemId()) {
                 case R.id.menu_map:
-                    fragmentClass = Map_fragment.class;
+                    setFragmentContent(Map_fragment.class);
                     break;
                 case R.id.menu_guida:
-                    fragmentClass = Guida_fragment.class;
+                    setFragmentContent(Guida_fragment.class);
                     break;
                 case R.id.menu_calc:
-                    fragmentClass = GuidaCalcoloIndice_fragment.class;
+                    setFragmentContent(GuidaCalcoloIndice_fragment.class);
                     break;
                 case R.id.menu_license:
-                    fragmentClass = Licenze_fragment.class;
+                    setFragmentContent(Licenze_fragment.class);
                     break;
                 case R.id.menu_credits:
-                    fragmentClass = Credits_fragment.class;
+                    setFragmentContent(Credits_fragment.class);
                     break;
                 default:
-                    fragmentClass = Map_fragment.class;
+                    setFragmentContent(Map_fragment.class);
             }
-
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            // Insert the fragment by replacing any existing fragment
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
             // Highlight the selected item has been done by NavigationView
             menuItem.setChecked(true);
             // Set action bar title
