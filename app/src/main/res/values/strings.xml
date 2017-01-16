@@ -36,14 +36,14 @@
         Università Ca\' Foscari & Regione del Veneto\n\n
         Azione 1: Open Data della Regione Veneto:\n
         dal paradigma DaaS per la fruizione dei dati alle smart app\n\n
-        coordinatore: prof. A.Cortesi\n\n
-        app progettata e realizzata da:\n
+        Coordinatore: prof. A.Cortesi\n\n
+        App progettata e realizzata da:\n
          - Filippo Bisconcin\n
          - Marco Cabianca\n
          - Francesco Busolin\n\n\n
          Corso di laurea in Informatica - Università Ca\' Foscari]]></string>
     <string name="str_menu_map">Mappa</string>
-    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec odio maximus, laoreet purus ut, congue arcu. Nunc at nibh vitae metus posuere euismod. Vivamus turpis justo, malesuada eget sollicitudin eget, facilisis consectetur risus. Ut porttitor tempor consectetur. Sed placerat consectetur nulla. Donec vitae tempor dui, eu imperdiet dui. Phasellus sapien dolor, tempor at vulputate nec, egestas a purus. Sed id cursus odio. Nam vehicula vehicula elit, eu ultrices mi egestas eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer eu varius lorem. Cras ac efficitur dolor. Morbi pulvinar nulla eu urna sodales, a porttitor diam tempor. Vivamus mi ligula, elementum sed lorem quis, maximus viverra ex. Donec pharetra diam nec lacinia ornare. In vehicula hendrerit justo a dapibus. Ut elit metus, sodales porta rhoncus a, dignissim in sem. Nullam suscipit, lacus quis dapibus posuere, dui augue sollicitudin ante, et imperdiet eros elit sit amet nisl. Aliquam erat volutpat. Nunc dapibus commodo sem, in blandit mauris bibendum sit amet. Praesent scelerisque porttitor dui, quis ullamcorper dolor suscipit gravida. In hac habitasse platea dictumst. Proin ut ornare turpis, eget sodales nulla. Aliquam leo nibh, tempor vel elementum eu, blandit sed eros. Ut tempus ex eu arcu tempus semper. Praesent dictum ultricies elit ut tincidunt. Nam in metus quis leo eleifend congue. Duis et mauris a tortor finibus ultrices. Curabitur ac aliquam urna. Morbi egestas eros eget erat varius ultricies. In cursus velit et enim feugiat tincidunt et non diam. Praesent eleifend lacinia augue, eu pharetra lectus malesuada ac. Etiam pharetra lorem tellus, sit amet vestibulum massa dictum at. Etiam tincidunt ante sed neque varius malesuada. Maecenas metus sapien, dignissim id aliquet vitae, placerat sit amet nisi. Quisque porttitor suscipit ex in pellentesque. Vivamus blandit ac sapien at elementum. Praesent quis ipsum augue. Mauris mattis felis a felis fringilla tempus. Fusce accumsan nibh risus, sed blandit ipsum varius et. Pellentesque non pulvinar tortor. Duis efficitur at libero eu consequat. Duis at varius magna. Aenean neque leo, semper ultricies fringilla sollicitudin, vulputate quis dolor. Nam metus mi, vestibulum vel pharetra eu, laoreet sit amet lacus. Cras vel orci nec nisi eleifend placerat eu ut velit. Mauris in lacinia ipsum, semper imperdiet nisi. Nam sit amet faucibus sem. Curabitur aliquam ullamcorper egestas. Nulla vel lacus eget lorem dapibus rhoncus. Aenean nec dictum leo. Nulla quis mauris eu felis volutpat vehicula. Aenean convallis risus enim, sed interdum risus consequat sed. Cras interdum viverra urna et venenatis.</string>
+    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor srsus odio. Nam vehicula Aenean convallis risus enim, sed interdum risus consequat sed. Cras interdum viverra urna et venenatis.</string>
     <string name="punteggio">Punteggio:</string>
     <string name="dati_risalenti_a">Dati risalenti a:</string>
     <string name="descrizione_struttura">Descrizione</string>
@@ -53,4 +53,5 @@
     <string name="licenze_fragment_title">Licenze</string>
     <string name="sto_aggiornando">Aggiorno</string>
     <string name="mappa_fragment_title">Mappa</string>
+    <string name="xhr_licenze" translatable="false">xhr_licenze</string>
 </resources>

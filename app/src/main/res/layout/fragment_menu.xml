@@ -12,37 +12,26 @@
         <Button
             android:id="@+id/home_map"
             style="@style/homeBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:background="@drawable/map_btn"
-            android:layout_weight="1.0"
-            android:text="Mappa" />
+            android:text="@string/str_menu_map" />
 
         <Button
             android:id="@+id/home_guida"
             style="@style/homeBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorSecondaryLight"
-            android:layout_weight="1.0"
-            android:text="Guida" />
-
+            android:background="@drawable/guide_btn"
+            android:text="@string/guida_uso" />
+        <!--android:backgroundTint="@color/colorSecondary2Dark"
+                    android:backgroundTintMode="multiply"-->
         <Button
             android:id="@+id/home_licenze"
             style="@style/homeBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:background="@color/colorSecondary2Light"
-            android:layout_weight="1.0"
-            android:text="Licenze" />
+            android:text="@string/licenze_versioni" />
 
         <Button
             android:id="@+id/home_credits"
             style="@style/homeBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorComplementLight"
-            android:layout_weight="1.0"
+            android:background="@drawable/credits_btn"
             android:text="Credits" />
 
 

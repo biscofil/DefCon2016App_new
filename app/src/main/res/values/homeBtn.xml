@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="homeBtn" parent="@android:style/TextAppearance.Medium">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1.0</item>
         <item name="android:textSize">36sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:typeface">normal</item>
         <item name="android:textStyle">normal|bold</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
     </style>
 
 </resources>
