@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.biscofil.defcon2016.fragments.Credits_fragment;
@@ -28,11 +29,15 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
 
-    public Fragment setFragmentContent(Class fragmentClass) {
+    public Fragment setFragmentContent(Class fragmentClass, boolean first) {
         try {
             Fragment fragment = (Fragment) fragmentClass.newInstance();
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            if (first) {
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            } else {
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+            }
             return fragment;
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -45,14 +50,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-
-        if (((EcoMe) getApplication()).offlineMode) {
-
-        } else {
-
-        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,7 +70,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        setFragmentContent(Menu_fragment.class);
+
+        Menu menuNav = nvDrawer.getMenu();
+        MenuItem nav_item2 = menuNav.findItem(R.id.menu_map);
+        nav_item2.setEnabled(!((EcoMe) getApplication()).offlineMode);
+
+        Fragment f = setFragmentContent(Menu_fragment.class, true);
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
@@ -83,22 +86,22 @@ public class MainActivity extends AppCompatActivity {
         } else {
             switch (menuItem.getItemId()) {
                 case R.id.menu_map:
-                    setFragmentContent(Map_fragment.class);
+                    setFragmentContent(Map_fragment.class, false);
                     break;
                 case R.id.menu_guida:
-                    setFragmentContent(Guida_fragment.class);
+                    setFragmentContent(Guida_fragment.class, false);
                     break;
                 case R.id.menu_calc:
-                    setFragmentContent(GuidaCalcoloIndice_fragment.class);
+                    setFragmentContent(GuidaCalcoloIndice_fragment.class, false);
                     break;
                 case R.id.menu_license:
-                    setFragmentContent(Licenze_fragment.class);
+                    setFragmentContent(Licenze_fragment.class, false);
                     break;
                 case R.id.menu_credits:
-                    setFragmentContent(Credits_fragment.class);
+                    setFragmentContent(Credits_fragment.class, false);
                     break;
                 default:
-                    setFragmentContent(Map_fragment.class);
+                    setFragmentContent(Map_fragment.class, false);
             }
             // Highlight the selected item has been done by NavigationView
             menuItem.setChecked(true);

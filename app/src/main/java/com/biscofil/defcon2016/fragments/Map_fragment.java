@@ -165,7 +165,11 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
             Map.Entry pair = (Map.Entry) it.next();
             int id = (Integer) pair.getKey();
             Struttura s = (Struttura) pair.getValue();
-            Marker marker = mMap.addMarker(new MarkerOptions().position(s.lat_lng).title(s.nome).icon(getMarkerIcon("#004A0D")));
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(s.lat_lng)
+                    .title(s.nome)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.struttura_32))
+            );
             marker.setTag(id);
         }
     }

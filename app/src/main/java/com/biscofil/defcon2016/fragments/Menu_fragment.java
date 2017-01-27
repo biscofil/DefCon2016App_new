@@ -1,5 +1,6 @@
 package com.biscofil.defcon2016.fragments;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.biscofil.defcon2016.EcoMe;
 import com.biscofil.defcon2016.R;
 
 public class Menu_fragment extends Fragment {
@@ -20,7 +22,10 @@ public class Menu_fragment extends Fragment {
         try {
             fragment = (Fragment) fragmentClass.newInstance();
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            //fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            //fragmentManager.beginTransaction().add(fragment, null).addToBackStack(null).commit();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+
             return fragment;
         } catch (java.lang.InstantiationException e) {
             e.printStackTrace();
@@ -42,6 +47,11 @@ public class Menu_fragment extends Fragment {
                 setFragmentContent(Map_fragment.class);
             }
         });
+
+        if (((EcoMe) getActivity().getApplication()).offlineMode) {
+            btn_home_map.setEnabled(false);
+            btn_home_map.setPaintFlags(btn_home_map.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
 
         Button btn_home_credits = (Button) rootView.findViewById(R.id.home_credits);
         btn_home_credits.setOnClickListener(new View.OnClickListener() {
