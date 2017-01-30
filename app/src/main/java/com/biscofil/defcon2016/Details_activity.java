@@ -7,7 +7,10 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import java.util.Random;
 
 public class Details_activity extends AppCompatActivity {
 
@@ -31,5 +34,10 @@ public class Details_activity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
+        rb.setMax(5);
+        Random r = new Random();
+        rb.setRating(r.nextFloat() * 5);
     }
 }
