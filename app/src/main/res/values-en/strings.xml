@@ -32,4 +32,8 @@
     <string name="licenze_fragment_title">License</string>
     <string name="mappa_fragment_title">Mappa</string>
     <string name="punteggio">Value:</string>
+    <string name="str_menu_meter">Meter</string>
+    <string name="meter_fragment_title">Meter</string>
+    <string name="guide_short">Guide</string>
+    <string name="licenze_versioni_short">Licenses</string>
 </resources>

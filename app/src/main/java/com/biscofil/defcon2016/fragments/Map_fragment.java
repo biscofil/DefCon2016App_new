@@ -2,7 +2,6 @@ package com.biscofil.defcon2016.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,7 +30,6 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlay;
@@ -128,7 +126,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
             this.mMap = googleMap;
 
             //googleMap.setMyLocationEnabled(true);
-
+/*
             try {
                 // Customise the styling of the base map using a JSON object defined
                 // in a raw resource file.
@@ -141,7 +139,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
                 }
             } catch (Resources.NotFoundException e) {
                 Log.e("ECOME", "Can't find style. Error: ", e);
-            }
+            }*/
 
             mMap.setOnMarkerClickListener(this);
             mMap.getUiSettings().setMapToolbarEnabled(false);

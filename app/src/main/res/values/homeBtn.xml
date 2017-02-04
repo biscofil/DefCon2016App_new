@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="homeBtn" parent="@android:style/TextAppearance.Medium">
-        <item name="android:layout_width">match_parent</item>
+        <!--<item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1.0</item>
         <item name="android:textSize">36sp</item>
@@ -10,7 +10,16 @@
         <item name="android:typeface">normal</item>
         <item name="android:textStyle">normal|bold</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
+        <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>-->
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="civ_border_color">#daffffff</item>
+        <item name="civ_border_width">2dp</item>
+
     </style>
 
 </resources>

@@ -21,6 +21,7 @@ import com.biscofil.defcon2016.fragments.Guida_fragment;
 import com.biscofil.defcon2016.fragments.Licenze_fragment;
 import com.biscofil.defcon2016.fragments.Map_fragment;
 import com.biscofil.defcon2016.fragments.Menu_fragment;
+import com.biscofil.defcon2016.fragments.Meter_fragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -85,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         } else {
             switch (menuItem.getItemId()) {
+                case R.id.menu_meter:
+                    setFragmentContent(Meter_fragment.class, false);
+                    break;
                 case R.id.menu_map:
                     setFragmentContent(Map_fragment.class, false);
                     break;
@@ -136,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         // Sync the toggle state after onRestoreInstanceState has occurred.
         drawerToggle.syncState();
     }
-
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

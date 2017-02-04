@@ -43,6 +43,7 @@
          - Francesco Busolin\n\n\n
          Corso di laurea in Informatica - Università Ca\' Foscari]]></string>
     <string name="str_menu_map">Mappa</string>
+    <string name="str_menu_meter">Meter</string>
     <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor srsus odio. Nam vehicula Aenean convallis risus enim, sed interdum risus consequat sed. Cras interdum viverra urna et venenatis.</string>
     <string name="punteggio">Punteggio:</string>
     <string name="dati_risalenti_a">Dati risalenti a:</string>
@@ -54,4 +55,7 @@
     <string name="sto_aggiornando">Aggiorno</string>
     <string name="mappa_fragment_title">Mappa</string>
     <string name="xhr_licenze" translatable="false">xhr_licenze</string>
+    <string name="meter_fragment_title">Meter</string>
+    <string name="guide_short">Guida</string>
+    <string name="licenze_versioni_short">Licenze</string>
 </resources>

@@ -1,38 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_guida_"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.biscofil.defcon2016.fragments.Guida_fragment"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/mybg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/home_meter"
+                    style="@style/homeBtn"
+                    android:src="@drawable/guide" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/str_menu_meter"
+                    android:textColor="@android:color/white"
+                    android:textSize="90px"
+                    android:textStyle="normal|bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/home_map"
+                    style="@style/homeBtn"
+                    android:src="@drawable/map" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/str_menu_map"
+                    android:textColor="@android:color/white"
+                    android:textSize="90px"
+                    android:textStyle="normal|bold" />
+
+            </RelativeLayout>
 
 
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/home_map"
-            style="@style/homeBtn"
-            android:background="@drawable/map_btn"
-            android:text="@string/str_menu_map" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
-        <Button
-            android:id="@+id/home_guida"
-            style="@style/homeBtn"
-            android:background="@drawable/guide_btn"
-            android:text="@string/guida_uso" />
-        <!--android:backgroundTint="@color/colorSecondary2Dark"
-                    android:backgroundTintMode="multiply"-->
-        <Button
-            android:id="@+id/home_licenze"
-            style="@style/homeBtn"
-            android:background="@color/colorSecondary2Light"
-            android:text="@string/licenze_versioni" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
 
-        <Button
-            android:id="@+id/home_credits"
-            style="@style/homeBtn"
-            android:background="@drawable/credits_btn"
-            android:text="Credits" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/home_guida"
+                    style="@style/homeBtn"
+                    android:src="@drawable/guide" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guide_short"
+                    android:textColor="@android:color/white"
+                    android:textSize="90px"
+                    android:textStyle="normal|bold"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
 
-</LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/home_licenze"
+                    style="@style/homeBtn"
+                    android:src="@drawable/credits" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/licenze_versioni_short"
+                    android:textColor="@android:color/white"
+                    android:textSize="90px"
+                    android:textStyle="normal|bold" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

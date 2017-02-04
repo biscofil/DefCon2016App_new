@@ -8,16 +8,15 @@ import android.view.ViewGroup;
 
 import com.biscofil.defcon2016.R;
 
-public class Credits_fragment extends Fragment {
+public class Meter_fragment extends Fragment {
 
-    public Credits_fragment() {
+    public Meter_fragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_credits, container, false);
-        getActivity().setTitle(getString(R.string.credits_fragment_title));
-
+        View rootView = inflater.inflate(R.layout.fragment_meter, container, false);
+        getActivity().setTitle(getString(R.string.meter_fragment_title));
         return rootView;
     }
 
