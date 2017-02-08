@@ -14,8 +14,6 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.util.Random;
-
 public class Details_activity extends AppCompatActivity {
 
     @Override
@@ -41,8 +39,7 @@ public class Details_activity extends AppCompatActivity {
 
         RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
         rb.setMax(5);
-        Random r = new Random();
-        rb.setRating(r.nextFloat() * 5);
+        rb.setRating((float) s.punteggio);
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
 

@@ -15,4 +15,6 @@ public class Struttura implements Serializable {
     public String descrizione;
     public String sito_web;
 
+    public double punteggio;
+
 }

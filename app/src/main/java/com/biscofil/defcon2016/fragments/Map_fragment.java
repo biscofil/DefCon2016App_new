@@ -145,7 +145,10 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
             mMap.getUiSettings().setMapToolbarEnabled(false);
 
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(((EcoMe) getActivity().getApplication()).mapCenter, 6));
-            addHeatMap(((EcoMe) getActivity().getApplication()).list);
+
+            if (((EcoMe) getActivity().getApplication()).list.size() > 0) {
+                addHeatMap(((EcoMe) getActivity().getApplication()).list);
+            }
             addMarkers();
         }
     }
@@ -243,6 +246,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
                 out.nome = object.getString("nome");
                 out.descrizione = object.getString("descrizione");
                 out.sito_web = object.getString("sito_web");
+                out.punteggio = object.getDouble("last_value");
                 return out;
             } catch (Exception e) {
                 Log.e("ECOME", e.getLocalizedMessage());
