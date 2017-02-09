@@ -37,11 +37,8 @@
         Azione 1: Open Data della Regione Veneto:\n
         dal paradigma DaaS per la fruizione dei dati alle smart app\n\n
         Coordinatore: prof. A.Cortesi\n\n
-        App progettata e realizzata da:\n
-         - Filippo Bisconcin\n
-         - Marco Cabianca\n
-         - Francesco Busolin\n\n\n
-         Corso di laurea in Informatica - Università Ca\' Foscari]]></string>
+        Corso di laurea in Informatica - Università Ca\' Foscari]]></string>
+    <string name="credits_creators_value" translatable="false">App progettata e realizzata da:</string>
     <string name="str_menu_map">Mappa</string>
     <string name="str_menu_meter">Meter</string>
     <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor srsus odio. Nam vehicula Aenean convallis risus enim, sed interdum risus consequat sed. Cras interdum viverra urna et venenatis.</string>

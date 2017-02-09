@@ -18,28 +18,23 @@
         android:id="@+id/button2"
         style="@android:style/Widget.Material.Button.Colored"
         android:layout_below="@+id/arc_progress"
-        android:layout_centerHorizontal="true"
-        tools:targetApi="m" />
+        android:layout_centerHorizontal="true" />
 
     <com.github.lzyzsd.circleprogress.ArcProgress
-        custom:arc_max="5"
-        custom:arc_suffix_text=" "
+
         android:id="@+id/arc_progress"
         android:background="#00ffffff"
         android:layout_width="300dp"
-        custom:arc_progress="3"
+        custom:arc_progress="55"
         custom:arc_bottom_text="PUNTEGGIO"
-        custom:arc_text_size="80dp"
+        custom:arc_text_size="70dp"
         custom:arc_text_color="@color/colorPrimary"
         custom:arc_finished_color="@color/colorPrimaryDark"
         custom:arc_unfinished_color="@color/colorGrey"
         custom:arc_stroke_width="6pt"
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:elevation="6dp"
-        custom:arc_bottom_text_size="20dp"
-        custom:arc_suffix_text_size="0dp" />
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

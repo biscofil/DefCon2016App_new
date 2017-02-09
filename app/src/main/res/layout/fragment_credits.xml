@@ -1,62 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_credits"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.biscofil.defcon2016.fragments.Credits_fragment">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
+        android:id="@+id/activity_credits"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="10dp"
-            android:text="@string/credits_value"
-            android:textStyle="bold" />
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-
-        <LinearLayout
+        <ImageView
+            android:layout_margin="50dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/unive"
+            android:id="@+id/imageView2"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false" />
 
-            <ImageButton
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="10dp"
+                android:text="@string/credits_value"
+                android:textStyle="bold" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/linkedin"
-                android:scaleType="fitEnd" />
+                android:orientation="vertical">
 
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/linkedin"
-                android:scaleType="fitEnd" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:text="@string/credits_creators_value"
+                    android:textStyle="bold" />
 
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/linkedin"
-                android:scaleType="fitEnd" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-</LinearLayout>
+                    <Button
+                        android:id="@+id/btn_bisconcin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableBottom="@drawable/linkedin"
+                        android:text="Filippo Bisconcin"
+                        style="@style/Widget.AppCompat.Button.Colored" />
+
+                    <Button
+                        android:id="@+id/btn_cabianca"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableBottom="@drawable/linkedin"
+                        android:text="Marco Cabianca"
+                        style="@style/Widget.AppCompat.Button.Colored" />
+
+                    <Button
+                        android:id="@+id/btn_busolin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableBottom="@drawable/linkedin"
+                        android:text="Francesco Busolin"
+                        style="@style/Widget.AppCompat.Button.Colored" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</ScrollView>
