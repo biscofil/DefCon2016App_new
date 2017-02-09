@@ -2,7 +2,7 @@ package com.biscofil.defcon2016.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +21,13 @@ public class Menu_fragment extends Fragment {
         Fragment fragment = null;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+
             //fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
             //fragmentManager.beginTransaction().add(fragment, null).addToBackStack(null).commit();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+            ft.replace(R.id.flContent, fragment).addToBackStack(null).commit();
 
             return fragment;
         } catch (java.lang.InstantiationException e) {
