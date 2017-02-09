@@ -35,11 +35,11 @@
         custom:arc_unfinished_color="@color/colorGrey"
         custom:arc_stroke_width="6pt"
         android:layout_height="300dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:elevation="6dp"
         custom:arc_bottom_text_size="20dp"
-        custom:arc_suffix_text_size="0dp" />
+        custom:arc_suffix_text_size="0dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
