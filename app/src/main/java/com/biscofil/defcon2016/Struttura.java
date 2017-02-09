@@ -14,6 +14,7 @@ public class Struttura implements Serializable {
     public LatLng lat_lng;
     public String descrizione;
     public String sito_web;
+    public String url_img;
 
     public double punteggio;
 

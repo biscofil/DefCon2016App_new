@@ -58,4 +58,5 @@
     <string name="meter_fragment_title">Meter</string>
     <string name="guide_short">Guida</string>
     <string name="licenze_versioni_short">Licenze</string>
+    <string name="webview_calcolo_url" translatable="false">http://defcon2016.altervista.org/index.php/calcolo</string>
 </resources>

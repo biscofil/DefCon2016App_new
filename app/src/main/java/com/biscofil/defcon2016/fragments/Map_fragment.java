@@ -247,6 +247,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
                 out.descrizione = object.getString("descrizione");
                 out.sito_web = object.getString("sito_web");
                 out.punteggio = object.getDouble("last_value");
+                out.url_img = object.getString("url_img");
                 return out;
             } catch (Exception e) {
                 Log.e("ECOME", e.getLocalizedMessage());

@@ -2,6 +2,7 @@ package com.biscofil.defcon2016;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -20,13 +21,21 @@ import java.util.Map;
 public class EcoMe extends Application {
 
     public boolean offlineMode = false;
+
+    public TutorialHandler tutorialHandler;
+    public SharedPreferences sharedpreferences;
+
     public List<ValuedLatLng> list = new ArrayList<>();
     public Map<Integer,Struttura> strutture = new HashMap<>();
     public LatLng mapCenter = new LatLng(41.8919300, 12.5113300); //roma
 
+    private static final String MyPREFERENCES = "MyPrefs";
+
     @Override
     public void onCreate() {
         super.onCreate();
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
+        tutorialHandler = new TutorialHandler(sharedpreferences);
     }
 
     public boolean isOnline() {
