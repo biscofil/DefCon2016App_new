@@ -89,6 +89,9 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
         if (id == R.id.action_refresh) {
             Snackbar.make(getView(), R.string.sto_aggiornando, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
+
+            ((EcoMe) getActivity().getApplication()).aggiornaDati(getActivity());
+
             return true;
         }
         return false;
@@ -248,6 +251,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
                 out.sito_web = object.getString("sito_web");
                 out.punteggio = object.getDouble("last_value");
                 out.url_img = object.getString("url_img");
+                out.data_dati = object.getString("last_value_date");
                 return out;
             } catch (Exception e) {
                 Log.e("ECOME", e.getLocalizedMessage());

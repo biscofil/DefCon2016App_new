@@ -74,6 +74,11 @@ public class Details_activity extends AppCompatActivity {
         RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
         rb.setMax(5);
         rb.setRating((float) s.punteggio);
+        rb.setStepSize(0.5f);
+        //str punteggio
+
+        ((TextView) findViewById(R.id.tv_punteggio)).setText(getString(R.string.punteggio) + " " + s.punteggio);
+        ((TextView) findViewById(R.id.tv_data_calcolo)).setText(getString(R.string.dati_risalenti_a) + " " + s.data_dati);
 
         //storico
         setup_graph(s);

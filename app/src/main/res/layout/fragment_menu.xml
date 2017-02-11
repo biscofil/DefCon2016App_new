@@ -7,15 +7,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/mybg">
+        android:background="@drawable/mybg"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -68,8 +68,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -84,12 +84,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:text="@string/guide_short"
                     android:textColor="@android:color/white"
                     android:textSize="90px"
-                    android:textStyle="normal|bold"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+                    android:textStyle="normal|bold" />
             </RelativeLayout>
 
             <RelativeLayout

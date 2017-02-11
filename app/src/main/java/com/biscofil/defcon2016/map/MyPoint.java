@@ -10,7 +10,7 @@ public class MyPoint extends Point {
     private float mValue;
 
     public MyPoint(int x, int y, float v) {
-        super(x,y);
+        super(x, y);
         mValue = v;
     }
 

@@ -17,7 +17,7 @@ public class ValuedLatLng implements PointQuadTree.Item {
 
     public ValuedLatLng(LatLng latLng, double value) {
         this.mPoint = sProjection.toPoint(latLng);
-        if(value >= 0.0D) {
+        if (value >= 0.0D) {
             this.mValue = value;
         } else {
             this.mValue = 1.0f;

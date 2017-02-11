@@ -1,5 +1,6 @@
 package com.biscofil.defcon2016;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,7 +27,7 @@ public class EcoMe extends Application {
     public SharedPreferences sharedpreferences;
 
     public List<ValuedLatLng> list = new ArrayList<>();
-    public Map<Integer,Struttura> strutture = new HashMap<>();
+    public Map<Integer, Struttura> strutture = new HashMap<>();
     public LatLng mapCenter = new LatLng(41.8919300, 12.5113300); //roma
 
     private static final String MyPREFERENCES = "MyPrefs";
@@ -43,6 +44,13 @@ public class EcoMe extends Application {
         cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public void aggiornaDati(Activity act) {
+        list = new ArrayList<>();
+        strutture = new HashMap<>();
+        new DownloadDataTask(act).execute();
+
     }
 
 }

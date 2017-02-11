@@ -11,8 +11,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static android.R.attr.value;
-
 /**
  * Created by bisco on 07/12/2016.
  */
@@ -252,7 +250,7 @@ public class TemperatureMap {
                 v = v + 30;
             }
 
-            rst.add(new MyPoint(x,y,v));
+            rst.add(new MyPoint(x, y, v));
         }
 
         this.setPoints(rst, width, height);

@@ -18,4 +18,5 @@ public class Struttura implements Serializable {
 
     public double punteggio;
 
+    public String data_dati;
 }

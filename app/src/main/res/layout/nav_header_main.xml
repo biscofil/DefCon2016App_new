@@ -17,8 +17,8 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="0.58"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/icon_512"
-        android:layout_weight="0.58" />
+        app:srcCompat="@drawable/icon_512" />
 
 </LinearLayout>

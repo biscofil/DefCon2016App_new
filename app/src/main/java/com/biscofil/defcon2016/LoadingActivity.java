@@ -10,8 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +24,7 @@ public class LoadingActivity extends AppCompatActivity {
 
     ImageView loading_progress;
     TextView loading_info;
-    Animation myFadeInAnimation;
+    //Animation myFadeInAnimation;
     LoadingActivity loading_Activity;
 
     @Override
@@ -47,7 +45,9 @@ public class LoadingActivity extends AppCompatActivity {
 
 
         if (((EcoMe) getApplication()).isOnline()) {
-            new MyTask(this).execute();
+            //new MyTask(this).execute();
+            ((EcoMe) getApplication()).aggiornaDati(this);
+
         } else {
             ((EcoMe) getApplication()).offlineMode = true;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -89,14 +89,14 @@ public class LoadingActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            myFadeInAnimation = AnimationUtils.loadAnimation(LoadingActivity.this, R.anim.blinkfade);
-            loading_progress.startAnimation(myFadeInAnimation);
+            //myFadeInAnimation = AnimationUtils.loadAnimation(LoadingActivity.this, R.anim.blinkfade);
+            //loading_progress.startAnimation(myFadeInAnimation);
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            myFadeInAnimation.cancel();
+            //myFadeInAnimation.cancel();
             Intent intent = new Intent(loading_Activity, MainActivity.class);
             startActivity(intent);
             finish();
