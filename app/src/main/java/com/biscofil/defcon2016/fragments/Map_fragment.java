@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
@@ -241,15 +242,29 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
         @Override
         protected Struttura doInBackground(Void... params) {
             Struttura out = null;
+
+            String url = getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.struttura_method) + "/" + _id;
+
+            JSONObject object = null;
             try {
-                String url = getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.struttura_method) + "/" + _id;
-                JSONObject object = new XhrInterface().getObject(url);
-                out = new Struttura();
+                object = new XhrInterface().getObject(url);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            out = new Struttura();
+
+            try {
+                out.punteggio = object.getDouble("last_value");
+            } catch (JSONException e) {
+                out.no_data = true;
+            }
+
+            try {
                 out.id = object.getInt("id");
                 out.nome = object.getString("nome");
                 out.descrizione = object.getString("descrizione");
                 out.sito_web = object.getString("sito_web");
-                out.punteggio = object.getDouble("last_value");
                 out.url_img = object.getString("url_img");
                 out.data_dati = object.getString("last_value_date");
                 return out;

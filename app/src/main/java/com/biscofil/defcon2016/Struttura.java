@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public class Struttura implements Serializable {
 
+    public boolean no_data = false;
     public int id;
     public String nome;
     public LatLng lat_lng;

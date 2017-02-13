@@ -32,6 +32,8 @@ public class EcoMe extends Application {
 
     private static final String MyPREFERENCES = "MyPrefs";
 
+    public static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 293;
+
     @Override
     public void onCreate() {
         super.onCreate();

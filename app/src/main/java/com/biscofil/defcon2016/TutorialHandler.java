@@ -1,7 +1,6 @@
 package com.biscofil.defcon2016;
 
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,12 +36,9 @@ public class TutorialHandler {
         return classi_visitate.contains(s);
     }
 
-    //
-
     public boolean isFirstTimeHere(Class c) {
         String s = hash(c);
         boolean first_time = !this.exist(s);
-        Log.d("BISCO", "prima volta su " + s + " ? : " + (first_time ? "si" : "no"));
         if (first_time) {
             this.save(s);
         }

@@ -33,6 +33,9 @@ public class Details_activity extends AppCompatActivity {
     private Button mButton1, mButton2, mButton3;
     private Animation mEnterAnimation, mExitAnimation;
 
+    GraphView graph;
+    RatingBar rb;
+
     public static final int OVERLAY_METHOD = 1;
     public static final int OVERLAY_LISTENER_METHOD = 2;
 
@@ -45,6 +48,9 @@ public class Details_activity extends AppCompatActivity {
         mActivity = this;
 
         setContentView(R.layout.activity_details);
+
+        rb = (RatingBar) findViewById(R.id.ratingBar);
+        graph = (GraphView) findViewById(R.id.graph);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,14 +77,20 @@ public class Details_activity extends AppCompatActivity {
         setup_fab(s);
 
         //punteggio
-        RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
-        rb.setMax(5);
-        rb.setRating((float) s.punteggio);
-        rb.setStepSize(0.5f);
-        //str punteggio
+        if (s.no_data) {
+            rb.setVisibility(View.GONE);
+            graph.setVisibility(View.GONE);
+        } else {
+            rb.setMax(5);
+            rb.setRating((float) s.punteggio);
+            rb.setStepSize(0.5f);
+            //str punteggio
 
-        ((TextView) findViewById(R.id.tv_punteggio)).setText(getString(R.string.punteggio) + " " + s.punteggio);
-        ((TextView) findViewById(R.id.tv_data_calcolo)).setText(getString(R.string.dati_risalenti_a) + " " + s.data_dati);
+            ((TextView) findViewById(R.id.tv_punteggio)).setText(getString(R.string.punteggio) + " " + s.punteggio);
+            ((TextView) findViewById(R.id.tv_data_calcolo)).setText(getString(R.string.dati_risalenti_a) + " " + s.data_dati);
+
+        }
+
 
         //storico
         setup_graph(s);
@@ -97,7 +109,6 @@ public class Details_activity extends AppCompatActivity {
     }
 
     public void setup_graph(Struttura s) {
-        GraphView graph = (GraphView) findViewById(R.id.graph);
         DataPoint[] points = new DataPoint[100];
         for (int k = 0; k < points.length; k++) {
             points[k] = new DataPoint(k, Math.sin(k * 0.5) * 20 * (Math.random() * 10 + 1));

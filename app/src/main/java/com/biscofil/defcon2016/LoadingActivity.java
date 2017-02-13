@@ -51,7 +51,7 @@ public class LoadingActivity extends AppCompatActivity {
         } else {
             ((EcoMe) getApplication()).offlineMode = true;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Impossibile accedere ad internet!");
+            builder.setMessage(R.string.no_internet);
             // Add the buttons
             builder.setPositiveButton("Continua", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
