@@ -12,7 +12,7 @@ public class Credits_fragment extends Fragment {
 
     public Credits_fragment() {
     }
-
+/* commento di prova*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_credits, container, false);
