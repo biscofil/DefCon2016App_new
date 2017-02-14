@@ -1,8 +1,10 @@
 package com.biscofil.defcon2016.fragments;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +21,7 @@ public class Meter_fragment extends Fragment {
 
     // GPSTracker class
     GPSTracker gps;
-
+    private Button btn;
     private Context mContext;
 
     public Meter_fragment() {
@@ -30,16 +32,32 @@ public class Meter_fragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_meter, container, false);
         getActivity().setTitle(getString(R.string.meter_fragment_title));
         this.mContext = getContext();
+        btn = (Button) rootView.findViewById(R.id.btn_update_meter);
+        if(this.mContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            this.btn.setEnabled(false);
+            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.ACCESS_FINE_LOCATION)){
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
 
-        Button btn = (Button) rootView.findViewById(R.id.btn_update_meter);
+            }
+            else{
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_FINE_LOCATION);
 
+            }
+        }
+        else{
+            gps = new GPSTracker(getActivity(), mContext);
+        }
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gps = new GPSTracker(getActivity(), mContext);
+
 
                 // check if GPS enabled
-                if (gps.canGetLocation()) {
+                if (gps != null && gps.canGetLocation()) {
 
                     double latitude = gps.getLatitude();
                     double longitude = gps.getLongitude();
@@ -50,7 +68,8 @@ public class Meter_fragment extends Fragment {
                     // can't get location
                     // GPS or Network is not enabled
                     // Ask user to enable GPS/network in settings
-                    gps.showSettingsAlert();
+                    if(gps != null) gps.showSettingsAlert();
+                    else {/*show permissions denied alert;*/}
                 }
             }
         });
@@ -66,13 +85,13 @@ public class Meter_fragment extends Fragment {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
+                    btn.setEnabled(true);
+                    if(gps == null) {
+                        gps = new GPSTracker(getActivity(), mContext);
+                    }
 
                 } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                    btn.setEnabled(false);
                 }
                 return;
             }

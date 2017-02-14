@@ -21,6 +21,8 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import java.security.Permission;
+
 import static com.biscofil.defcon2016.EcoMe.MY_PERMISSIONS_REQUEST_FINE_LOCATION;
 
 public class GPSTracker extends Service implements LocationListener {
@@ -154,7 +156,10 @@ public class GPSTracker extends Service implements LocationListener {
      */
     public void stopUsingGPS() {
         if (locationManager != null) {
-            locationManager.removeUpdates(GPSTracker.this);
+            int perm = mContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+            if (perm == PackageManager.PERMISSION_GRANTED) {
+                locationManager.removeUpdates(GPSTracker.this);
+            }
         }
     }
 
