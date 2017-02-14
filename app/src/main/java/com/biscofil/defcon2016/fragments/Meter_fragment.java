@@ -3,6 +3,7 @@ package com.biscofil.defcon2016.fragments;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,16 @@ import android.widget.Toast;
 
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.gps.GPSTracker;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 
 import static com.biscofil.defcon2016.EcoMe.MY_PERMISSIONS_REQUEST_FINE_LOCATION;
 
@@ -66,6 +77,7 @@ public class Meter_fragment extends Fragment {
 
                     // \n is for new line
                     Toast.makeText(mContext, "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+                    new RequestData().execute("http://defcon2016.altervista.org/index.php/xhr/gps_to_value/"+gps.getLatitude()+"/"+gps.getLongitude());
                 } else {
                     // can't get location
                     // GPS or Network is not enabled
@@ -108,4 +120,72 @@ public class Meter_fragment extends Fragment {
         }
     }
 
+
+
+
+
+
+
+
+
+
+    private class RequestData extends AsyncTask<String,Integer,JSONObject> {
+        JSONObject value;
+        private JSONObject request(String s) {
+            JSONObject result = null;
+            String parsedString = "";
+            try{
+                URL url = new URL(s);
+                URLConnection conn = url.openConnection();
+                HttpURLConnection http = (HttpURLConnection) conn;
+                http.setRequestMethod("GET");
+                http.connect();
+                InputStream is = http.getInputStream();
+                parsedString = convertInputStreamToString(is);
+            } catch(Exception e){
+                e.printStackTrace();
+            }try {
+                result = new JSONObject(parsedString);
+            }
+            catch(Exception e){e.printStackTrace();}
+            return result;
+        }
+
+        private String convertInputStreamToString(InputStream ists)  throws IOException {
+            if (ists != null) {
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                try {
+                    BufferedReader r1 = new BufferedReader(new InputStreamReader(
+                            ists, "UTF-8"));
+                    while ((line = r1.readLine()) != null) {
+                        sb.append(line).append("\n");
+                    }
+                } finally {
+                    ists.close();
+                }
+                return sb.toString();
+            } else {
+                return "";
+            }
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... strings) {
+            return request(strings[0]);
+        }
+        protected void onPostExecute(JSONObject result) {
+            double value = 0;
+            try {
+                 value = (double) result.get("val");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            // QUI va messo il valore nel cerchio.
+            Toast.makeText(mContext, " Value : "+value, Toast.LENGTH_LONG).show();
+        }
+
+    }
 }

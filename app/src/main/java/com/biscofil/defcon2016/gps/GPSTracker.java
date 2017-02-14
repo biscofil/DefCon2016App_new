@@ -61,24 +61,22 @@ public class GPSTracker extends Service implements LocationListener {
 
     public Location getLocation() {
         try {
-            locationManager = (LocationManager) mContext
-                    .getSystemService(LOCATION_SERVICE);
+            locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
             // getting GPS status
-            isGPSEnabled = locationManager
-                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
+            isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
             // getting network status
-            isNetworkEnabled = locationManager
-                    .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-            if (!isGPSEnabled && !isNetworkEnabled) {
-                // no network provider is enabled
+            if (!isGPSEnabled || !isNetworkEnabled) {
+                this.canGetLocation = false;
             } else {
                 this.canGetLocation = true;
                 // First get location from Network Provider
                 if (isNetworkEnabled) {
-                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                            ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         // TODO: Consider calling
                         //    ActivityCompat#requestPermissions
                         // here to request the missing permissions, and then overriding
@@ -167,6 +165,7 @@ public class GPSTracker extends Service implements LocationListener {
      * Function to get latitude
      */
     public double getLatitude() {
+        location = this.getLocation();
         if (location != null) {
             latitude = location.getLatitude();
         }
@@ -179,6 +178,7 @@ public class GPSTracker extends Service implements LocationListener {
      * Function to get longitude
      */
     public double getLongitude() {
+        location = this.getLocation();
         if (location != null) {
             longitude = location.getLongitude();
         }
@@ -193,7 +193,24 @@ public class GPSTracker extends Service implements LocationListener {
      * @return boolean
      */
     public boolean canGetLocation() {
+        updateStatus();
         return this.canGetLocation;
+    }
+
+    private void updateStatus() {
+        locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
+
+        // getting GPS status
+        isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        // getting network status
+        isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (!isGPSEnabled || !isNetworkEnabled) {
+            this.canGetLocation = false;
+        } else {
+            this.canGetLocation = true;
+        }
     }
 
     /**
