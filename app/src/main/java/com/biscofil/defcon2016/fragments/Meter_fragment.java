@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class Meter_fragment extends Fragment {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
+                Toast.makeText(mContext, "This app need your location", Toast.LENGTH_LONG).show();
 
             }
             else{
@@ -69,7 +71,12 @@ public class Meter_fragment extends Fragment {
                     // GPS or Network is not enabled
                     // Ask user to enable GPS/network in settings
                     if(gps != null) gps.showSettingsAlert();
-                    else {/*show permissions denied alert;*/}
+                    else {
+                        AlertDialog.Builder builder=new AlertDialog.Builder(mContext);
+                        builder.setTitle("Attenzione!");
+                        builder.setMessage("Operazione non valida!");
+                        builder.show();
+                    }
                 }
             }
         });
