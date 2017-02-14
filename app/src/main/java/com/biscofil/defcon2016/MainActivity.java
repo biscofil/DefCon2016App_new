@@ -36,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
 
-            if (first) {
-                ft.replace(R.id.flContent, fragment).commit();
-            } else {
+            //if (first) {
+            ft.replace(R.id.flContent, fragment).commit();
+            /*} else {
                 ft.replace(R.id.flContent, fragment).addToBackStack(null).commit();
-            }
+            }*/
             return fragment;
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -88,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         } else {
             switch (menuItem.getItemId()) {
+                case R.id.menu_menu:
+                    setFragmentContent(Menu_fragment.class, false);
+                    break;
                 case R.id.menu_meter:
                     setFragmentContent(Meter_fragment.class, false);
                     break;

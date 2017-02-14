@@ -4,13 +4,18 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/menu_menu"
+            android:icon="@drawable/ic_action_name"
+            android:title="Menu" />
+
+        <item
             android:id="@+id/menu_meter"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/str_menu_meter" />
 
         <item
             android:id="@+id/menu_map"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_camera"
             android:title="@string/str_menu_map" />
 
         <item

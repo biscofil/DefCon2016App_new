@@ -3,6 +3,7 @@ package com.biscofil.defcon2016.map;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v4.util.LongSparseArray;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Tile;
@@ -43,6 +44,9 @@ public class MyHeatmapTileProvider implements TileProvider {
     private double[] mKernel;
     private double mOpacity;
     private double[] mMaxIntensity;
+
+    Bitmap bitmap1;
+
 
     private MyHeatmapTileProvider(MyHeatmapTileProvider.Builder builder) {
         this.mData = builder.data;
@@ -134,7 +138,12 @@ public class MyHeatmapTileProvider implements TileProvider {
                 }
 
                 double[][] convolved1 = convolve(intensity, this.mKernel);
-                Bitmap bitmap1 = colorize(convolved1, this.mColorMap, this.mMaxIntensity[zoom]);
+
+                bitmap1 = colorize(convolved1, this.mColorMap, this.mMaxIntensity[zoom]);
+
+                //aaa
+
+                Log.d("BISCO", "useless");
 
                 return convertBitmap(bitmap1);
             }
