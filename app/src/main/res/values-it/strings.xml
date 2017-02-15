@@ -26,15 +26,16 @@
     <string name="calcolo_fragment_title">Calcolo dell\'indice</string>
     <string name="credits_fragment_title">Credits</string>
     <string name="sto_aggiornando">Aggiorno</string>
-    <string name="dati_risalenti_a">Dati risalenti a:</string>
+    <string name="dati_risalenti_a">Dati risalenti a</string>
     <string name="descrizione_struttura">Descrizione</string>
     <string name="guida_fragment_title">Guida</string>
     <string name="licenze_fragment_title">Licenze</string>
     <string name="mappa_fragment_title">Mappa</string>
-    <string name="punteggio">Punteggio:</string>
+    <string name="punteggio">Punteggio</string>
     <string name="meter_fragment_title">Meter</string>
     <string name="str_menu_meter">Meter</string>
     <string name="licenze_versioni_short">Licenze</string>
     <string name="guide_short">Guida</string>
     <string name="no_internet">Impossibile accedere ad internet!</string>
+    <string name="tutorial_link_struttura">Premi per andare al sito della struttura</string>
 </resources>

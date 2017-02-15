@@ -7,8 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context="com.biscofil.defcon2016.Details_activity">
 
-    <include layout="@layout/activity_details_content" />
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -51,6 +49,9 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/link_icon" />
+        app:srcCompat="@drawable/link_icon"
+        android:elevation="4dp" />
+
+    <include layout="@layout/activity_details_content" />
 
 </android.support.design.widget.CoordinatorLayout>

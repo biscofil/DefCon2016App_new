@@ -32,10 +32,6 @@
             android:icon="@drawable/ic_menu_share"
             android:title="@string/licenze_versioni" />
 
-        <item
-            android:id="@+id/menu_web"
-            android:icon="@drawable/ic_menu_send"
-            android:title="@string/sito_web" />
 
         <item
             android:id="@+id/menu_credits"
@@ -43,4 +39,16 @@
             android:title="@string/menu_credits" />
 
     </group>
+
+
+    <item android:title="Links">
+        <menu>
+            <item
+                android:id="@+id/menu_web"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/sito_web" />
+        </menu>
+    </item>
+
+
 </menu>

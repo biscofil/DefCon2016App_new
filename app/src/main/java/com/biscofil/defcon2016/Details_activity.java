@@ -2,11 +2,14 @@ package com.biscofil.defcon2016;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PointF;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,9 +20,13 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import tourguide.tourguide.ChainTourGuide;
 import tourguide.tourguide.Overlay;
@@ -33,7 +40,7 @@ public class Details_activity extends AppCompatActivity {
     private Button mButton1, mButton2, mButton3;
     private Animation mEnterAnimation, mExitAnimation;
 
-    GraphView graph;
+    LineChart graph;
     RatingBar rb;
 
     public static final int OVERLAY_METHOD = 1;
@@ -50,7 +57,7 @@ public class Details_activity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
 
         rb = (RatingBar) findViewById(R.id.ratingBar);
-        graph = (GraphView) findViewById(R.id.graph);
+        graph = (LineChart) findViewById(R.id.chart);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -77,8 +84,10 @@ public class Details_activity extends AppCompatActivity {
         setup_fab(s);
 
         //punteggio
+        CardView card_punteggi = (CardView) findViewById(R.id.card_punteggi);
+
         if (s.no_data) {
-            rb.setVisibility(View.GONE);
+            card_punteggi.setVisibility(View.GONE);
             graph.setVisibility(View.GONE);
         } else {
             rb.setMax(5);
@@ -86,8 +95,12 @@ public class Details_activity extends AppCompatActivity {
             rb.setStepSize(0.5f);
             //str punteggio
 
-            ((TextView) findViewById(R.id.tv_punteggio)).setText(getString(R.string.punteggio) + " " + s.punteggio);
-            ((TextView) findViewById(R.id.tv_data_calcolo)).setText(getString(R.string.dati_risalenti_a) + " " + s.data_dati);
+            String[] splited = s.data_dati.split("\\s+");
+
+            ((TextView) findViewById(R.id.tv_punteggio_val)).setText("" + s.punteggio);
+
+            ((TextView) findViewById(R.id.tv_data_calcolo_val)).setText(splited[0]);
+            ((TextView) findViewById(R.id.tv_ora_calcolo_val)).setText(splited[1]);
 
         }
 
@@ -109,25 +122,29 @@ public class Details_activity extends AppCompatActivity {
     }
 
     public void setup_graph(Struttura s) {
-        DataPoint[] points = new DataPoint[100];
+
+        PointF[] points = new PointF[100];
         for (int k = 0; k < points.length; k++) {
-            points[k] = new DataPoint(k, Math.sin(k * 0.5) * 20 * (Math.random() * 10 + 1));
+            points[k] = new PointF((float) k, (float) (Math.sin(k * 0.5) * 20 * (Math.random() * 10 + 1)));
         }
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(-150);
-        graph.getViewport().setMaxY(150);
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(4);
-        graph.getViewport().setMaxX(80);
-        // enable scaling and scrolling
-        graph.getViewport().setScalable(true);
-        graph.getViewport().setScalableY(true);
-        graph.addSeries(series);
-        graph.getViewport().setScrollable(true); // enables horizontal scrolling
-        graph.getViewport().setScrollableY(true); // enables vertical scrolling
-        graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
-        graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
+
+        List<Entry> entries = new ArrayList<Entry>();
+
+        int k = 0;
+        for (PointF data : points) {
+            entries.add(new Entry(data.x, data.y));
+            k++;
+        }
+
+        LineDataSet dataSet = new LineDataSet(entries, getString(R.string.punteggio)); // add entries to dataset
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            dataSet.setColor(getColor(R.color.colorPrimary));
+            dataSet.setValueTextColor(getColor(R.color.colorPrimaryDark)); // styling, ...
+        }
+
+        LineData lineData = new LineData(dataSet);
+
+        graph.setData(lineData);
     }
 
     public void setup_fab(final Struttura s) {
@@ -146,7 +163,7 @@ public class Details_activity extends AppCompatActivity {
         if (((EcoMe) getApplication()).tutorialHandler.isFirstTimeHere(this.getClass())) {
             TourGuide mTourGuideHandler = TourGuide.init(this).with(TourGuide.Technique.Click)
                     //.setPointer(new Pointer())
-                    .setToolTip(new ToolTip().setTitle("Tutorial").setDescription("Premi per andare al sito della struttura"))
+                    .setToolTip(new ToolTip().setTitle(getString(R.string.tutorial_title)).setDescription(getString(R.string.tutorial_link_struttura)))
                     .setOverlay(new Overlay())
                     .playOn(fab);
         }

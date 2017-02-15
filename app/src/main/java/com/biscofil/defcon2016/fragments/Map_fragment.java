@@ -150,9 +150,9 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
 
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(((EcoMe) getActivity().getApplication()).mapCenter, 6));
 
-            if (((EcoMe) getActivity().getApplication()).list.size() > 0) {
+            /*if (((EcoMe) getActivity().getApplication()).list.size() > 0) {
                 addHeatMap(((EcoMe) getActivity().getApplication()).list);
-            }
+            }*/
             addMarkers();
         }
     }

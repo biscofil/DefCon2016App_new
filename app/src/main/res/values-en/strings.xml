@@ -26,15 +26,16 @@
     <string name="sto_aggiornando">Updating</string>
     <string name="credits_fragment_title">Credits</string>
     <string name="calcolo_fragment_title">Index calculation</string>
-    <string name="dati_risalenti_a">Last update:</string>
+    <string name="dati_risalenti_a">Last update</string>
     <string name="descrizione_struttura">Description</string>
     <string name="guida_fragment_title">Guide</string>
     <string name="licenze_fragment_title">License</string>
     <string name="mappa_fragment_title">Mappa</string>
-    <string name="punteggio">Value:</string>
+    <string name="punteggio">Value</string>
     <string name="str_menu_meter">Meter</string>
     <string name="meter_fragment_title">Meter</string>
     <string name="guide_short">Guide</string>
     <string name="licenze_versioni_short">Licenses</string>
     <string name="no_internet">Cannot reach the server!</string>
+    <string name="tutorial_link_struttura">Tap to open website</string>
 </resources>

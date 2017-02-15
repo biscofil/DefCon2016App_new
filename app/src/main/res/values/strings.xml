@@ -42,8 +42,8 @@
     <string name="str_menu_map">Mappa</string>
     <string name="str_menu_meter">Meter</string>
     <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor srsus odio. Nam vehicula Aenean convallis risus enim, sed interdum risus consequat sed. Cras interdum viverra urna et venenatis.</string>
-    <string name="punteggio">Punteggio:</string>
-    <string name="dati_risalenti_a">Dati risalenti a:</string>
+    <string name="punteggio">Punteggio</string>
+    <string name="dati_risalenti_a">Dati risalenti a</string>
     <string name="descrizione_struttura">Descrizione</string>
     <string name="credits_fragment_title">Credits</string>
     <string name="guida_fragment_title">Guida</string>
@@ -61,4 +61,6 @@
     <string name="linkedin_bisconcin" translatable="false">https://www.linkedin.com/in/filippobisconcin/</string>
     <string name="linkedin_cabianca" translatable="false">https://www.linkedin.com/in/marco-cabianca-21a45812a/</string>
     <string name="linkedin_busolin" translatable="false">https://www.linkedin.com/in/francesco-busolin-729b17129/</string>
+    <string name="tutorial_link_struttura">Premi per andare al sito della struttura</string>
+    <string name="tutorial_title" translatable="false">Tutorial</string>
 </resources>
