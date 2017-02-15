@@ -57,4 +57,8 @@
     <string name="licenze_versioni_short">Licenze</string>
     <string name="webview_calcolo_url" translatable="false">http://defcon2016.altervista.org/index.php/calcolo</string>
     <string name="no_internet">Impossibile accedere ad internet!</string>
+
+    <string name="linkedin_bisconcin" translatable="false">https://www.linkedin.com/in/filippobisconcin/</string>
+    <string name="linkedin_cabianca" translatable="false">https://www.linkedin.com/in/marco-cabianca-21a45812a/</string>
+    <string name="linkedin_busolin" translatable="false">https://www.linkedin.com/in/francesco-busolin-729b17129/</string>
 </resources>

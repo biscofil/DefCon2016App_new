@@ -36,4 +36,5 @@
     <string name="meter_fragment_title">Meter</string>
     <string name="guide_short">Guide</string>
     <string name="licenze_versioni_short">Licenses</string>
+    <string name="no_internet">Cannot reach the server!</string>
 </resources>
