@@ -21,8 +21,6 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
-import java.security.Permission;
-
 import static com.biscofil.defcon2016.EcoMe.MY_PERMISSIONS_REQUEST_FINE_LOCATION;
 
 public class GPSTracker extends Service implements LocationListener {
@@ -77,15 +75,6 @@ public class GPSTracker extends Service implements LocationListener {
                 if (isNetworkEnabled) {
                     if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                             ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-                        //return TODO;
-
                         // Should we show an explanation?
                         if (ActivityCompat.shouldShowRequestPermissionRationale(act, Manifest.permission.ACCESS_FINE_LOCATION)) {
 
@@ -206,11 +195,7 @@ public class GPSTracker extends Service implements LocationListener {
         // getting network status
         isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-        if (!isGPSEnabled || !isNetworkEnabled) {
-            this.canGetLocation = false;
-        } else {
-            this.canGetLocation = true;
-        }
+        this.canGetLocation = !(!isGPSEnabled || !isNetworkEnabled);
     }
 
     /**
