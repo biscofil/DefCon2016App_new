@@ -38,4 +38,6 @@
     <string name="licenze_versioni_short">Licenses</string>
     <string name="no_internet">Cannot reach the server!</string>
     <string name="tutorial_link_struttura">Tap to open website</string>
+    <string name="contiue_offline">Continue offline</string>
+    <string name="exit_offline">Exit</string>
 </resources>

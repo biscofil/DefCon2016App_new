@@ -16,9 +16,11 @@ import android.widget.Toast;
 
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.gps.GPSTracker;
+import com.github.lzyzsd.circleprogress.ArcProgress;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +36,7 @@ public class Meter_fragment extends Fragment {
     // GPSTracker class
     GPSTracker gps;
     private Button btn;
+    public ArcProgress arcProgress;
     private Context mContext;
 
     public Meter_fragment() {
@@ -44,24 +47,25 @@ public class Meter_fragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_meter, container, false);
         getActivity().setTitle(getString(R.string.meter_fragment_title));
         this.mContext = getContext();
+
         btn = (Button) rootView.findViewById(R.id.btn_update_meter);
-        if(this.mContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+        arcProgress = (ArcProgress) rootView.findViewById(R.id.arc_progress);
+
+        if (this.mContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             this.btn.setEnabled(false);
-            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.ACCESS_FINE_LOCATION)){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
                 Toast.makeText(mContext, "This app need your location", Toast.LENGTH_LONG).show();
 
-            }
-            else{
+            } else {
                 ActivityCompat.requestPermissions(getActivity(),
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_FINE_LOCATION);
 
             }
-        }
-        else{
+        } else {
             gps = new GPSTracker(getActivity(), mContext);
         }
         btn.setOnClickListener(new View.OnClickListener() {
@@ -76,15 +80,15 @@ public class Meter_fragment extends Fragment {
                     double longitude = gps.getLongitude();
 
                     // \n is for new line
-                    Toast.makeText(mContext, "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-                    new RequestData().execute("http://defcon2016.altervista.org/index.php/xhr/gps_to_value/"+gps.getLatitude()+"/"+gps.getLongitude());
+                    //Toast.makeText(mContext, "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+                    new RequestData().execute("http://defcon2016.altervista.org/index.php/xhr/gps_to_value/" + gps.getLatitude() + "/" + gps.getLongitude());
                 } else {
                     // can't get location
                     // GPS or Network is not enabled
                     // Ask user to enable GPS/network in settings
-                    if(gps != null) gps.showSettingsAlert();
+                    if (gps != null) gps.showSettingsAlert();
                     else {
-                        AlertDialog.Builder builder=new AlertDialog.Builder(mContext);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                         builder.setTitle("Attenzione!");
                         builder.setMessage("Operazione non valida!");
                         builder.show();
@@ -105,7 +109,7 @@ public class Meter_fragment extends Fragment {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     btn.setEnabled(true);
-                    if(gps == null) {
+                    if (gps == null) {
                         gps = new GPSTracker(getActivity(), mContext);
                     }
 
@@ -121,20 +125,13 @@ public class Meter_fragment extends Fragment {
     }
 
 
-
-
-
-
-
-
-
-
-    private class RequestData extends AsyncTask<String,Integer,JSONObject> {
+    private class RequestData extends AsyncTask<String, Integer, JSONObject> {
         JSONObject value;
+
         private JSONObject request(String s) {
             JSONObject result = null;
             String parsedString = "";
-            try{
+            try {
                 URL url = new URL(s);
                 URLConnection conn = url.openConnection();
                 HttpURLConnection http = (HttpURLConnection) conn;
@@ -142,16 +139,18 @@ public class Meter_fragment extends Fragment {
                 http.connect();
                 InputStream is = http.getInputStream();
                 parsedString = convertInputStreamToString(is);
-            } catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-            }try {
-                result = new JSONObject(parsedString);
             }
-            catch(Exception e){e.printStackTrace();}
+            try {
+                result = new JSONObject(parsedString);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return result;
         }
 
-        private String convertInputStreamToString(InputStream ists)  throws IOException {
+        private String convertInputStreamToString(InputStream ists) throws IOException {
             if (ists != null) {
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -175,16 +174,19 @@ public class Meter_fragment extends Fragment {
         protected JSONObject doInBackground(String... strings) {
             return request(strings[0]);
         }
+
         protected void onPostExecute(JSONObject result) {
             double value = 0;
             try {
-                 value = (double) result.get("val");
+                value = (double) result.get("val");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            // QUI va messo il valore nel cerchio.
-            Toast.makeText(mContext, " Value : "+value, Toast.LENGTH_LONG).show();
+            // Toast.makeText(mContext, " Value : "+value, Toast.LENGTH_LONG).show();
+
+            arcProgress.setProgress((int) (value * 10));
+
         }
 
     }

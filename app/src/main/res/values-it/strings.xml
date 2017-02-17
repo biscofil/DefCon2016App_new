@@ -38,4 +38,6 @@
     <string name="guide_short">Guida</string>
     <string name="no_internet">Impossibile accedere ad internet!</string>
     <string name="tutorial_link_struttura">Premi per andare al sito della struttura</string>
+    <string name="contiue_offline">Continua</string>
+    <string name="exit_offline">Esci</string>
 </resources>

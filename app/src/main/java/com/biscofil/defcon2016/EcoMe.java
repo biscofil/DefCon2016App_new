@@ -7,12 +7,9 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.biscofil.defcon2016.map.ValuedLatLng;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,7 +23,7 @@ public class EcoMe extends Application {
     public TutorialHandler tutorialHandler;
     public SharedPreferences sharedpreferences;
 
-    public List<ValuedLatLng> list = new ArrayList<>();
+    //public List<ValuedLatLng> list = new ArrayList<>();
     public Map<Integer, Struttura> strutture = new HashMap<>();
     public LatLng mapCenter = new LatLng(41.8919300, 12.5113300); //roma
 
@@ -49,7 +46,7 @@ public class EcoMe extends Application {
     }
 
     public void aggiornaDati(Activity act) {
-        list = new ArrayList<>();
+        //list = new ArrayList<>();
         strutture = new HashMap<>();
         new DownloadDataTask(act).execute();
 

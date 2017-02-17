@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.biscofil.defcon2016.map.ValuedLatLng;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -49,6 +48,7 @@ public class DownloadDataTask extends AsyncTask<Void, Void, Void> {
                 }
             });*/
 
+            /*
             try {
                 String url = act.getString(R.string.web_url) + act.getString(R.string.xhr_controller) + act.getString(R.string.data_method);
                 JSONArray data = new XhrInterface().getArray(url);
@@ -61,7 +61,8 @@ public class DownloadDataTask extends AsyncTask<Void, Void, Void> {
                 }
             } catch (Exception e) {
                 Log.e("ECOME", e.getLocalizedMessage());
-            }
+            }*/
+
             /*act.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
