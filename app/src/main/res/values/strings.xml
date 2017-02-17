@@ -65,4 +65,5 @@
     <string name="tutorial_title" translatable="false">Tutorial</string>
     <string name="contiue_offline">Continua</string>
     <string name="exit_offline">Esci</string>
+    <string name="scarico_dettagli">Scarico i dettagli...</string>
 </resources>

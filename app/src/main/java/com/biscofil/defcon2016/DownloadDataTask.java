@@ -8,6 +8,7 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -69,24 +70,34 @@ public class DownloadDataTask extends AsyncTask<Void, Void, Void> {
                     loading_info.setText(R.string.downloading_structures_data);
                 }
             });*/
-            try {
-                String url = act.getString(R.string.web_url) + act.getString(R.string.xhr_controller) + act.getString(R.string.strutture_method);
-                JSONArray data = new XhrInterface().getArray(url);
-                for (int i = 0; i < data.length(); i++) {
-                    JSONObject object = data.getJSONObject(i);
-                    Struttura s = new Struttura();
-                    int id = object.getInt("id");
-                    double lat = object.getDouble("lat");
-                    double lng = object.getDouble("lng");
-                    String nome = object.getString("nome");
-                    s.id = id;
-                    s.nome = nome;
-                    s.lat_lng = new LatLng(lat, lng);
-                    ((EcoMe) act.getApplication()).strutture.put(id, s);
+
+
+            String url = act.getString(R.string.web_url) + act.getString(R.string.xhr_controller) + act.getString(R.string.strutture_method);
+            JSONArray data = new XhrInterface().getArray(url);
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject object = data.getJSONObject(i);
+                Struttura s = new Struttura();
+
+                int id;
+
+                try {
+                    s.punteggio = object.getDouble("last_value");
+                } catch (JSONException e) {
+                    s.no_data = true;
                 }
-            } catch (Exception e) {
-                Log.e("ECOME", e.getLocalizedMessage());
+
+                try {
+                    id = object.getInt("id");
+                    s.id = id;
+                    s.nome = object.getString("nome");
+                    s.lat_lng = new LatLng(object.getDouble("lat"), object.getDouble("lng"));
+                    ((EcoMe) act.getApplication()).strutture.put(id, s);
+                } catch (Exception e) {
+                    Log.e("ECOME", e.getLocalizedMessage());
+                }
+
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

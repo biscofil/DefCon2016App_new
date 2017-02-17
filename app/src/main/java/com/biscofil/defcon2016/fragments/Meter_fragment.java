@@ -33,7 +33,6 @@ import static com.biscofil.defcon2016.EcoMe.MY_PERMISSIONS_REQUEST_FINE_LOCATION
 
 public class Meter_fragment extends Fragment {
 
-    // GPSTracker class
     GPSTracker gps;
     private Button btn;
     public ArcProgress arcProgress;
@@ -96,7 +95,6 @@ public class Meter_fragment extends Fragment {
                 }
             }
         });
-
 
         return rootView;
     }

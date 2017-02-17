@@ -1,9 +1,14 @@
 package com.biscofil.defcon2016.fragments;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
-import android.os.AsyncTask;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -19,7 +24,6 @@ import com.biscofil.defcon2016.Details_activity;
 import com.biscofil.defcon2016.EcoMe;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.Struttura;
-import com.biscofil.defcon2016.XhrInterface;
 import com.biscofil.defcon2016.map.MyGradient;
 import com.biscofil.defcon2016.map.MyHeatmapTileProvider;
 import com.biscofil.defcon2016.map.ValuedLatLng;
@@ -34,9 +38,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Iterator;
 import java.util.List;
@@ -160,7 +161,9 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
     @Override
     public boolean onMarkerClick(Marker marker) {
         int id = (Integer) marker.getTag();
-        new DetailsDownloadTask(getActivity(), id).execute();
+        Intent intent = new Intent(getActivity(), Details_activity.class);
+        intent.putExtra("id_struttura", id);
+        startActivity(intent);
         return true;
     }
 
@@ -170,13 +173,119 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
             Map.Entry pair = (Map.Entry) it.next();
             int id = (Integer) pair.getKey();
             Struttura s = (Struttura) pair.getValue();
+            Drawable d = getResources().getDrawable(R.drawable.struttura_32);
+
+            Log.d("BISCO", "punteggio: " + s.punteggio);
+
+            Bitmap marker_icon;
+
+            if (s.no_data) {
+                marker_icon = convertDrawableToBitmap(d);
+            } else {
+                marker_icon = colora_marker(convertDrawableToBitmap(d), val2col(s.punteggio));
+            }
+
+            BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(marker_icon);
+
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(s.lat_lng)
                     .title(s.nome)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.struttura_32))
+                    .snippet(s.nome)
+                    .icon(bd)
             );
             marker.setTag(id);
         }
+    }
+
+    public int val2col(double punteggio) {
+        if (!(0 <= punteggio && punteggio <= 5)) {
+            throw new RuntimeException("0 < hue < 5");
+        }
+
+        float hue = ((float) (punteggio / 5.0)) * (255 / 3);
+
+        float sat = 75;
+        float lum = 60;
+
+        hue /= 360;
+        sat /= 100;
+        lum /= 100;
+
+        return hsvToRgb(hue, sat, lum);
+    }
+
+    public int hsvToRgb(float hue, float saturation, float value) {
+        int h = (int) (hue * 6);
+        float f = hue * 6 - h;
+        float p = value * (1 - saturation);
+        float q = value * (1 - f * saturation);
+        float t = value * (1 - (1 - f) * saturation);
+
+        switch (h) {
+            case 0:
+                return rgbToColor(value, t, p);
+            case 1:
+                return rgbToColor(q, value, p);
+            case 2:
+                return rgbToColor(p, value, t);
+            case 3:
+                return rgbToColor(p, q, value);
+            case 4:
+                return rgbToColor(t, p, value);
+            case 5:
+                return rgbToColor(value, p, q);
+            default:
+                throw new RuntimeException("Something went wrong when converting from HSV to RGB. Input was " + hue + ", " + saturation + ", " + value);
+        }
+    }
+
+    public int rgbToColor(float r, float g, float b) {
+        return Color.rgb((int) r, (int) g, (int) b);
+    }
+
+    public Bitmap convertDrawableToBitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
+
+    public Bitmap colora_marker(Bitmap sourceBitmap, int color) {
+        Bitmap resultBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0,
+                sourceBitmap.getWidth() - 1, sourceBitmap.getHeight() - 1);
+        Paint p = new Paint();
+        ColorFilter filter = new LightingColorFilter(color, 1);
+        p.setColorFilter(filter);
+
+        Canvas canvas = new Canvas(resultBitmap);
+        canvas.drawBitmap(resultBitmap, 0, 0, p);
+        return resultBitmap;
+    }
+
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+        Bitmap bitmap = null;
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if (bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        }
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 
     private void addHeatMap(List<ValuedLatLng> list) {
@@ -205,73 +314,10 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
         TileOverlay mOverlay = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
     }
 
-    // method definition
     public BitmapDescriptor getMarkerIcon(String color) {
         float[] hsv = new float[3];
         Color.colorToHSV(Color.parseColor(color), hsv);
         return BitmapDescriptorFactory.defaultMarker(hsv[0]);
     }
 
-    private class DetailsDownloadTask extends AsyncTask<Void, Void, Struttura> {
-
-        Activity act;
-        Snackbar snack;
-        int _id;
-
-        public DetailsDownloadTask(Activity act, int id) {
-            this.act = act;
-            _id = id;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            snack = Snackbar.make(act.getCurrentFocus(), "Scarico i dettagli...", Snackbar.LENGTH_LONG);
-            snack.show();
-        }
-
-        @Override
-        protected void onPostExecute(Struttura out) {
-            super.onPostExecute(out);
-            snack.dismiss();
-            Intent intent = new Intent(act, Details_activity.class);
-            intent.putExtra("struttura", out);
-            startActivity(intent);
-        }
-
-        @Override
-        protected Struttura doInBackground(Void... params) {
-            Struttura out = null;
-
-            String url = getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.struttura_method) + "/" + _id;
-
-            JSONObject object = null;
-            try {
-                object = new XhrInterface().getObject(url);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            out = new Struttura();
-
-            try {
-                out.punteggio = object.getDouble("last_value");
-            } catch (JSONException e) {
-                out.no_data = true;
-            }
-
-            try {
-                out.id = object.getInt("id");
-                out.nome = object.getString("nome");
-                out.descrizione = object.getString("descrizione");
-                out.sito_web = object.getString("sito_web");
-                out.url_img = object.getString("url_img");
-                out.data_dati = object.getString("last_value_date");
-                return out;
-            } catch (Exception e) {
-                Log.e("ECOME", e.getLocalizedMessage());
-            }
-            return null;
-        }
-    }
 }
