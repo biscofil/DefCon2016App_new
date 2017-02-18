@@ -4,10 +4,15 @@ import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import org.json.JSONException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by bisco on 06/12/2016.
@@ -22,6 +27,8 @@ public class Struttura implements Serializable {
     public String sito_web;
     public String url_img;
 
+    public Map<Date, Double> storico;
+
     public double punteggio;
 
     public String data_dati;
@@ -29,7 +36,7 @@ public class Struttura implements Serializable {
     public void parse_slim(JSONObject object) {
         try {
             punteggio = object.getDouble("last_value");
-        } catch (JSONException e) {
+        } catch (Exception e) {
             no_data = true;
         }
         try {
@@ -51,5 +58,36 @@ public class Struttura implements Serializable {
         } catch (Exception e) {
             Log.e("ECOME", e.getLocalizedMessage());
         }
+    }
+
+    public void parse_storico(JSONObject object) {
+        parse_full(object);
+
+        storico = new HashMap<>();
+
+        try {
+            JSONArray arr = object.getJSONArray("storico");
+
+            for (int i = 0; i < arr.length(); i++) {
+                JSONObject obj = arr.getJSONObject(i);
+                Date date = parseTimestamp(obj.getString("last_value_date"));
+                Double value = obj.getDouble("last_value");
+                storico.put(date, value);
+            }
+
+        } catch (Exception e) {
+        }
+    }
+
+    private Date parseTimestamp(String dtStart) {
+        //2017-02-18 20:14:49
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date date = format.parse(dtStart);
+            System.out.println(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new Date();
     }
 }

@@ -70,4 +70,5 @@
     <string name="gps_title_attention">Attenzione!</string>
     <string name="gps_operation_no_valid">Operazione non valida!</string>
     <string name="url_gps_2_value" translatable="false">http://defcon2016.altervista.org/index.php/xhr/gps_to_value/</string>
+    <string name="xhr_details_calcolo">xhr_details_calcolo/</string>
 </resources>

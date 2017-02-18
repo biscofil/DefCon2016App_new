@@ -2,7 +2,6 @@ package com.biscofil.defcon2016;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.PointF;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -29,7 +28,9 @@ import com.github.mikephil.charting.data.LineDataSet;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import tourguide.tourguide.Overlay;
 import tourguide.tourguide.ToolTip;
@@ -81,18 +82,17 @@ public class Details_activity extends AppCompatActivity {
     }
 
     public void setup_graph(Struttura s) {
-
-        PointF[] points = new PointF[100];
-        for (int k = 0; k < points.length; k++) {
-            points[k] = new PointF((float) k, (float) (Math.sin(k * 0.5) * 20 * (Math.random() * 10 + 1)));
-        }
-
         List<Entry> entries = new ArrayList<Entry>();
+        float x = 0;
+        for (Map.Entry<Date, Double> entry : s.storico.entrySet()) {
+            System.out.println(entry.getKey() + "/" + entry.getValue());
 
-        int k = 0;
-        for (PointF data : points) {
-            entries.add(new Entry(data.x, data.y));
-            k++;
+            double dd = entry.getValue();
+            float ff = ((float) dd);
+
+            entries.add(new Entry(x, ff));
+            x++;
+
         }
 
         LineDataSet dataSet = new LineDataSet(entries, getString(R.string.punteggio)); // add entries to dataset
@@ -190,14 +190,17 @@ public class Details_activity extends AppCompatActivity {
                 String[] splited = s.data_dati.split("\\s+");
 
                 ((TextView) findViewById(R.id.tv_punteggio_val)).setText("" + s.punteggio);
-
                 ((TextView) findViewById(R.id.tv_data_calcolo_val)).setText(splited[0]);
                 ((TextView) findViewById(R.id.tv_ora_calcolo_val)).setText(splited[1]);
 
             }
 
             //storico
-            setup_graph(s);
+            if (!s.storico.isEmpty()) {
+                setup_graph(s);
+            } else {
+                graph.setVisibility(View.GONE);
+            }
         }
 
         @Override
@@ -211,7 +214,7 @@ public class Details_activity extends AppCompatActivity {
                 e.printStackTrace();
             }
             out = new Struttura();
-            out.parse_full(object);
+            out.parse_storico(object);
             return out;
         }
     }

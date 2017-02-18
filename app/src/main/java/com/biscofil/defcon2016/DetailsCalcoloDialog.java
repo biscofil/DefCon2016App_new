@@ -1,5 +1,6 @@
 package com.biscofil.defcon2016;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,8 +9,20 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.android.gms.maps.model.LatLng;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DetailsCalcoloDialog extends DialogFragment {
 
@@ -44,31 +57,21 @@ public class DetailsCalcoloDialog extends DialogFragment {
         //myView.doSome("stuff");
 
         // create the dialog from the builder then show
-/*
-        String url = "url.../" + lat_lng.latitude + "/" + lat_lng.longitude;
 
-        final ListView search_ins_listview = (ListView) view.findViewById(R.id.search_cor_listview);
+        String url = getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.xhr_details_calcolo) + lat_lng.latitude + "/" + lat_lng.longitude;
+
+        final ListView search_ins_listview = (ListView) view.findViewById(R.id.lv_storico);
 
         JsonArrayRequest jsObjRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
                     @Override
                     public void onResponse(JSONArray response) {
-                        adapter = new SearchAdapter(getActivity(), response);
+                        HistoryAdapter adapter = new HistoryAdapter(getActivity(), response);
                         search_ins_listview.setAdapter(adapter);
 
-                        search_ins_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                mListener.onDialogPositiveClick(CorsoPicker.this, (JSONObject) parent.getItemAtPosition(position));
-                                CorsoPicker.this.dismiss();
-                            }
-                        });
-
-                        search_edittext.setEnabled(true);
-
-                        progressbar.setVisibility(View.GONE);
-                        search_edittext.setVisibility(View.VISIBLE);
+                        //progressbar.setVisibility(View.GONE);
+                        //search_edittext.setVisibility(View.VISIBLE);
                         search_ins_listview.setVisibility(View.VISIBLE);
                     }
                 }, new Response.ErrorListener() {
@@ -81,18 +84,18 @@ public class DetailsCalcoloDialog extends DialogFragment {
 
 // Access the RequestQueue through your singleton class.
         EcoMe.getInstance().addToRequestQueue(jsObjRequest);
-*/
+
         return builder.create();
     }
 
-    /*
-    private class SearchAdapter extends BaseAdapter implements ListAdapter {
+
+    private class HistoryAdapter extends BaseAdapter implements ListAdapter {
         private JSONArray corsi = null;
         private Activity activity = null;
 
         private JSONArray filteredData;    // Values to be displayed
 
-        public SearchAdapter(Activity activity, JSONArray corsi) {
+        public HistoryAdapter(Activity activity, JSONArray corsi) {
             assert activity != null;
             assert corsi != null;
 
@@ -132,13 +135,13 @@ public class DetailsCalcoloDialog extends DialogFragment {
         @Override
         public View getView(int position, View v, ViewGroup vg) {
             if (v == null)
-                v = activity.getLayoutInflater().inflate(R.layout.item_corso_search_list, null);
+                v = activity.getLayoutInflater().inflate(R.layout.item_storico_list, null);
 
             final JSONObject ai = getItem(position);
 
             if (null != ai) {
                 //Log.d("BISCO", ai.toString());
-
+/*
                 TextView tv_cds_cod = (TextView) v.findViewById(R.id.tv_cds_cod);
                 TextView tv_cds_des = (TextView) v.findViewById(R.id.tv_cds_des);
                 TextView tv_tipo_corso_cod = (TextView) v.findViewById(R.id.tv_tipo_corso_cod);
@@ -151,11 +154,11 @@ public class DetailsCalcoloDialog extends DialogFragment {
                     tv_pds_cod.setText(ai.getString("PDS_COD"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }*/
             }
 
             return v;
         }
-    }*/
+    }
 
 }
