@@ -184,14 +184,14 @@ public class Meter_fragment extends Fragment {
         protected void onPostExecute(JSONObject result) {
             double value = 0;
             try {
-                value = (double) result.get("val");
+                value =  result.getDouble("val");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
             // Toast.makeText(mContext, " Value : "+value, Toast.LENGTH_LONG).show();
 
-            arcProgress.setProgress((int) (value * 10));
+            arcProgress.setProgress((int) Math.floor(value) * 10);
 
         }
 
