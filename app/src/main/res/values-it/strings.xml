@@ -40,4 +40,8 @@
     <string name="tutorial_link_struttura">Premi per andare al sito della struttura</string>
     <string name="contiue_offline">Continua</string>
     <string name="exit_offline">Esci</string>
+    <string name="scarico_dettagli">Scarico i dettagli...</string>
+    <string name="gps_title_attention">Attenzione</string>
+    <string name="gps_operation_no_valid">Operazione non valida!</string>
+    <string name="app_require_gps">Questa app necessita del GPS</string>
 </resources>

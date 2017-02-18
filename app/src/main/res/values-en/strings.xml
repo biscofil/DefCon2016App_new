@@ -40,4 +40,8 @@
     <string name="tutorial_link_struttura">Tap to open website</string>
     <string name="contiue_offline">Continue offline</string>
     <string name="exit_offline">Exit</string>
+    <string name="scarico_dettagli">Downloading details...</string>
+    <string name="gps_operation_no_valid">Invalid operation!</string>
+    <string name="gps_title_attention">Attention!</string>
+    <string name="app_require_gps">This app need your location</string>
 </resources>

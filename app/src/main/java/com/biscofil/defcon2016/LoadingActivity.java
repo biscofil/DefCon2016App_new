@@ -15,7 +15,6 @@ public class LoadingActivity extends AppCompatActivity {
 
     ImageView loading_progress;
     TextView loading_info;
-    //Animation myFadeInAnimation;
     LoadingActivity loading_Activity;
 
     @Override

@@ -52,7 +52,7 @@ public class Meter_fragment extends Fragment {
         getActivity().setTitle(getString(R.string.meter_fragment_title));
         this.mContext = getContext();
 
-        btn = (Button) rootView.findViewById(R.id.btn_update_meter);
+        btn = (Button) rootView.findViewById(R.id.btn_meter_update);
         btn_info = (Button) rootView.findViewById(R.id.btn_meter_details);
 
         arcProgress = (ArcProgress) rootView.findViewById(R.id.arc_progress);
@@ -63,7 +63,7 @@ public class Meter_fragment extends Fragment {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-                Toast.makeText(mContext, "This app need your location", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, R.string.app_require_gps, Toast.LENGTH_LONG).show();
 
             } else {
                 ActivityCompat.requestPermissions(getActivity(),
@@ -77,15 +77,11 @@ public class Meter_fragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // check if GPS enabled
                 if (gps != null && gps.canGetLocation()) {
-
                     position = new LatLng(gps.getLatitude(), gps.getLongitude());
-
-                    // \n is for new line
                     //Toast.makeText(mContext, "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-                    new RequestData().execute("http://defcon2016.altervista.org/index.php/xhr/gps_to_value/" + gps.getLatitude() + "/" + gps.getLongitude());
+                    new RequestData().execute(getString(R.string.url_gps_2_value) + gps.getLatitude() + "/" + gps.getLongitude());
                 } else {
                     // can't get location
                     // GPS or Network is not enabled
@@ -95,8 +91,8 @@ public class Meter_fragment extends Fragment {
                     }
                     else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                        builder.setTitle("Attenzione!");
-                        builder.setMessage("Operazione non valida!");
+                        builder.setTitle(R.string.gps_title_attention);
+                        builder.setMessage(R.string.gps_operation_no_valid);
                         builder.show();
                     }
                 }
@@ -119,29 +115,20 @@ public class Meter_fragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                     btn.setEnabled(true);
                     if (gps == null) {
                         gps = new GPSTracker(getActivity(), mContext);
                     }
-
                 } else {
                     btn.setEnabled(false);
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 
-
     private class RequestData extends AsyncTask<String, Integer, JSONObject> {
-        JSONObject value;
-
         private JSONObject request(String s) {
             JSONObject result = null;
             String parsedString = "";
@@ -168,7 +155,6 @@ public class Meter_fragment extends Fragment {
             if (ists != null) {
                 StringBuilder sb = new StringBuilder();
                 String line;
-
                 try {
                     BufferedReader r1 = new BufferedReader(new InputStreamReader(
                             ists, "UTF-8"));
@@ -200,12 +186,7 @@ public class Meter_fragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            // Toast.makeText(mContext, " Value : "+value, Toast.LENGTH_LONG).show();
-
             arcProgress.setProgress((int) Math.floor(value) * 10);
-
         }
-
     }
 }

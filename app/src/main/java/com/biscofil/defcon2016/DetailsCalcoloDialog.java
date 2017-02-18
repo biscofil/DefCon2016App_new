@@ -11,10 +11,6 @@ import android.view.View;
 
 import com.google.android.gms.maps.model.LatLng;
 
-/**
- * Created by bisco on 18/02/2017.
- */
-
 public class DetailsCalcoloDialog extends DialogFragment {
 
     LatLng lat_lng;
@@ -26,15 +22,10 @@ public class DetailsCalcoloDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // get context
         context = getActivity().getApplicationContext();
-        // make dialog object
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // get the layout inflater
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        // inflate our custom layout for the dialog to a View
         View view = li.inflate(R.layout.dialog_fragment_dettagli_calcolo, null);
-        // inform the dialog it has a custom View
 
         builder.setTitle("dettagli calcolo");
         builder.setView(view);

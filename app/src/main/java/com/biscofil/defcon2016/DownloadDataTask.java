@@ -11,10 +11,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by bisco on 11/02/2017.
- */
-
 public class DownloadDataTask extends AsyncTask<Void, Void, Void> {
 
     Activity act;

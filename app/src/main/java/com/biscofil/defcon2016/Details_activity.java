@@ -14,9 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -32,26 +31,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import tourguide.tourguide.ChainTourGuide;
 import tourguide.tourguide.Overlay;
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
 
 public class Details_activity extends AppCompatActivity {
 
-    public ChainTourGuide mTourGuideHandler;
     public Activity mActivity;
-    private Button mButton1, mButton2, mButton3;
-    private Animation mEnterAnimation, mExitAnimation;
 
     LineChart graph;
     RatingBar rb;
-
-    public static final int OVERLAY_METHOD = 1;
-    public static final int OVERLAY_LISTENER_METHOD = 2;
-
-    public static final String CONTINUE_METHOD = "continue_method";
-    private int mChosenContinueMethod = OVERLAY_METHOD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +59,7 @@ public class Details_activity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent i = getIntent();
-        // final Struttura s = (Struttura) i.getSerializableExtra("struttura");
         int id_struttura = i.getIntExtra("id_struttura", -1);
-
         Struttura s = ((EcoMe) getApplication()).strutture.get(id_struttura);
 
         //titolo
@@ -86,7 +73,6 @@ public class Details_activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // app icon in action bar clicked; goto parent activity.
                 this.finish();
                 return true;
             default:
@@ -191,12 +177,13 @@ public class Details_activity extends AppCompatActivity {
                 rb.setStepSize(0.5f);
                 //str punteggio
 
-                rb.setOnClickListener(new View.OnClickListener() {
+                rb.setOnTouchListener(new View.OnTouchListener() {
                     @Override
-                    public void onClick(View v) {
+                    public boolean onTouch(View v, MotionEvent event) {
                         DetailsCalcoloDialog cp = new DetailsCalcoloDialog();
                         cp.setStruttura(s.lat_lng);
                         cp.show(getSupportFragmentManager(), "BISCO");
+                        return false;
                     }
                 });
 
@@ -211,7 +198,6 @@ public class Details_activity extends AppCompatActivity {
 
             //storico
             setup_graph(s);
-
         }
 
         @Override
