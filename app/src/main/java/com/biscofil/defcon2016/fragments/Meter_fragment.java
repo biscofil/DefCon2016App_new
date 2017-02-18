@@ -82,7 +82,12 @@ public class Meter_fragment extends Fragment {
 
                     // \n is for new line
                     //Toast.makeText(mContext, "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-                    new RequestData().execute("http://defcon2016.altervista.org/index.php/xhr/gps_to_value/" + gps.getLatitude() + "/" + gps.getLongitude());
+                    if(latitude == 0 && longitude == 0){
+                        Toast.makeText(mContext, "Posizione non accurata, ritenta tra 10 secondi", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        new RequestData().execute("http://defcon2016.altervista.org/index.php/xhr/gps_to_value/" + gps.getLatitude() + "/" + gps.getLongitude());
+                    }
                 } else {
                     // can't get location
                     // GPS or Network is not enabled
