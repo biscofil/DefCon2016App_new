@@ -29,7 +29,7 @@ public class DetailsCalcoloDialog extends DialogFragment {
 
         builder.setTitle("dettagli calcolo");
         builder.setView(view);
-        builder.setPositiveButton("Annulla", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 DetailsCalcoloDialog.this.getDialog().cancel();
             }
