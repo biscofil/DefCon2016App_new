@@ -85,7 +85,7 @@ public class Meter_fragment extends Fragment {
 
                     // \n is for new line
                     //Toast.makeText(mContext, "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-                    if(latitude == 0 && longitude == 0){
+                    if(position.latitude == 0 && position.longitude == 0){
                         Toast.makeText(mContext, "Posizione non accurata, ritenta tra 10 secondi", Toast.LENGTH_LONG).show();
                     }
                     else {
