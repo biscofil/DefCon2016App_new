@@ -161,10 +161,9 @@ public class Details_activity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Struttura s) {
+        protected void onPostExecute(final Struttura s) {
             super.onPostExecute(s);
             //snack.dismiss();
-
 
             //immagine header
             NetworkImageView backdrop = (NetworkImageView) findViewById(R.id.backdrop);
@@ -191,6 +190,15 @@ public class Details_activity extends AppCompatActivity {
                 rb.setRating((float) s.punteggio);
                 rb.setStepSize(0.5f);
                 //str punteggio
+
+                rb.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DetailsCalcoloDialog cp = new DetailsCalcoloDialog();
+                        cp.setStruttura(s.lat_lng);
+                        cp.show(getSupportFragmentManager(), "BISCO");
+                    }
+                });
 
                 String[] splited = s.data_dati.split("\\s+");
 
