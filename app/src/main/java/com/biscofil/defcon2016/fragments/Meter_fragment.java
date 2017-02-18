@@ -14,9 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.biscofil.defcon2016.DetailsCalcoloDialog;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.gps.GPSTracker;
 import com.github.lzyzsd.circleprogress.ArcProgress;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +36,8 @@ import static com.biscofil.defcon2016.EcoMe.MY_PERMISSIONS_REQUEST_FINE_LOCATION
 public class Meter_fragment extends Fragment {
 
     GPSTracker gps;
-    private Button btn;
+    LatLng position;
+    private Button btn, btn_info;
     public ArcProgress arcProgress;
     private Context mContext;
 
@@ -48,6 +51,8 @@ public class Meter_fragment extends Fragment {
         this.mContext = getContext();
 
         btn = (Button) rootView.findViewById(R.id.btn_update_meter);
+        btn_info = (Button) rootView.findViewById(R.id.btn_meter_details);
+
         arcProgress = (ArcProgress) rootView.findViewById(R.id.arc_progress);
 
         if (this.mContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -71,12 +76,10 @@ public class Meter_fragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-
                 // check if GPS enabled
                 if (gps != null && gps.canGetLocation()) {
 
-                    double latitude = gps.getLatitude();
-                    double longitude = gps.getLongitude();
+                    position = new LatLng(gps.getLatitude(), gps.getLongitude());
 
                     // \n is for new line
                     //Toast.makeText(mContext, "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
@@ -93,6 +96,15 @@ public class Meter_fragment extends Fragment {
                         builder.show();
                     }
                 }
+            }
+        });
+
+        btn_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DetailsCalcoloDialog cp = new DetailsCalcoloDialog();
+                cp.setStruttura(position);
+                cp.show(getChildFragmentManager(), "BISCO");
             }
         });
 
