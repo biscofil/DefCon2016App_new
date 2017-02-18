@@ -52,7 +52,7 @@ public class Meter_fragment extends Fragment {
         getActivity().setTitle(getString(R.string.meter_fragment_title));
         this.mContext = getContext();
 
-        btn = (Button) rootView.findViewById(R.id.btn_update_meter);
+        btn = (Button) rootView.findViewById(R.id.btn_meter_update);
         btn_info = (Button) rootView.findViewById(R.id.btn_meter_details);
 
         arcProgress = (ArcProgress) rootView.findViewById(R.id.arc_progress);
@@ -77,7 +77,7 @@ public class Meter_fragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "PREMUTO", Toast.LENGTH_LONG).show(); //:(
+               // Toast.makeText(mContext, "PREMUTO", Toast.LENGTH_LONG).show(); //:(
 
 
                 // check if GPS enabled
