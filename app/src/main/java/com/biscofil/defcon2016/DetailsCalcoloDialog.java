@@ -27,7 +27,7 @@ public class DetailsCalcoloDialog extends DialogFragment {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = li.inflate(R.layout.dialog_fragment_dettagli_calcolo, null);
 
-        builder.setTitle("dettagli calcolo");
+        //builder.setTitle("dettagli calcolo");
         builder.setView(view);
         builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
