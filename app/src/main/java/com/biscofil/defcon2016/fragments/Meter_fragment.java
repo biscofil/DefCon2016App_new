@@ -77,6 +77,8 @@ public class Meter_fragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(mContext, "PREMUTO", Toast.LENGTH_LONG).show(); //:(
+
 
                 // check if GPS enabled
                 if (gps != null && gps.canGetLocation()) {
