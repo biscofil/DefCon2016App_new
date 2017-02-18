@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +90,9 @@ public class Meter_fragment extends Fragment {
                     // can't get location
                     // GPS or Network is not enabled
                     // Ask user to enable GPS/network in settings
-                    if (gps != null) gps.showSettingsAlert();
+                    if (gps != null){
+                        gps.showSettingsAlert();
+                    }
                     else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                         builder.setTitle("Attenzione!");
@@ -112,7 +116,7 @@ public class Meter_fragment extends Fragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
@@ -172,7 +176,11 @@ public class Meter_fragment extends Fragment {
                         sb.append(line).append("\n");
                     }
                 } finally {
-                    ists.close();
+                    try {
+                        ists.close();
+                    } catch(IOException e){
+                        Log.e("ECOME",e.getLocalizedMessage());
+                    }
                 }
                 return sb.toString();
             } else {
@@ -188,14 +196,14 @@ public class Meter_fragment extends Fragment {
         protected void onPostExecute(JSONObject result) {
             double value = 0;
             try {
-                value = (double) result.get("val");
+                value =  result.getDouble("val");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
             // Toast.makeText(mContext, " Value : "+value, Toast.LENGTH_LONG).show();
 
-            arcProgress.setProgress((int) (value * 10));
+            arcProgress.setProgress((int) Math.floor(value) * 10);
 
         }
 
