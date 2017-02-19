@@ -85,14 +85,9 @@ public class Details_activity extends AppCompatActivity {
         List<Entry> entries = new ArrayList<Entry>();
         float x = 0;
         for (Map.Entry<Date, Double> entry : s.storico.entrySet()) {
-            System.out.println(entry.getKey() + "/" + entry.getValue());
-
             double dd = entry.getValue();
-            float ff = ((float) dd);
-
-            entries.add(new Entry(x, ff));
+            entries.add(new Entry(x, ((float) dd)));
             x++;
-
         }
 
         LineDataSet dataSet = new LineDataSet(entries, getString(R.string.punteggio)); // add entries to dataset
@@ -127,7 +122,6 @@ public class Details_activity extends AppCompatActivity {
                     .playOn(fab);
         }
     }
-
 
     private class DetailsDownloadTask extends AsyncTask<Void, Void, Struttura> {
         Activity act;
