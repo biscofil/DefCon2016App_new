@@ -3,10 +3,6 @@ package com.biscofil.defcon2016;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by bisco on 16/01/2017.
- */
-
 public class Licenza {
 
     public int id;

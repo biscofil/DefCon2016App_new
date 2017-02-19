@@ -20,14 +20,9 @@ public class LoadingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         loading_Activity = this;
-
-        //Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //Remove notification bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //set content view AFTER ABOVE sequence (to avoid crash)
         setContentView(R.layout.activity_loading);
 
         loading_progress = (ImageView) findViewById(R.id.loading_progress);
@@ -35,14 +30,12 @@ public class LoadingActivity extends AppCompatActivity {
 
 
         if (((EcoMe) getApplication()).isOnline()) {
-            //new MyTask(this).execute();
             ((EcoMe) getApplication()).aggiornaDati(this);
 
         } else {
             ((EcoMe) getApplication()).offlineMode = true;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.no_internet);
-            // Add the buttons
             builder.setPositiveButton(R.string.contiue_offline, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     Intent intent = new Intent(loading_Activity, MainActivity.class);
@@ -56,8 +49,6 @@ public class LoadingActivity extends AppCompatActivity {
                 }
             });
 
-            // Set other dialog properties
-            // Create the AlertDialog
             AlertDialog dialog = builder.create();
             dialog.show();
         }

@@ -9,10 +9,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Created by bisco on 16/01/2017.
- */
-
 public class LicenzeAdapter extends ArrayAdapter<Licenza> {
 
     public LicenzeAdapter(Context context, int textViewResourceId, List<Licenza> objects) {

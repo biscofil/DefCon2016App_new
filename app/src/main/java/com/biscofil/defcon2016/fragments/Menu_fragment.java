@@ -2,7 +2,6 @@ package com.biscofil.defcon2016.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,30 +11,11 @@ import com.biscofil.defcon2016.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.biscofil.defcon2016.Utils.setFragmentContent;
+
 public class Menu_fragment extends Fragment {
 
     public Menu_fragment() {
-    }
-
-    public Fragment setFragmentContent(Class fragmentClass) {
-        Fragment fragment = null;
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-
-            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-
-            //fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-            //fragmentManager.beginTransaction().add(fragment, null).addToBackStack(null).commit();
-            ft.replace(R.id.flContent, fragment).addToBackStack(null).commit();
-
-            return fragment;
-        } catch (java.lang.InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     @Override
@@ -47,7 +27,7 @@ public class Menu_fragment extends Fragment {
         btn_home_meter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragmentContent(Meter_fragment.class);
+                setFragmentContent(Menu_fragment.this, Meter_fragment.class, false);
             }
         });
 
@@ -55,7 +35,7 @@ public class Menu_fragment extends Fragment {
         btn_home_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragmentContent(Map_fragment.class);
+                setFragmentContent(Menu_fragment.this, Map_fragment.class, false);
             }
         });
 
@@ -67,19 +47,11 @@ public class Menu_fragment extends Fragment {
             //btn_home_map.setPaintFlags(btn_home_map.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
-        /*CircleImageView btn_home_credits = (CircleImageView) rootView.findViewById(R.id.home_credits);
-        btn_home_credits.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setFragmentContent(Credits_fragment.class);
-            }
-        });*/
-
         CircleImageView btn_home_licenze = (CircleImageView) rootView.findViewById(R.id.home_licenze);
         btn_home_licenze.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragmentContent(Licenze_fragment.class);
+                setFragmentContent(Menu_fragment.this, Licenze_fragment.class, false);
             }
         });
 
@@ -87,7 +59,7 @@ public class Menu_fragment extends Fragment {
         btn_home_guida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragmentContent(Guida_fragment.class);
+                setFragmentContent(Menu_fragment.this, Guida_fragment.class, false);
             }
         });
 

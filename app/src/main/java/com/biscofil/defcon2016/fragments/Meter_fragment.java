@@ -77,7 +77,7 @@ public class Meter_fragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(mContext, "PREMUTO", Toast.LENGTH_LONG).show(); //:(
+                // Toast.makeText(mContext, "PREMUTO", Toast.LENGTH_LONG).show(); //:(
 
 
                 // check if GPS enabled
@@ -87,20 +87,18 @@ public class Meter_fragment extends Fragment {
 
                     // \n is for new line
                     //Toast.makeText(mContext, "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-                    if(position.latitude == 0 && position.longitude == 0){
+                    if (position.latitude == 0 && position.longitude == 0) {
                         Toast.makeText(mContext, "Posizione non accurata, ritenta tra 10 secondi", Toast.LENGTH_LONG).show();
-                    }
-                    else {
+                    } else {
                         new RequestData().execute("http://defcon2016.altervista.org/index.php/xhr/gps_to_value/" + gps.getLatitude() + "/" + gps.getLongitude());
                     }
                 } else {
                     // can't get location
                     // GPS or Network is not enabled
                     // Ask user to enable GPS/network in settings
-                    if (gps != null){
+                    if (gps != null) {
                         gps.showSettingsAlert();
-                    }
-                    else {
+                    } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                         builder.setTitle("Attenzione!");
                         builder.setMessage("Operazione non valida!");
@@ -185,8 +183,8 @@ public class Meter_fragment extends Fragment {
                 } finally {
                     try {
                         ists.close();
-                    } catch(IOException e){
-                        Log.e("ECOME",e.getLocalizedMessage());
+                    } catch (IOException e) {
+                        Log.e("ECOME", e.getLocalizedMessage());
                     }
                 }
                 return sb.toString();
@@ -203,12 +201,12 @@ public class Meter_fragment extends Fragment {
         protected void onPostExecute(JSONObject result) {
             double value = 0;
             try {
-                value =  result.getDouble("val");
+                value = result.getDouble("val");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            // Toast.makeText(mContext, " Value : "+value, Toast.LENGTH_LONG).show();
+            btn_info.setEnabled(true);
 
             arcProgress.setProgress((int) Math.floor(value) * 10);
 

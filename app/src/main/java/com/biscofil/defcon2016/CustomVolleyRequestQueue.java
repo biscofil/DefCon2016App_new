@@ -1,10 +1,5 @@
 package com.biscofil.defcon2016;
 
-/**
- * Created by bisco on 09/02/2017.
- */
-
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.LruCache;
@@ -17,9 +12,6 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageLoader;
 
-/**
- * Custom implementation of Volley Request Queue
- */
 public class CustomVolleyRequestQueue {
 
     private static CustomVolleyRequestQueue mInstance;
@@ -61,7 +53,6 @@ public class CustomVolleyRequestQueue {
             Cache cache = new DiskBasedCache(mCtx.getCacheDir(), 10 * 1024 * 1024);
             Network network = new BasicNetwork(new HurlStack());
             mRequestQueue = new RequestQueue(cache, network);
-            // Don't forget to start the volley request queue
             mRequestQueue.start();
         }
         return mRequestQueue;
