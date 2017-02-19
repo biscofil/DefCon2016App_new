@@ -7,13 +7,13 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -57,6 +57,8 @@ public class DetailsCalcoloDialog extends DialogFragment {
         final TextView tv_details_azoto = (TextView) view.findViewById(R.id.tv_details_azoto);
         final TextView tv_details_ozono = (TextView) view.findViewById(R.id.tv_details_ozono);
 
+        final ProgressBar loading_dialog_details = (ProgressBar) view.findViewById(R.id.loading_dialog_details);
+
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -92,17 +94,14 @@ public class DetailsCalcoloDialog extends DialogFragment {
                             tv_details_pm10.setText("-");
                         }
 
-
                         try {
-                            HistoryAdapter adapter = null;
-                            adapter = new HistoryAdapter(getActivity(), dati.getJSONArray("raw"));
+                            HistoryAdapter adapter = new HistoryAdapter(getActivity(), dati.getJSONArray("raw"));
                             search_ins_listview.setAdapter(adapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        //progressbar.setVisibility(View.GONE);
-                        //search_edittext.setVisibility(View.VISIBLE);
+                        loading_dialog_details.setVisibility(View.GONE);
                         search_ins_listview.setVisibility(View.VISIBLE);
                     }
                 }, new Response.ErrorListener() {
@@ -115,7 +114,6 @@ public class DetailsCalcoloDialog extends DialogFragment {
         EcoMe.getInstance().addToRequestQueue(jsObjRequest);
         return builder.create();
     }
-
 
     private class HistoryAdapter extends BaseAdapter implements ListAdapter {
         private JSONArray _storico = null;
@@ -158,25 +156,21 @@ public class DetailsCalcoloDialog extends DialogFragment {
         public View getView(int position, View v, ViewGroup vg) {
             if (v == null)
                 v = activity.getLayoutInflater().inflate(R.layout.item_storico_list, null);
-
             final JSONObject ai = getItem(position);
-
             if (null != ai) {
-                Log.d("BISCO", ai.toString());
-
-                TextView tv_cds_cod = (TextView) v.findViewById(R.id.textView);
-                TextView tv_cds_des = (TextView) v.findViewById(R.id.textView7);
-                TextView tv_tipo_corso_cod = (TextView) v.findViewById(R.id.textView8);
-
+                TextView tv_details_item_valore = (TextView) v.findViewById(R.id.tv_details_item_valore);
+                TextView tv_details_item_out = (TextView) v.findViewById(R.id.tv_details_item_out);
+                TextView tv_details_item_peso = (TextView) v.findViewById(R.id.tv_details_item_peso);
+                TextView tv_details_item_distanza = (TextView) v.findViewById(R.id.tv_details_item_distanza);
                 try {
-                    tv_cds_cod.setText("" + ai.getDouble("val"));
-                    tv_cds_des.setText("" + ai.getDouble("out"));
-                    tv_tipo_corso_cod.setText("" + ai.getDouble("peso"));
+                    tv_details_item_valore.setText(String.format("%.2f", ai.getDouble("val")));
+                    tv_details_item_out.setText(String.format("%.2f", ai.getDouble("out")));
+                    tv_details_item_peso.setText(String.format("%.2f", ai.getDouble("peso")));
+                    tv_details_item_distanza.setText("[ " + String.format("%.2f", ai.getDouble("distanza")) + " Km ]");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-
             return v;
         }
     }
