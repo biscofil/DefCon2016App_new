@@ -19,16 +19,15 @@ import java.util.Map;
 public class EcoMe extends Application {
 
     public boolean offlineMode = false;
-
     public TutorialHandler tutorialHandler;
     public SharedPreferences sharedpreferences;
-
     public Map<Integer, Struttura> strutture = new HashMap<>();
     public LatLng mapCenter = new LatLng(41.8919300, 12.5113300); //roma
-
     private static final String MyPREFERENCES = "MyPrefs";
-
     public static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 293;
+    public static final String TAG = EcoMe.class.getSimpleName();
+    private RequestQueue mRequestQueue;
+    private static EcoMe mInstance;
 
     @Override
     public void onCreate() {
@@ -46,19 +45,9 @@ public class EcoMe extends Application {
     }
 
     public void aggiornaDati(Activity act) {
-        //list = new ArrayList<>();
         strutture = new HashMap<>();
         new DownloadDataTask(act).execute();
-
     }
-
-    ////
-
-    public static final String TAG = EcoMe.class.getSimpleName();
-
-    private RequestQueue mRequestQueue;
-
-    private static EcoMe mInstance;
 
 
     public static synchronized EcoMe getInstance() {

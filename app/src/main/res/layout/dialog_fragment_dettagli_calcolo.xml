@@ -28,7 +28,8 @@
                     android:textAlignment="center"
                     android:textSize="30sp"
                     tools:text="0.0"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"
+                    android:id="@+id/tv_details_pm10" />
 
 
                 <TextView
@@ -39,7 +40,8 @@
                     tools:text="0.0"
                     android:textSize="30sp"
                     android:textAlignment="center"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"
+                    android:id="@+id/tv_details_azoto" />
 
 
                 <TextView
@@ -50,7 +52,8 @@
                     tools:text="0.0"
                     android:textSize="30sp"
                     android:textAlignment="center"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"
+                    android:id="@+id/tv_details_ozono" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,13 +94,14 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10sp">
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/lv_storico" />
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_storico"
+            style="@style/Widget.AppCompat.ListView" />
     </android.support.v7.widget.CardView>
 
 </LinearLayout>

@@ -7,17 +7,19 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -40,35 +42,64 @@ public class DetailsCalcoloDialog extends DialogFragment {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = li.inflate(R.layout.dialog_fragment_dettagli_calcolo, null);
 
-        //builder.setTitle("dettagli calcolo");
         builder.setView(view);
-        builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.close_details_dialog, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 DetailsCalcoloDialog.this.getDialog().cancel();
             }
         });
 
-
-        //((AlertDialog)dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-
-        // and if you need to call some method of the class
-
-        //MyCustomView myView = (MyCustomView) view.findViewById(R.id.custom_id_in_my_custom_view);
-        //myView.doSome("stuff");
-
-        // create the dialog from the builder then show
-
         String url = getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.xhr_details_calcolo) + lat_lng.latitude + "/" + lat_lng.longitude;
 
         final ListView search_ins_listview = (ListView) view.findViewById(R.id.lv_storico);
 
-        JsonArrayRequest jsObjRequest = new JsonArrayRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        final TextView tv_details_pm10 = (TextView) view.findViewById(R.id.tv_details_pm10);
+        final TextView tv_details_azoto = (TextView) view.findViewById(R.id.tv_details_azoto);
+        final TextView tv_details_ozono = (TextView) view.findViewById(R.id.tv_details_ozono);
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
-                    public void onResponse(JSONArray response) {
-                        HistoryAdapter adapter = new HistoryAdapter(getActivity(), response);
-                        search_ins_listview.setAdapter(adapter);
+                    public void onResponse(JSONObject response) {
+                        JSONObject dati = null;
+                        JSONObject indici = null;
+                        try {
+                            dati = response.getJSONObject("dati");
+                            indici = dati.getJSONObject("indici");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            Double azoto = indici.getDouble("sottoindice_azoto");
+                            tv_details_azoto.setText(String.format("%.2f", azoto));
+                        } catch (JSONException e) {
+                            tv_details_azoto.setText("-");
+                        }
+
+                        try {
+                            Double ozono = indici.getDouble("sottoindice_ozono");
+                            tv_details_ozono.setText(String.format("%.2f", ozono));
+                        } catch (JSONException e) {
+                            tv_details_ozono.setText("-");
+                        }
+
+                        try {
+                            Double pm10 = indici.getDouble("sottoindice_pm10");
+                            tv_details_pm10.setText(String.format("%.2f", pm10));
+                        } catch (JSONException e) {
+                            tv_details_pm10.setText("-");
+                        }
+
+
+                        try {
+                            HistoryAdapter adapter = null;
+                            adapter = new HistoryAdapter(getActivity(), dati.getJSONArray("raw"));
+                            search_ins_listview.setAdapter(adapter);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                         //progressbar.setVisibility(View.GONE);
                         //search_edittext.setVisibility(View.VISIBLE);
@@ -78,48 +109,40 @@ public class DetailsCalcoloDialog extends DialogFragment {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 });
 
-// Access the RequestQueue through your singleton class.
         EcoMe.getInstance().addToRequestQueue(jsObjRequest);
-
         return builder.create();
     }
 
 
     private class HistoryAdapter extends BaseAdapter implements ListAdapter {
-        private JSONArray corsi = null;
+        private JSONArray _storico = null;
         private Activity activity = null;
-
-        private JSONArray filteredData;    // Values to be displayed
 
         public HistoryAdapter(Activity activity, JSONArray corsi) {
             assert activity != null;
             assert corsi != null;
-
-            this.corsi = corsi;
-            this.filteredData = corsi;
+            this._storico = corsi;
             this.activity = activity;
-
         }
 
         @Override
         public int getCount() {
-            if (null == filteredData)
+            if (null == _storico)
                 return 0;
             else
-                return filteredData.length();
+                return _storico.length();
         }
 
         @Override
         public JSONObject getItem(int position) {
-            if (null == filteredData)
+            if (null == _storico)
                 return null;
             else
                 try {
-                    return filteredData.getJSONObject(position);
+                    return _storico.getJSONObject(position);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -128,8 +151,7 @@ public class DetailsCalcoloDialog extends DialogFragment {
 
         @Override
         public long getItemId(int position) {
-            //JSONObject jsonObject = getItem(position);
-            return position; //jsonObject.optLong("AF_ID");
+            return position;
         }
 
         @Override
@@ -140,21 +162,19 @@ public class DetailsCalcoloDialog extends DialogFragment {
             final JSONObject ai = getItem(position);
 
             if (null != ai) {
-                //Log.d("BISCO", ai.toString());
-/*
-                TextView tv_cds_cod = (TextView) v.findViewById(R.id.tv_cds_cod);
-                TextView tv_cds_des = (TextView) v.findViewById(R.id.tv_cds_des);
-                TextView tv_tipo_corso_cod = (TextView) v.findViewById(R.id.tv_tipo_corso_cod);
-                TextView tv_pds_cod = (TextView) v.findViewById(R.id.tv_pds_cod);
+                Log.d("BISCO", ai.toString());
+
+                TextView tv_cds_cod = (TextView) v.findViewById(R.id.textView);
+                TextView tv_cds_des = (TextView) v.findViewById(R.id.textView7);
+                TextView tv_tipo_corso_cod = (TextView) v.findViewById(R.id.textView8);
 
                 try {
-                    tv_cds_cod.setText("[" + ai.getString("CDS_COD") + "]");
-                    tv_cds_des.setText(ai.getString("CDS_DES"));
-                    tv_tipo_corso_cod.setText(ai.getString("TIPO_CORSO_COD"));
-                    tv_pds_cod.setText(ai.getString("PDS_COD"));
+                    tv_cds_cod.setText("" + ai.getDouble("val"));
+                    tv_cds_des.setText("" + ai.getDouble("out"));
+                    tv_tipo_corso_cod.setText("" + ai.getDouble("peso"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }*/
+                }
             }
 
             return v;
