@@ -185,20 +185,15 @@ public class Details_activity extends AppCompatActivity {
             //punteggio
             if (s.no_data) {
                 graph.setVisibility(View.GONE);
-
                 tv_punteggio_val.setText("-");
                 tv_data_calcolo_val.setText("-");
                 tv_ora_calcolo_val.setText("-");
-
                 rb.setRating(0);
-
             } else {
-
                 rb.setMax(5);
                 rb.setRating((float) s.punteggio);
                 rb.setStepSize(0.5f);
                 //str punteggio
-
                 rb.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
@@ -208,13 +203,10 @@ public class Details_activity extends AppCompatActivity {
                         return false;
                     }
                 });
-
                 String[] splited = s.data_dati.split("\\s+");
-
                 tv_punteggio_val.setText("" + s.punteggio);
                 tv_data_calcolo_val.setText(splited[0]);
                 tv_ora_calcolo_val.setText(splited[1]);
-
             }
 
             //storico
@@ -225,7 +217,6 @@ public class Details_activity extends AppCompatActivity {
                 graph.setVisibility(View.GONE);
             }
 
-
             if (((EcoMe) getApplication()).tutorialHandler.isFirstTimeHere(this.getClass())) {
                 runOverlay_ContinueMethod();
             }
@@ -233,12 +224,10 @@ public class Details_activity extends AppCompatActivity {
 
         @Override
         protected Struttura doInBackground(Void... params) {
-            Struttura out;
             String url = getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.struttura_method) + "/" + _id;
-            JSONObject object = null;
             try {
-                object = new XhrInterface().getObject(url);
-                out = new Struttura();
+                JSONObject object = new XhrInterface().getObject(url);
+                Struttura out = new Struttura();
                 out.parse_storico(object);
                 return out;
             } catch (Exception e) {
