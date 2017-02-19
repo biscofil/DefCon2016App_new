@@ -12,7 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,9 +23,6 @@ import com.biscofil.defcon2016.Details_activity;
 import com.biscofil.defcon2016.EcoMe;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.Struttura;
-import com.biscofil.defcon2016.map.MyGradient;
-import com.biscofil.defcon2016.map.MyHeatmapTileProvider;
-import com.biscofil.defcon2016.map.ValuedLatLng;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -36,11 +32,8 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.TileOverlay;
-import com.google.android.gms.maps.model.TileOverlayOptions;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public class Map_fragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -83,17 +76,12 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
             Snackbar.make(getView(), R.string.sto_aggiornando, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
 
             ((EcoMe) getActivity().getApplication()).aggiornaDati(getActivity());
-
             return true;
         }
         return false;
@@ -151,9 +139,6 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
 
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(((EcoMe) getActivity().getApplication()).mapCenter, 6));
 
-            /*if (((EcoMe) getActivity().getApplication()).list.size() > 0) {
-                addHeatMap(((EcoMe) getActivity().getApplication()).list);
-            }*/
             addMarkers();
         }
     }
@@ -174,8 +159,6 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
             int id = (Integer) pair.getKey();
             Struttura s = (Struttura) pair.getValue();
             Drawable d = getResources().getDrawable(R.drawable.struttura_32);
-
-            Log.d("BISCO", "punteggio: " + s.punteggio);
 
             Bitmap marker_icon;
 
@@ -240,7 +223,6 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     public int rgbToColor(float r, float g, float b) {
-        Log.d("BISCO", "R " + r + ", G " + g + ", B " + b);
         return Color.rgb((int) (r * 255), (int) (g * 255), (int) (b * 255));
     }
 
@@ -268,57 +250,6 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
         Canvas canvas = new Canvas(resultBitmap);
         canvas.drawBitmap(resultBitmap, 0, 0, p);
         return resultBitmap;
-    }
-
-    public static Bitmap drawableToBitmap(Drawable drawable) {
-        Bitmap bitmap = null;
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if (bitmapDrawable.getBitmap() != null) {
-                return bitmapDrawable.getBitmap();
-            }
-        }
-        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
-        } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        }
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
-    }
-
-    private void addHeatMap(List<ValuedLatLng> list) {
-
-        // Create the gradient.
-        int[] colors = {
-                Color.rgb(0, 255, 0), // green
-                Color.rgb(255, 0, 0)    // red
-        };
-
-        float[] startPoints = {
-                0.2f, 1f
-        };
-
-        MyGradient gradient = new MyGradient(colors, startPoints);
-
-
-        // Create a heat map tile provider, passing it the latlngs of the police stations.
-        MyHeatmapTileProvider mProvider = new MyHeatmapTileProvider.Builder()
-                .valuedData(list)
-                .opacity(1)
-                .radius(35)
-                .gradient(gradient)
-                .build();
-        // Add a tile overlay to the map, using the heat map tile provider.
-        TileOverlay mOverlay = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
-    }
-
-    public BitmapDescriptor getMarkerIcon(String color) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(Color.parseColor(color), hsv);
-        return BitmapDescriptorFactory.defaultMarker(hsv[0]);
     }
 
 }
