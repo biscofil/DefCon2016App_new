@@ -240,7 +240,8 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     public int rgbToColor(float r, float g, float b) {
-        return Color.rgb((int) r, (int) g, (int) b);
+        Log.d("BISCO", "R " + r + ", G " + g + ", B " + b);
+        return Color.rgb((int) (r * 255), (int) (g * 255), (int) (b * 255));
     }
 
     public Bitmap convertDrawableToBitmap(Drawable drawable) {
