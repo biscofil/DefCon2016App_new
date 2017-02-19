@@ -8,7 +8,7 @@
     <color name="colorSecondaryDark">#01343B</color>
     <color name="colorSecondaryLight">#579199</color>
 
-    <color name="colorSecondary2">#AF6C2F</color>
+    <color name="colorSecondary2">#af6c2f</color>
     <color name="colorSecondary2Dark">#612F00</color>
     <color name="colorSecondary2Light">#F9C18D</color>
 
@@ -21,5 +21,6 @@
     <color name="black_overlay">#66000000</color>
     <color name="colorGrey">#66dedede</color>
 
+    <color name="tutorial_bg">#EE2c3e50</color>
 
 </resources>

@@ -243,23 +243,23 @@ public class Meter_fragment extends Fragment {
                         .setTitle(getString(R.string.tutorial_title))
                         .setDescription(getString(R.string.tuorial_refresh_meter))
                         .setGravity(Gravity.BOTTOM)
-                        .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorSecondary, null))
+                        .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorComplement, null))
                 )
                 .playLater(btn);
-
 
         ChainTourGuide tourGuide3 = ChainTourGuide.init(getActivity())
                 .setToolTip(new ToolTip()
                         .setTitle(getString(R.string.tutorial_title))
                         .setDescription(getString(R.string.tutorial_meter_details))
                         .setGravity(Gravity.BOTTOM)
-                        .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorSecondary, null))
+                        .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorComplement, null))
                 )
                 .playLater(btn_info);
 
         Sequence sequence = new Sequence.SequenceBuilder()
                 .add(tourGuide1, tourGuide3)
                 .setDefaultOverlay(new Overlay()
+                        .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.tutorial_bg, null))
                         .setEnterAnimation(mEnterAnimation)
                         .setExitAnimation(mExitAnimation)
                 )

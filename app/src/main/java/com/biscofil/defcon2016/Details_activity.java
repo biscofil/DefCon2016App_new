@@ -9,12 +9,15 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -32,12 +35,21 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import tourguide.tourguide.ChainTourGuide;
+import tourguide.tourguide.Overlay;
+import tourguide.tourguide.Sequence;
+import tourguide.tourguide.ToolTip;
+
 public class Details_activity extends AppCompatActivity {
 
     public Activity mActivity;
     LineChart graph;
     RatingBar rb;
     FloatingActionButton fab;
+
+    private Animation mEnterAnimation, mExitAnimation;
+
+    TextView tv_punteggio_val, tv_data_calcolo_val, tv_ora_calcolo_val;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +62,19 @@ public class Details_activity extends AppCompatActivity {
         rb = (RatingBar) findViewById(R.id.ratingBar);
         graph = (LineChart) findViewById(R.id.chart);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        tv_punteggio_val = (TextView) findViewById(R.id.tv_punteggio_val);
+        tv_data_calcolo_val = (TextView) findViewById(R.id.tv_data_calcolo_val);
+        tv_ora_calcolo_val = (TextView) findViewById(R.id.tv_ora_calcolo_val);
+
+ /* setup enter and exit animation */
+        mEnterAnimation = new AlphaAnimation(0f, 1f);
+        mEnterAnimation.setDuration(600);
+        mEnterAnimation.setFillAfter(true);
+
+        mExitAnimation = new AlphaAnimation(1f, 0f);
+        mExitAnimation.setDuration(600);
+        mExitAnimation.setFillAfter(true);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -158,11 +183,15 @@ public class Details_activity extends AppCompatActivity {
             setup_fab(s);
 
             //punteggio
-            CardView card_punteggi = (CardView) findViewById(R.id.card_punteggi);
-
             if (s.no_data) {
-                card_punteggi.setVisibility(View.GONE);
                 graph.setVisibility(View.GONE);
+
+                tv_punteggio_val.setText("-");
+                tv_data_calcolo_val.setText("-");
+                tv_ora_calcolo_val.setText("-");
+
+                rb.setRating(0);
+
             } else {
 
                 rb.setMax(5);
@@ -182,9 +211,9 @@ public class Details_activity extends AppCompatActivity {
 
                 String[] splited = s.data_dati.split("\\s+");
 
-                ((TextView) findViewById(R.id.tv_punteggio_val)).setText("" + s.punteggio);
-                ((TextView) findViewById(R.id.tv_data_calcolo_val)).setText(splited[0]);
-                ((TextView) findViewById(R.id.tv_ora_calcolo_val)).setText(splited[1]);
+                tv_punteggio_val.setText("" + s.punteggio);
+                tv_data_calcolo_val.setText(splited[0]);
+                tv_ora_calcolo_val.setText(splited[1]);
 
             }
 
@@ -193,6 +222,11 @@ public class Details_activity extends AppCompatActivity {
                 setup_graph(s);
             } else {
                 graph.setVisibility(View.GONE);
+            }
+
+
+            if (((EcoMe) getApplication()).tutorialHandler.isFirstTimeHere(this.getClass())) {
+                runOverlay_ContinueMethod();
             }
         }
 
@@ -210,6 +244,39 @@ public class Details_activity extends AppCompatActivity {
             out.parse_storico(object);
             return out;
         }
+    }
+
+    private void runOverlay_ContinueMethod() {
+        ChainTourGuide tourGuide2 = ChainTourGuide.init(this)
+                .setToolTip(new ToolTip()
+                        .setTitle(getString(R.string.tutorial_title))
+                        .setDescription(getString(R.string.tutorial_details_web))
+                        .setGravity(Gravity.BOTTOM | Gravity.LEFT)
+                        .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorComplement, null))
+                )
+                .playLater(fab);
+
+        ChainTourGuide tourGuide3 = ChainTourGuide.init(this)
+                .setToolTip(new ToolTip()
+                        .setTitle(getString(R.string.tutorial_title))
+                        .setDescription(getString(R.string.tutorial_details_details))
+                        .setGravity(Gravity.TOP)
+                        .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorComplement, null))
+                )
+                .playLater(rb);
+
+        Sequence sequence = new Sequence.SequenceBuilder()
+                .add(tourGuide2, tourGuide3)
+                .setDefaultOverlay(new Overlay()
+                        .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.tutorial_bg, null))
+                        .setEnterAnimation(mEnterAnimation)
+                        .setExitAnimation(mExitAnimation)
+                )
+                .setDefaultPointer(null)
+                .setContinueMethod(Sequence.ContinueMethod.Overlay)
+                .build();
+
+        ChainTourGuide.init(this).playInSequence(sequence);
     }
 
 }

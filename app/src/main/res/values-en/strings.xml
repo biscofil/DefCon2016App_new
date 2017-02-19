@@ -45,4 +45,8 @@
     <string name="gps_title_attention">Attention!</string>
     <string name="app_require_gps">This app need your location</string>
     <string name="close_details_dialog">Close</string>
+    <string name="tutorial_details_web">Check out the website</string>
+    <string name="tutorial_meter_details">Once the position is known, you can inspect single values used for the math</string>
+    <string name="tuorial_refresh_meter">Use GPS to get air quality in your position</string>
+    <string name="tutorial_details_details">Check out single values</string>
 </resources>

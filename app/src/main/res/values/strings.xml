@@ -74,5 +74,6 @@
     <string name="close_details_dialog">Chiudi</string>
     <string name="tuorial_refresh_meter">Controlla la qualità del luogo in cui ti trovi utilizzando la tua posizione.</string>
     <string name="tutorial_meter_details">Una volta ottenuto un valore potrai controllare i valori che hanno contribuito al calcolo.</string>
+    <string name="tutorial_details_details">Puoi controllare singolarmente i valori che hanno contribuito al calcolo.</string>
     <string name="tutorial_details_web">Visita il sito web della struttura</string>
 </resources>
