@@ -27,7 +27,7 @@
         android:cropToPadding="false"
         android:gravity="center"
         android:keepScreenOn="true"
-        app:srcCompat="@drawable/icon_512" />
+        app:srcCompat="@drawable/icon_512_bordo" />
 
 
 </RelativeLayout>

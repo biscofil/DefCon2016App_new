@@ -44,4 +44,5 @@
     <string name="gps_title_attention">Attenzione</string>
     <string name="gps_operation_no_valid">Operazione non valida!</string>
     <string name="app_require_gps">Questa app necessita del GPS</string>
+    <string name="close_details_dialog">Chiudi</string>
 </resources>

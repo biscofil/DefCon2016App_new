@@ -9,28 +9,44 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/textView"
-        android:layout_toStartOf="@+id/textView7" />
+        android:id="@+id/tv_details_item_valore"
+        android:layout_toStartOf="@+id/tv_details_item_out" />
 
     <TextView
         android:text="TextView"
 
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/textView7"
-        android:layout_alignBottom="@+id/textView8"
+        android:layout_height="match_parent"
+        android:id="@+id/tv_details_item_out"
         android:textAlignment="center"
-        android:textStyle="normal|bold" />
+        android:textStyle="normal|bold"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true" />
 
-    <TextView
-        android:text="TextView"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:id="@+id/textView8"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/tv_details_item_valore"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/tv_details_item_out">
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_details_item_peso"
+            android:layout_weight="1"
+            android:layout_toStartOf="@+id/tv_details_item_out" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="2"
+            android:id="@+id/tv_details_item_distanza"
+            android:textColor="@color/DarkOrange" />
+    </LinearLayout>
 </RelativeLayout>
