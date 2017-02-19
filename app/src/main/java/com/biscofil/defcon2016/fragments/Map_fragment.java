@@ -116,12 +116,12 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
                     .setAction("Action", null).show();
 
             ((EcoMe) getActivity().getApplication()).aggiornaDati(getActivity());
-            initializeLocationStatus();
+           /*aggiunto*/ initializeLocationStatus();
             return true;
         }
         return false;
     }
-
+    /*aggiunto*/
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -195,6 +195,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(((EcoMe) getActivity().getApplication()).mapCenter, 6));
 
             addMarkers();
+            /*aggiunto*/
             initializeLocationStatus();
         }
     }
