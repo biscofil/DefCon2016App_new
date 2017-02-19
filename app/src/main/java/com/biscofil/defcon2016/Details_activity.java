@@ -220,6 +220,7 @@ public class Details_activity extends AppCompatActivity {
             //storico
             if (!s.storico.isEmpty()) {
                 setup_graph(s);
+                graph.invalidate();
             } else {
                 graph.setVisibility(View.GONE);
             }
@@ -232,17 +233,18 @@ public class Details_activity extends AppCompatActivity {
 
         @Override
         protected Struttura doInBackground(Void... params) {
-            Struttura out = null;
+            Struttura out;
             String url = getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.struttura_method) + "/" + _id;
             JSONObject object = null;
             try {
                 object = new XhrInterface().getObject(url);
+                out = new Struttura();
+                out.parse_storico(object);
+                return out;
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            out = new Struttura();
-            out.parse_storico(object);
-            return out;
+            return null;
         }
     }
 
