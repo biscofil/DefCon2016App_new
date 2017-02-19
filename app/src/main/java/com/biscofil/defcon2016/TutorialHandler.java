@@ -36,8 +36,17 @@ public class TutorialHandler {
         return classi_visitate.contains(s);
     }
 
+    @Deprecated
     public boolean isFirstTimeHere(Class c) {
         String s = hash(c);
+        boolean first_time = !this.exist(s);
+        if (first_time) {
+            this.save(s);
+        }
+        return first_time;
+    }
+
+    public boolean isFirstTimeHere(String s) {
         boolean first_time = !this.exist(s);
         if (first_time) {
             this.save(s);

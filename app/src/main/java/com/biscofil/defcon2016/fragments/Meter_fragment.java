@@ -8,15 +8,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.biscofil.defcon2016.DetailsCalcoloDialog;
+import com.biscofil.defcon2016.EcoMe;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.gps.GPSTracker;
 import com.github.lzyzsd.circleprogress.ArcProgress;
@@ -33,10 +38,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import tourguide.tourguide.ChainTourGuide;
+import tourguide.tourguide.Overlay;
+import tourguide.tourguide.Sequence;
+import tourguide.tourguide.ToolTip;
+
 import static com.biscofil.defcon2016.EcoMe.MY_PERMISSIONS_REQUEST_FINE_LOCATION;
 
 public class Meter_fragment extends Fragment {
 
+    private Animation mEnterAnimation, mExitAnimation;
     GPSTracker gps;
     LatLng position;
     private Button btn, btn_info;
@@ -117,6 +128,19 @@ public class Meter_fragment extends Fragment {
             }
         });
 
+          /* setup enter and exit animation */
+        mEnterAnimation = new AlphaAnimation(0f, 1f);
+        mEnterAnimation.setDuration(600);
+        mEnterAnimation.setFillAfter(true);
+
+        mExitAnimation = new AlphaAnimation(1f, 0f);
+        mExitAnimation.setDuration(600);
+        mExitAnimation.setFillAfter(true);
+
+        if (((EcoMe) getActivity().getApplication()).tutorialHandler.isFirstTimeHere(this.getClass())) {
+            runOverlay_ContinueMethod();
+        }
+
         return rootView;
     }
 
@@ -142,7 +166,6 @@ public class Meter_fragment extends Fragment {
             // permissions this app might request
         }
     }
-
 
     private class RequestData extends AsyncTask<String, Integer, JSONObject> {
         JSONObject value;
@@ -213,4 +236,38 @@ public class Meter_fragment extends Fragment {
         }
 
     }
+
+    private void runOverlay_ContinueMethod() {
+        ChainTourGuide tourGuide1 = ChainTourGuide.init(getActivity())
+                .setToolTip(new ToolTip()
+                        .setTitle(getString(R.string.tutorial_title))
+                        .setDescription(getString(R.string.tuorial_refresh_meter))
+                        .setGravity(Gravity.BOTTOM)
+                        .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorSecondary, null))
+                )
+                .playLater(btn);
+
+
+        ChainTourGuide tourGuide3 = ChainTourGuide.init(getActivity())
+                .setToolTip(new ToolTip()
+                        .setTitle(getString(R.string.tutorial_title))
+                        .setDescription(getString(R.string.tutorial_meter_details))
+                        .setGravity(Gravity.BOTTOM)
+                        .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorSecondary, null))
+                )
+                .playLater(btn_info);
+
+        Sequence sequence = new Sequence.SequenceBuilder()
+                .add(tourGuide1, tourGuide3)
+                .setDefaultOverlay(new Overlay()
+                        .setEnterAnimation(mEnterAnimation)
+                        .setExitAnimation(mExitAnimation)
+                )
+                .setDefaultPointer(null)
+                .setContinueMethod(Sequence.ContinueMethod.Overlay)
+                .build();
+
+        ChainTourGuide.init(getActivity()).playInSequence(sequence);
+    }
+
 }

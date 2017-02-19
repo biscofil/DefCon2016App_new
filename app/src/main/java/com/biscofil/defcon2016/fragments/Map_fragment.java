@@ -17,7 +17,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -80,7 +79,8 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
         setHasOptionsMenu(true);
         return rootView;
     }
-    public void initializeLocationStatus(){
+
+    public void initializeLocationStatus() {
         if (this.mContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             this.locationEnabled = false;
             mMap.setMyLocationEnabled(false);
@@ -116,11 +116,13 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
                     .setAction("Action", null).show();
 
             ((EcoMe) getActivity().getApplication()).aggiornaDati(getActivity());
-           /*aggiunto*/ initializeLocationStatus();
+           /*aggiunto*/
+            initializeLocationStatus();
             return true;
         }
         return false;
     }
+
     /*aggiunto*/
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
@@ -131,8 +133,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
                     mMap.setMyLocationEnabled(false);
 
                     return;
-                }
-                else{
+                } else {
                     mMap.setMyLocationEnabled(true);
                 }
             }
@@ -174,20 +175,6 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
             this.mMap = googleMap;
 
             //googleMap.setMyLocationEnabled(true);
-/*
-            try {
-                // Customise the styling of the base map using a JSON object defined
-                // in a raw resource file.
-                boolean success = googleMap.setMapStyle(
-                        MapStyleOptions.loadRawResourceStyle(
-                                getActivity(), R.raw.style_json));
-
-                if (!success) {
-                    Log.e("ECOME", "Style parsing failed.");
-                }
-            } catch (Resources.NotFoundException e) {
-                Log.e("ECOME", "Can't find style. Error: ", e);
-            }*/
 
             mMap.setOnMarkerClickListener(this);
             mMap.getUiSettings().setMapToolbarEnabled(false);
@@ -244,14 +231,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
 
         float hue = ((float) (punteggio / 5.0)) * (255 / 3);
 
-        float sat = 75;
-        float lum = 60;
-
-        hue /= 360;
-        sat /= 100;
-        lum /= 100;
-
-        return hsvToRgb(hue, sat, lum);
+        return hsvToRgb(hue / 360, 0.75f, 0.6f);
     }
 
     public int hsvToRgb(float hue, float saturation, float value) {

@@ -32,26 +32,24 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import tourguide.tourguide.Overlay;
-import tourguide.tourguide.ToolTip;
-import tourguide.tourguide.TourGuide;
-
 public class Details_activity extends AppCompatActivity {
 
     public Activity mActivity;
-
     LineChart graph;
     RatingBar rb;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mActivity = this;
 
         setContentView(R.layout.activity_details);
 
         rb = (RatingBar) findViewById(R.id.ratingBar);
         graph = (LineChart) findViewById(R.id.chart);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,7 +65,15 @@ public class Details_activity extends AppCompatActivity {
         ((CollapsingToolbarLayout) findViewById(R.id.toolbar_layout)).setTitle(s.nome);
 
         new DetailsDownloadTask(this, id_struttura).execute();
-
+/*
+        if (((EcoMe) getApplication()).tutorialHandler.isFirstTimeHere("struttura_details")) {
+            TourGuide mTourGuideHandler = TourGuide.init(this).with(TourGuide.Technique.Click)
+                    .setPointer(new Pointer())
+                    .setToolTip(new ToolTip().setTitle(getString(R.string.tutorial_title))
+                            .setDescription("Click on Get Started to begin..."))
+                    .setOverlay(new Overlay())
+                    .playOn(fab);
+        }*/
     }
 
     @Override
@@ -102,7 +108,6 @@ public class Details_activity extends AppCompatActivity {
     }
 
     public void setup_fab(final Struttura s) {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             String url = s.sito_web;
 
@@ -114,13 +119,6 @@ public class Details_activity extends AppCompatActivity {
             }
         });
 
-        if (((EcoMe) getApplication()).tutorialHandler.isFirstTimeHere(this.getClass())) {
-            TourGuide mTourGuideHandler = TourGuide.init(this).with(TourGuide.Technique.Click)
-                    //.setPointer(new Pointer())
-                    .setToolTip(new ToolTip().setTitle(getString(R.string.tutorial_title)).setDescription(getString(R.string.tutorial_link_struttura)))
-                    .setOverlay(new Overlay())
-                    .playOn(fab);
-        }
     }
 
     private class DetailsDownloadTask extends AsyncTask<Void, Void, Struttura> {
@@ -166,6 +164,7 @@ public class Details_activity extends AppCompatActivity {
                 card_punteggi.setVisibility(View.GONE);
                 graph.setVisibility(View.GONE);
             } else {
+
                 rb.setMax(5);
                 rb.setRating((float) s.punteggio);
                 rb.setStepSize(0.5f);
@@ -212,4 +211,5 @@ public class Details_activity extends AppCompatActivity {
             return out;
         }
     }
+
 }
