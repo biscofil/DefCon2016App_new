@@ -24,7 +24,7 @@ import com.biscofil.defcon2016.DetailsCalcoloDialog;
 import com.biscofil.defcon2016.EcoMe;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.gps.GPSTracker;
-import com.github.lzyzsd.circleprogress.ArcProgress;
+import com.biscofil.defcon2016.views.MyArcProgress;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
@@ -51,7 +51,7 @@ public class Meter_fragment extends Fragment {
     GPSTracker gps;
     LatLng position;
     private Button btn, btn_info;
-    public ArcProgress arcProgress;
+    public MyArcProgress arcProgress;
     private Context mContext;
 
     public Meter_fragment() {
@@ -66,7 +66,7 @@ public class Meter_fragment extends Fragment {
         btn = (Button) rootView.findViewById(R.id.btn_meter_update);
         btn_info = (Button) rootView.findViewById(R.id.btn_meter_details);
 
-        arcProgress = (ArcProgress) rootView.findViewById(R.id.arc_progress);
+        arcProgress = (MyArcProgress) rootView.findViewById(R.id.arc_progress);
 
         if (this.mContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             this.btn.setEnabled(false);
@@ -230,9 +230,7 @@ public class Meter_fragment extends Fragment {
             }
 
             btn_info.setEnabled(true);
-
-            arcProgress.setProgress((int) Math.floor(value) * 10);
-
+            arcProgress.setValue(value);
         }
 
     }

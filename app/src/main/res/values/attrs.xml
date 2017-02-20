@@ -24,7 +24,7 @@
         <attr name="donut_background_color" format="color" />
     </declare-styleable>
 
-    <declare-styleable name="ArcProgress">
+    <declare-styleable name="ArcProgressCopy">
         <attr name="arc_progress" format="integer" />
         <attr name="arc_angle" format="float" />
         <attr name="arc_stroke_width" format="dimension" />

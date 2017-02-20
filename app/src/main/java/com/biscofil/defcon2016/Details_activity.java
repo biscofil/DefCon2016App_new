@@ -168,57 +168,60 @@ public class Details_activity extends AppCompatActivity {
             super.onPostExecute(s);
             //snack.dismiss();
 
-            //immagine header
-            NetworkImageView backdrop = (NetworkImageView) findViewById(R.id.backdrop);
-            ImageLoader mImageLoader = CustomVolleyRequestQueue.getInstance(act)
-                    .getImageLoader();
-            final String url = s.url_img;
-            mImageLoader.get(url, ImageLoader.getImageListener(backdrop, R.drawable.campo_sm, R.drawable.campo_sm));
-            backdrop.setImageUrl(url, mImageLoader);
+            if (s != null) {
 
-            //descrizione
-            ((TextView) findViewById(R.id.details_text)).setText(s.descrizione);
+                //immagine header
+                NetworkImageView backdrop = (NetworkImageView) findViewById(R.id.backdrop);
+                ImageLoader mImageLoader = CustomVolleyRequestQueue.getInstance(act)
+                        .getImageLoader();
+                final String url = s.url_img;
+                mImageLoader.get(url, ImageLoader.getImageListener(backdrop, R.drawable.campo_sm, R.drawable.campo_sm));
+                backdrop.setImageUrl(url, mImageLoader);
 
-            //bottone
-            setup_fab(s);
+                //descrizione
+                ((TextView) findViewById(R.id.details_text)).setText(s.descrizione);
 
-            //punteggio
-            if (s.no_data) {
-                graph.setVisibility(View.GONE);
-                tv_punteggio_val.setText("-");
-                tv_data_calcolo_val.setText("-");
-                tv_ora_calcolo_val.setText("-");
-                rb.setRating(0);
-            } else {
-                rb.setMax(5);
-                rb.setRating((float) s.punteggio);
-                rb.setStepSize(0.5f);
-                //str punteggio
-                rb.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        DetailsCalcoloDialog cp = new DetailsCalcoloDialog();
-                        cp.setStruttura(s.lat_lng);
-                        cp.show(getSupportFragmentManager(), "BISCO");
-                        return false;
-                    }
-                });
-                String[] splited = s.data_dati.split("\\s+");
-                tv_punteggio_val.setText("" + s.punteggio);
-                tv_data_calcolo_val.setText(splited[0]);
-                tv_ora_calcolo_val.setText(splited[1]);
-            }
+                //bottone
+                setup_fab(s);
 
-            //storico
-            if (!s.storico.isEmpty()) {
-                setup_graph(s);
-                graph.invalidate();
-            } else {
-                graph.setVisibility(View.GONE);
-            }
+                //punteggio
+                if (s.no_data) {
+                    graph.setVisibility(View.GONE);
+                    tv_punteggio_val.setText("-");
+                    tv_data_calcolo_val.setText("-");
+                    tv_ora_calcolo_val.setText("-");
+                    rb.setRating(0);
+                } else {
+                    rb.setMax(5);
+                    rb.setRating((float) s.punteggio);
+                    rb.setStepSize(0.5f);
+                    //str punteggio
+                    rb.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            DetailsCalcoloDialog cp = new DetailsCalcoloDialog();
+                            cp.setStruttura(s.lat_lng);
+                            cp.show(getSupportFragmentManager(), "BISCO");
+                            return false;
+                        }
+                    });
+                    String[] splited = s.data_dati.split("\\s+");
+                    tv_punteggio_val.setText("" + s.punteggio);
+                    tv_data_calcolo_val.setText(splited[0]);
+                    tv_ora_calcolo_val.setText(splited[1]);
+                }
 
-            if (((EcoMe) getApplication()).tutorialHandler.isFirstTimeHere(this.getClass())) {
-                runOverlay_ContinueMethod();
+                //storico
+                if (!s.storico.isEmpty()) {
+                    setup_graph(s);
+                    graph.invalidate();
+                } else {
+                    graph.setVisibility(View.GONE);
+                }
+
+                if (((EcoMe) getApplication()).tutorialHandler.isFirstTimeHere(this.getClass())) {
+                    runOverlay_ContinueMethod();
+                }
             }
         }
 
