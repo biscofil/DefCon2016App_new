@@ -5,10 +5,6 @@ import android.content.SharedPreferences;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by bisco on 09/02/2017.
- */
-
 public class TutorialHandler {
 
     SharedPreferences sharedpreferences;

@@ -1,9 +1,5 @@
 package com.biscofil.defcon2016.gps;
 
-/**
- * Created by bisco on 11/02/2017.
- */
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;

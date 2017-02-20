@@ -1,9 +1,5 @@
 package com.biscofil.defcon2016.lib;
 
-/**
- * Created by bisco on 20/02/2017.
- */
-
 public class Libreria {
 
     public String nome;

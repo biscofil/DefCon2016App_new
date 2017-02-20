@@ -25,14 +25,11 @@ public class DownloadDataTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        //myFadeInAnimation = AnimationUtils.loadAnimation(LoadingActivity.this, R.anim.blinkfade);
-        //loading_progress.startAnimation(myFadeInAnimation);
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        //myFadeInAnimation.cancel();
         Intent intent = new Intent(act, MainActivity.class);
         act.startActivity(intent);
         act.finish();
@@ -41,24 +38,19 @@ public class DownloadDataTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
-
-            //spostare in maps
+            //TODO spostare in maps
             String url = act.getString(R.string.web_url) + act.getString(R.string.xhr_controller) + act.getString(R.string.strutture_method);
             JSONArray data = new XhrInterface().getArray(url);
             for (int i = 0; i < data.length(); i++) {
                 JSONObject object = data.getJSONObject(i);
                 Struttura s = new Struttura();
-
-                int id;
-
                 try {
                     s.punteggio = object.getDouble("last_value");
                 } catch (JSONException e) {
                     s.no_data = true;
                 }
-
                 try {
-                    id = object.getInt("id");
+                    int id = object.getInt("id");
                     s.id = id;
                     s.nome = object.getString("nome");
                     s.lat_lng = new LatLng(object.getDouble("lat"), object.getDouble("lng"));
@@ -66,9 +58,7 @@ public class DownloadDataTask extends AsyncTask<Void, Void, Void> {
                 } catch (Exception e) {
                     Log.e("ECOME", e.getLocalizedMessage());
                 }
-
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

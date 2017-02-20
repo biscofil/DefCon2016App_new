@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.biscofil.defcon2016.R;
 
-
 public class Utils {
 
     public static Fragment setFragmentContent(AppCompatActivity act, Class fragmentClass, boolean first) {

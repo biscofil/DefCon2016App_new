@@ -13,13 +13,6 @@ public class Licenza {
     public Licenza() {
     }
 
-    public Licenza(int id, String licenza, String link_licenza, String descrizione) {
-        this.id = id;
-        this.licenza = licenza;
-        this.link_licenza = link_licenza;
-        this.descrizione = descrizione;
-    }
-
     public void parse(JSONObject obj) {
         try {
             this.id = obj.getInt("id");

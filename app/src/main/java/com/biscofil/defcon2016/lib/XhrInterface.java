@@ -15,10 +15,6 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-/**
- * Created by bisco on 30/11/2016.
- */
-
 public class XhrInterface {
 
     public static String xhr_result = "result";

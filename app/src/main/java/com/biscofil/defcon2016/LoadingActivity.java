@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 public class LoadingActivity extends AppCompatActivity {
 
     ImageView loading_progress;

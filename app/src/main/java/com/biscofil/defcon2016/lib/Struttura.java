@@ -13,9 +13,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by bisco on 06/12/2016.
- */
 public class Struttura {
 
     public boolean no_data = false;
