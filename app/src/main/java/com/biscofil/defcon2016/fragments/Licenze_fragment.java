@@ -18,15 +18,19 @@ import android.widget.TextView;
 
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.XhrInterface;
+import com.biscofil.defcon2016.lib.Libreria;
 import com.biscofil.defcon2016.lib.Licenza;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Licenze_fragment extends Fragment {
+
+    ListView listView, lv_librerie;
 
     public Licenze_fragment() {
     }
@@ -35,7 +39,27 @@ public class Licenze_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_licenze, container, false);
         getActivity().setTitle(getString(R.string.licenze_fragment_title));
-        ListView listView = (ListView) rootView.findViewById(R.id.list_licenze);
+        listView = (ListView) rootView.findViewById(R.id.list_licenze);
+        lv_librerie = (ListView) rootView.findViewById(R.id.lv_librerie);
+
+        final List<Libreria> l = new ArrayList<>();
+
+        l.add(new Libreria("CircleProgress", "https://github.com/lzyzsd/CircleProgress", "DWT*YW License"));
+        l.add(new Libreria("MPAndroidChart", "https://github.com/PhilJay/MPAndroidChart", "Apache License V2.0"));
+        l.add(new Libreria("CircleImageView", "https://github.com/hdodenhof/CircleImageView", "Apache License V2.0"));
+
+        LibrerieAdapter adapter = new LibrerieAdapter(getContext(), R.layout.licenze_row, l);
+        lv_librerie.setAdapter(adapter);
+
+        lv_librerie.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Libreria o = l.get(position);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(o.url_licenza));
+                startActivity(i);
+            }
+        });
+
         new MyTask(this, getActivity(), listView).execute();
         return rootView;
     }
@@ -109,6 +133,26 @@ public class Licenze_fragment extends Fragment {
             Licenza c = getItem(position);
             nome.setText(c.id + ". " + c.descrizione);
             numero.setText(c.licenza);
+            return convertView;
+        }
+
+    }
+
+    private class LibrerieAdapter extends ArrayAdapter<Libreria> {
+
+        public LibrerieAdapter(Context context, int textViewResourceId, List<Libreria> objects) {
+            super(context, textViewResourceId, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.licenze_row, null);
+            TextView nome = (TextView) convertView.findViewById(R.id.textViewName);
+            TextView numero = (TextView) convertView.findViewById(R.id.textViewNumber);
+            Libreria c = getItem(position);
+            nome.setText(c.nome);
+            numero.setText(c.nome_licenza);
             return convertView;
         }
 
