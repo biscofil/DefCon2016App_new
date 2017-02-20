@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.biscofil.defcon2016.lib.Struttura;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;

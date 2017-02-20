@@ -26,7 +26,7 @@ import android.widget.Toast;
 import com.biscofil.defcon2016.Details_activity;
 import com.biscofil.defcon2016.EcoMe;
 import com.biscofil.defcon2016.R;
-import com.biscofil.defcon2016.Struttura;
+import com.biscofil.defcon2016.lib.Struttura;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;

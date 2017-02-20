@@ -1,6 +1,7 @@
 package com.biscofil.defcon2016.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -11,12 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.biscofil.defcon2016.Licenza;
-import com.biscofil.defcon2016.LicenzeAdapter;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.XhrInterface;
+import com.biscofil.defcon2016.lib.Licenza;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -90,5 +92,27 @@ public class Licenze_fragment extends Fragment {
             return null;
         }
     }
+
+
+    private class LicenzeAdapter extends ArrayAdapter<Licenza> {
+
+        public LicenzeAdapter(Context context, int textViewResourceId, List<Licenza> objects) {
+            super(context, textViewResourceId, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.licenze_row, null);
+            TextView nome = (TextView) convertView.findViewById(R.id.textViewName);
+            TextView numero = (TextView) convertView.findViewById(R.id.textViewNumber);
+            Licenza c = getItem(position);
+            nome.setText(c.id + ". " + c.descrizione);
+            numero.setText(c.licenza);
+            return convertView;
+        }
+
+    }
+
 
 }

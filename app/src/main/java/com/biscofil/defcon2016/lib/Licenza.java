@@ -1,4 +1,4 @@
-package com.biscofil.defcon2016;
+package com.biscofil.defcon2016.lib;
 
 import org.json.JSONException;
 import org.json.JSONObject;

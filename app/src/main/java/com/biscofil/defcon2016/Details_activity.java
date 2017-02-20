@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.biscofil.defcon2016.lib.Struttura;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -193,8 +194,9 @@ public class Details_activity extends AppCompatActivity {
                     rb.setRating(0);
                 } else {
                     rb.setMax(5);
-                    rb.setRating((float) s.punteggio);
                     rb.setStepSize(0.5f);
+                    rb.setRating((float) s.punteggio);
+
                     //str punteggio
                     rb.setOnTouchListener(new View.OnTouchListener() {
                         @Override

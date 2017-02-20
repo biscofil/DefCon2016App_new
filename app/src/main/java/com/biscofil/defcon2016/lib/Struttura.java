@@ -1,4 +1,4 @@
-package com.biscofil.defcon2016;
+package com.biscofil.defcon2016.lib;
 
 import android.util.Log;
 
@@ -7,7 +7,6 @@ import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,7 +16,7 @@ import java.util.Map;
 /**
  * Created by bisco on 06/12/2016.
  */
-public class Struttura implements Serializable {
+public class Struttura {
 
     public boolean no_data = false;
     public int id;
