@@ -36,7 +36,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Details_activity"
+            android:name=".lib.Details_activity"
             android:label="@string/title_activity_details"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

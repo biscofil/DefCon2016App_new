@@ -11,7 +11,9 @@ import android.text.TextUtils;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.biscofil.defcon2016.lib.DownloadDataTask;
 import com.biscofil.defcon2016.lib.Struttura;
+import com.biscofil.defcon2016.lib.TutorialHandler;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.HashMap;

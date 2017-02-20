@@ -11,7 +11,7 @@ import com.biscofil.defcon2016.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.biscofil.defcon2016.Utils.setFragmentContent;
+import static com.biscofil.defcon2016.lib.Utils.setFragmentContent;
 
 public class Menu_fragment extends Fragment {
 

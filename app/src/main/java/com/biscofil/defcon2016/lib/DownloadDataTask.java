@@ -1,11 +1,13 @@
-package com.biscofil.defcon2016;
+package com.biscofil.defcon2016.lib;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.biscofil.defcon2016.lib.Struttura;
+import com.biscofil.defcon2016.EcoMe;
+import com.biscofil.defcon2016.MainActivity;
+import com.biscofil.defcon2016.R;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;

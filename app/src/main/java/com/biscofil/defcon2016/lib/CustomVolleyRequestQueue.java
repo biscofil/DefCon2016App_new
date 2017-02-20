@@ -1,4 +1,4 @@
-package com.biscofil.defcon2016;
+package com.biscofil.defcon2016.lib;
 
 import android.content.Context;
 import android.graphics.Bitmap;

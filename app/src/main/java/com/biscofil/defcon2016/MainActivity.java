@@ -22,7 +22,7 @@ import com.biscofil.defcon2016.fragments.Map_fragment;
 import com.biscofil.defcon2016.fragments.Menu_fragment;
 import com.biscofil.defcon2016.fragments.Meter_fragment;
 
-import static com.biscofil.defcon2016.Utils.setFragmentContent;
+import static com.biscofil.defcon2016.lib.Utils.setFragmentContent;
 
 public class MainActivity extends AppCompatActivity {
 

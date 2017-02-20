@@ -23,9 +23,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.biscofil.defcon2016.Details_activity;
 import com.biscofil.defcon2016.EcoMe;
 import com.biscofil.defcon2016.R;
+import com.biscofil.defcon2016.lib.Details_activity;
 import com.biscofil.defcon2016.lib.Struttura;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -41,8 +41,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 import static com.biscofil.defcon2016.EcoMe.MY_PERMISSIONS_REQUEST_FINE_LOCATION;
-import static com.biscofil.defcon2016.Utils.convertDrawableToBitmap;
-import static com.biscofil.defcon2016.Utils.val2col;
+import static com.biscofil.defcon2016.lib.Utils.convertDrawableToBitmap;
+import static com.biscofil.defcon2016.lib.Utils.val2col;
 
 public class Map_fragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 

@@ -17,9 +17,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.biscofil.defcon2016.R;
-import com.biscofil.defcon2016.XhrInterface;
 import com.biscofil.defcon2016.lib.Libreria;
 import com.biscofil.defcon2016.lib.Licenza;
+import com.biscofil.defcon2016.lib.XhrInterface;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

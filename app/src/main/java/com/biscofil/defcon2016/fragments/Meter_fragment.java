@@ -20,10 +20,10 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.biscofil.defcon2016.DetailsCalcoloDialog;
 import com.biscofil.defcon2016.EcoMe;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.gps.GPSTracker;
+import com.biscofil.defcon2016.lib.DetailsCalcoloDialog;
 import com.biscofil.defcon2016.views.MyArcProgress;
 import com.google.android.gms.maps.model.LatLng;
 

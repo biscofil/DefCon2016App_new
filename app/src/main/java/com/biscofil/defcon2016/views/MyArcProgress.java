@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
-import com.biscofil.defcon2016.Utils;
+import com.biscofil.defcon2016.lib.Utils;
 
 public class MyArcProgress extends ArcProgressCopy {
 

@@ -1,4 +1,4 @@
-package com.biscofil.defcon2016;
+package com.biscofil.defcon2016.lib;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+
+import com.biscofil.defcon2016.R;
 
 
 public class Utils {
