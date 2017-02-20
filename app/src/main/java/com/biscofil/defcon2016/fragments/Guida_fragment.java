@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import com.biscofil.defcon2016.R;
 
@@ -17,6 +18,8 @@ public class Guida_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_guida, container, false);
         getActivity().setTitle(getString(R.string.guida_fragment_title));
+        WebView guida_webview = (WebView) rootView.findViewById(R.id.guida_webview);
+        guida_webview.loadUrl(getString(R.string.web_url) + getString(R.string.webview_guida_url));
         return rootView;
     }
 

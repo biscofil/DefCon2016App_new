@@ -55,7 +55,8 @@
     <string name="meter_fragment_title">Meter</string>
     <string name="guide_short">Guida</string>
     <string name="licenze_versioni_short">Licenze</string>
-    <string name="webview_calcolo_url" translatable="false">calcolo</string>
+    <string name="webview_guida_url" translatable="false">guida/calcolo</string>
+    <string name="webview_calcolo_url" translatable="false">guida/calcolo</string>
     <string name="no_internet">Impossibile accedere ad internet!</string>
 
     <string name="linkedin_bisconcin" translatable="false">https://www.linkedin.com/in/filippobisconcin/</string>
