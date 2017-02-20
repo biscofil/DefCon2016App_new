@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -42,11 +41,9 @@ public class MainActivity extends AppCompatActivity {
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
-        // Tie DrawerLayout events to the ActionBarToggle
         mDrawer.addDrawerListener(drawerToggle);
 
         nvDrawer = (NavigationView) findViewById(R.id.nav_view);
-        // Setup drawer view
         nvDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -59,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         MenuItem nav_item2 = menuNav.findItem(R.id.menu_map);
         nav_item2.setEnabled(!((EcoMe) getApplication()).offlineMode);
 
-        Fragment f = setFragmentContent(this, Menu_fragment.class, true);
+        setFragmentContent(this, Menu_fragment.class, true);
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
@@ -93,11 +90,8 @@ public class MainActivity extends AppCompatActivity {
                 default:
                     setFragmentContent(this, Map_fragment.class, false);
             }
-            // Highlight the selected item has been done by NavigationView
             menuItem.setChecked(true);
-            // Set action bar title
             setTitle(menuItem.getTitle());
-            // Close the navigation drawer
             mDrawer.closeDrawers();
         }
     }
@@ -112,25 +106,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // `onPostCreate` called when activity start-up is complete after `onStart()`
-
-    // NOTE 1: Make sure to override the method with only a single `Bundle` argument
-
-    // Note 2: Make sure you implement the correct `onPostCreate(Bundle savedInstanceState)` method.
-
-    // There are 2 signatures and only `onPostCreate(Bundle state)` shows the hamburger icon.
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
         drawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggles
         drawerToggle.onConfigurationChanged(newConfig);
 
     }
