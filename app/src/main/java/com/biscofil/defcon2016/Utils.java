@@ -44,7 +44,6 @@ public class Utils {
 
     ///
 
-
     public static int val2col(double punteggio) {
         if (!(0 <= punteggio && punteggio <= 5)) {
             throw new RuntimeException("0 < hue < 5");

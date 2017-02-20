@@ -27,7 +27,6 @@ import com.biscofil.defcon2016.Details_activity;
 import com.biscofil.defcon2016.EcoMe;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.Struttura;
-import com.biscofil.defcon2016.gps.GPSTracker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -35,7 +34,6 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -52,8 +50,6 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
     Context mContext;
     private GoogleMap mMap;
     private boolean locationEnabled = false;
-    GPSTracker gps;
-    LatLng position;
 
     public Map_fragment() {
         setHasOptionsMenu(true);
@@ -66,7 +62,6 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
         mContext = getContext();
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
-
         mMapView.onResume(); // needed to get the map to display immediately
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -75,7 +70,6 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
         }
 
         mMapView.getMapAsync(this);
-
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -137,9 +131,6 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
                     mMap.setMyLocationEnabled(true);
                 }
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 
@@ -182,7 +173,6 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(((EcoMe) getActivity().getApplication()).mapCenter, 6));
 
             addMarkers();
-            /*aggiunto*/
             initializeLocationStatus();
         }
     }

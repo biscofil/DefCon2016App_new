@@ -88,16 +88,11 @@ public class Meter_fragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toast.makeText(mContext, "PREMUTO", Toast.LENGTH_LONG).show(); //:(
-
-
                 // check if GPS enabled
                 if (gps != null && gps.canGetLocation()) {
 
                     position = new LatLng(gps.getLatitude(), gps.getLongitude());
 
-                    // \n is for new line
-                    //Toast.makeText(mContext, "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
                     if (position.latitude == 0 && position.longitude == 0) {
                         Toast.makeText(mContext, "Posizione non accurata, ritenta tra 10 secondi", Toast.LENGTH_LONG).show();
                     } else {
@@ -168,7 +163,6 @@ public class Meter_fragment extends Fragment {
     }
 
     private class RequestData extends AsyncTask<String, Integer, JSONObject> {
-        JSONObject value;
 
         private JSONObject request(String s) {
             JSONObject result = null;
@@ -196,7 +190,6 @@ public class Meter_fragment extends Fragment {
             if (ists != null) {
                 StringBuilder sb = new StringBuilder();
                 String line;
-
                 try {
                     BufferedReader r1 = new BufferedReader(new InputStreamReader(
                             ists, "UTF-8"));

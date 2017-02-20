@@ -41,10 +41,8 @@ public class Menu_fragment extends Fragment {
 
         if (((EcoMe) getActivity().getApplication()).offlineMode) {
             btn_home_meter.setEnabled(false);
-            //btn_home_meter.setPaintFlags(btn_home_map.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
             btn_home_map.setEnabled(false);
-            //btn_home_map.setPaintFlags(btn_home_map.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
         CircleImageView btn_home_licenze = (CircleImageView) rootView.findViewById(R.id.home_licenze);

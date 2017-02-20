@@ -33,11 +33,8 @@ public class Licenze_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_licenze, container, false);
         getActivity().setTitle(getString(R.string.licenze_fragment_title));
-
         ListView listView = (ListView) rootView.findViewById(R.id.list_licenze);
-
         new MyTask(this, getActivity(), listView).execute();
-
         return rootView;
     }
 
@@ -76,22 +73,17 @@ public class Licenze_fragment extends Fragment {
                 try {
                     String url = getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.xhr_licenze);
                     JSONArray data = new XhrInterface().getArray(url);
-
                     List list = new LinkedList();
-
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject object = data.getJSONObject(i);
-
                         Licenza l = new Licenza();
                         l.parse(object);
                         list.add(l);
                     }
-
                     return list;
                 } catch (Exception e) {
                     Log.e("ECOME", e.getLocalizedMessage());
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
