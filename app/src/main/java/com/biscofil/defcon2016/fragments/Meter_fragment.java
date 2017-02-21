@@ -83,6 +83,7 @@ public class Meter_fragment extends Fragment {
 
             }
         } else {
+            this.btn.setEnabled(true);
             gps = new GPSTracker(getActivity(), mContext);
         }
         btn.setOnClickListener(new View.OnClickListener() {
