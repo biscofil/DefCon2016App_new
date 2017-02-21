@@ -10,32 +10,31 @@
 
         <item
             android:id="@+id/menu_meter"
-            android:icon="@drawable/meter"
+            android:icon="@drawable/vect_speed_meter_1"
             android:title="@string/str_menu_meter" />
 
         <item
             android:id="@+id/menu_map"
-            android:icon="@drawable/map_icon"
+            android:icon="@drawable/vect_worldwide"
             android:title="@string/str_menu_map" />
 
         <item
             android:id="@+id/menu_guida"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/vect_info"
             android:title="@string/guida_uso" />
         <item
             android:id="@+id/menu_calc"
-            android:icon="@drawable/calcolo"
+            android:icon="@drawable/vect_calculator"
             android:title="@string/str_menu_tec" />
 
         <item
             android:id="@+id/menu_license"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/vect_agreement"
             android:title="@string/licenze_versioni" />
-
 
         <item
             android:id="@+id/menu_credits"
-            android:icon="@drawable/credits_icon"
+            android:icon="@drawable/vect_keyboard"
             android:title="@string/menu_credits" />
 
     </group>
@@ -45,7 +44,7 @@
         <menu>
             <item
                 android:id="@+id/menu_web"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/vect_link"
                 android:title="@string/sito_web" />
         </menu>
     </item>

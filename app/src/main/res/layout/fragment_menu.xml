@@ -75,7 +75,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/home_guida"
                     style="@style/homeBtn"
-                    android:src="@drawable/guide" />
+                    android:src="@drawable/guida" />
 
                 <TextView
                     style="@style/homeBtnLabel"

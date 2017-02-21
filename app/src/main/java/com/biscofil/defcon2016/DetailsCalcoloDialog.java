@@ -1,4 +1,4 @@
-package com.biscofil.defcon2016.lib;
+package com.biscofil.defcon2016;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -20,8 +20,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.biscofil.defcon2016.EcoMe;
-import com.biscofil.defcon2016.R;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;

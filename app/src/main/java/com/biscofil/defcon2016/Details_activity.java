@@ -1,4 +1,4 @@
-package com.biscofil.defcon2016.lib;
+package com.biscofil.defcon2016;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,8 +22,9 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.biscofil.defcon2016.EcoMe;
-import com.biscofil.defcon2016.R;
+import com.biscofil.defcon2016.lib.CustomVolleyRequestQueue;
+import com.biscofil.defcon2016.lib.Struttura;
+import com.biscofil.defcon2016.lib.XhrInterface;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
