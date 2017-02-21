@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -69,7 +68,7 @@ public class Details_activity extends AppCompatActivity {
         tv_data_calcolo_val = (TextView) findViewById(R.id.tv_data_calcolo_val);
         tv_ora_calcolo_val = (TextView) findViewById(R.id.tv_ora_calcolo_val);
 
- /* setup enter and exit animation */
+        /* setup enter and exit animation */
         mEnterAnimation = new AlphaAnimation(0f, 1f);
         mEnterAnimation.setDuration(600);
         mEnterAnimation.setFillAfter(true);
@@ -92,15 +91,6 @@ public class Details_activity extends AppCompatActivity {
         ((CollapsingToolbarLayout) findViewById(R.id.toolbar_layout)).setTitle(s.nome);
 
         new DetailsDownloadTask(this, id_struttura).execute();
-/*
-        if (((EcoMe) getApplication()).tutorialHandler.isFirstTimeHere("struttura_details")) {
-            TourGuide mTourGuideHandler = TourGuide.init(this).with(TourGuide.Technique.Click)
-                    .setPointer(new Pointer())
-                    .setToolTip(new ToolTip().setTitle(getString(R.string.tutorial_title))
-                            .setDescription("Click on Get Started to begin..."))
-                    .setOverlay(new Overlay())
-                    .playOn(fab);
-        }*/
     }
 
     @Override
@@ -149,7 +139,6 @@ public class Details_activity extends AppCompatActivity {
 
     private class DetailsDownloadTask extends AsyncTask<Void, Void, Struttura> {
         Activity act;
-        Snackbar snack;
         int _id;
 
         public DetailsDownloadTask(Activity act, int id) {
@@ -160,8 +149,6 @@ public class Details_activity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // snack = Snackbar.make(act.getCurrentFocus(), R.string.scarico_dettagli, Snackbar.LENGTH_LONG);
-            // snack.show();
         }
 
         @Override
@@ -170,7 +157,6 @@ public class Details_activity extends AppCompatActivity {
             //snack.dismiss();
 
             if (s != null) {
-
                 //immagine header
                 NetworkImageView backdrop = (NetworkImageView) findViewById(R.id.backdrop);
                 ImageLoader mImageLoader = CustomVolleyRequestQueue.getInstance(act)
