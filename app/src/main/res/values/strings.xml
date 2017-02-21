@@ -77,4 +77,8 @@
     <string name="tutorial_meter_details">Una volta ottenuto un valore potrai controllare i valori che hanno contribuito al calcolo.</string>
     <string name="tutorial_details_details">Puoi controllare singolarmente i valori che hanno contribuito al calcolo.</string>
     <string name="tutorial_details_web">Visita il sito web della struttura</string>
+    <string name="gps_not_active">Il GPS non attivo, vuoi attivarlo dalle impostazioni?</string>
+    <string name="gps_not_active_title">GPS disabilitato</string>
+    <string name="gps_alert_settings">Impostazioni</string>
+    <string name="gps_alert_cancel">Annulla</string>
 </resources>

@@ -17,6 +17,8 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import com.biscofil.defcon2016.R;
+
 import static com.biscofil.defcon2016.EcoMe.MY_PERMISSIONS_REQUEST_FINE_LOCATION;
 
 public class GPSTracker extends Service implements LocationListener {
@@ -202,13 +204,13 @@ public class GPSTracker extends Service implements LocationListener {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
         // Setting Dialog Title
-        alertDialog.setTitle("GPS disabilitato");
+        alertDialog.setTitle(R.string.gps_not_active_title);
 
         // Setting Dialog Message
-        alertDialog.setMessage("Il GPS non attivo, vuoi attivarlo dalle impostazioni?");
+        alertDialog.setMessage(R.string.gps_not_active);
 
         // On pressing Settings button
-        alertDialog.setPositiveButton("Impostazioni", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton(R.string.gps_alert_settings, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
@@ -216,7 +218,7 @@ public class GPSTracker extends Service implements LocationListener {
         });
 
         // on pressing cancel button
-        alertDialog.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(R.string.gps_alert_cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }

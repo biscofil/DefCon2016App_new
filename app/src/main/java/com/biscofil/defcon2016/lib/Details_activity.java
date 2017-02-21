@@ -130,7 +130,6 @@ public class Details_activity extends AppCompatActivity {
         }
 
         LineData lineData = new LineData(dataSet);
-
         graph.setData(lineData);
     }
 

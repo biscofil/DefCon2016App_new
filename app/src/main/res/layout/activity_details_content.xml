@@ -44,6 +44,31 @@
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/punteggio"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:layout_marginBottom="5dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/dati_risalenti_a"
+                            android:layout_gravity="bottom"
+                            android:textAlignment="center"
+                            android:layout_weight="1"
+                            android:layout_marginBottom="5dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <TextView
@@ -65,16 +90,6 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:text="00:00"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/tv_ora_calcolo_val"
-                                android:layout_weight="1"
-                                android:textAlignment="center"
-                                android:textStyle="normal|bold"
-                                android:gravity="bottom" />
-
-                            <TextView
                                 android:text="-"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -86,32 +101,17 @@
                                 android:gravity="top"
                                 android:textColor="@color/colorPrimaryDark" />
 
+                            <TextView
+                                android:text="00:00"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_ora_calcolo_val"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:textStyle="normal|bold"
+                                android:gravity="bottom" />
+
                         </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="@string/punteggio"
-                            android:layout_weight="1"
-                            android:textAlignment="center"
-                            android:layout_marginBottom="5dp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="@string/dati_risalenti_a"
-                            android:layout_gravity="bottom"
-                            android:textAlignment="center"
-                            android:layout_weight="1"
-                            android:layout_marginBottom="5dp" />
 
                     </LinearLayout>
 
