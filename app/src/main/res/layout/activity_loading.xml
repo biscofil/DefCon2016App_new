@@ -20,14 +20,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
         android:gravity="center"
         android:keepScreenOn="true"
-        app:srcCompat="@drawable/icon_512_bordo" />
+        app:srcCompat="@drawable/icon_512_bordo"
+        android:layout_above="@+id/loading_info" />
 
 
 </RelativeLayout>

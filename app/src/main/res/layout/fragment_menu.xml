@@ -12,11 +12,11 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/icon_512_bordo"
             android:id="@+id/imageView3"
-            android:layout_weight="1.0" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            app:srcCompat="@drawable/icon_512_bordo" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,14 +36,8 @@
                     android:src="@drawable/guide" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/str_menu_meter"
-                    android:textColor="@android:color/white"
-                    android:textSize="90px"
-                    android:textStyle="normal|bold" />
+                    style="@style/homeBtnLabel"
+                    android:text="@string/str_menu_meter" />
 
             </RelativeLayout>
 
@@ -58,14 +52,8 @@
                     android:src="@drawable/map" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/str_menu_map"
-                    android:textColor="@android:color/white"
-                    android:textSize="90px"
-                    android:textStyle="normal|bold" />
+                    style="@style/homeBtnLabel"
+                    android:text="@string/str_menu_map" />
 
             </RelativeLayout>
 
@@ -90,14 +78,8 @@
                     android:src="@drawable/guide" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/guide_short"
-                    android:textColor="@android:color/white"
-                    android:textSize="90px"
-                    android:textStyle="normal|bold" />
+                    style="@style/homeBtnLabel"
+                    android:text="@string/guide_short" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -111,14 +93,8 @@
                     android:src="@drawable/credits" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/licenze_versioni_short"
-                    android:textColor="@android:color/white"
-                    android:textSize="90px"
-                    android:textStyle="normal|bold" />
+                    style="@style/homeBtnLabel"
+                    android:text="@string/licenze_versioni_short" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
