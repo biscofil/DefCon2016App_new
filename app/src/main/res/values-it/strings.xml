@@ -49,4 +49,8 @@
     <string name="tutorial_meter_details">Una volta ottenuto un valore potrai controllare i valori che hanno contribuito al calcolo.</string>
     <string name="tuorial_refresh_meter">Controlla la qualità del luogo in cui ti trovi utilizzando la tua posizione.</string>
     <string name="tutorial_details_details">Puoi controllare singolarmente i valori che hanno contribuito al calcolo.</string>
+    <string name="gps_alert_cancel">Annulla</string>
+    <string name="gps_alert_settings">Impostazioni</string>
+    <string name="gps_not_active_title">GPS disabilitato</string>
+    <string name="gps_not_active">Il GPS non attivo, vuoi attivarlo dalle impostazioni?</string>
 </resources>
