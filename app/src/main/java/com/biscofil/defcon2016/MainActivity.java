@@ -56,7 +56,10 @@ public class MainActivity extends AppCompatActivity {
         MenuItem nav_item2 = menuNav.findItem(R.id.menu_map);
         nav_item2.setEnabled(!((EcoMe) getApplication()).offlineMode);
 
-        setFragmentContent(this, Menu_fragment.class, true);
+
+        if (null == savedInstanceState) {
+            setFragmentContent(this, Menu_fragment.class, true);
+        }
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(getString(R.string.web_url)));
             startActivity(i);
-        } else {
+        } else if (!menuItem.isChecked()) {
             switch (menuItem.getItemId()) {
                 case R.id.menu_menu:
                     setFragmentContent(this, Menu_fragment.class, false);
