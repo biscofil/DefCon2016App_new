@@ -112,7 +112,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
 
                     @Override
                     public void onResponseErrr(String err) {
-                        Toast.makeText(getContext(), err, Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, err, Toast.LENGTH_LONG).show();
                     }
                 }
         );
