@@ -1,5 +1,6 @@
 package com.biscofil.defcon2016.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -62,9 +63,16 @@ public class Menu_fragment extends Fragment {
 
         if (((EcoMe) getActivity().getApplication()).offlineMode) {
             btn_home_meter.setEnabled(false);
+            btn_home_meter.setColorFilter(Color.argb(127, 255, 255, 255));
+            rootView.findViewById(R.id.home_meter_tv).setVisibility(View.INVISIBLE);
+
             btn_home_map.setEnabled(false);
+            btn_home_map.setColorFilter(Color.argb(127, 255, 255, 255));
+            rootView.findViewById(R.id.home_map_tv).setVisibility(View.INVISIBLE);
+
             btn_home_guida.setEnabled(false);
-            //TODO oscurare bottoni
+            btn_home_guida.setColorFilter(Color.argb(127, 255, 255, 255));
+            rootView.findViewById(R.id.home_guida_tv).setVisibility(View.INVISIBLE);
         }
 
         return rootView;

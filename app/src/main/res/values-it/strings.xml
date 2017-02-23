@@ -57,4 +57,5 @@
     <string name="gps_alert_title">Attenzione!</string>
     <string name="try_later_gps">Posizione non accurata, ritenta tra un istante</string>
     <string name="app_require_gps_toast">Questa app necessita del GPS</string>
+    <string name="error_connection_server">Errore nella comunicazione con il server</string>
 </resources>

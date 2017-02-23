@@ -57,4 +57,5 @@
     <string name="try_later_gps">Please wait few seconds and then retry</string>
     <string name="gps_alert_title">Warning</string>
     <string name="gps_alert_body">Invalid operation!</string>
+    <string name="error_connection_server">Error during comunication with server</string>
 </resources>

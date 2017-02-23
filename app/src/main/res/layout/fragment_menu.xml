@@ -36,6 +36,7 @@
                     android:src="@drawable/guide" />
 
                 <TextView
+                    android:id="@+id/home_meter_tv"
                     style="@style/homeBtnLabel"
                     android:text="@string/str_menu_meter" />
 
@@ -52,6 +53,7 @@
                     android:src="@drawable/map" />
 
                 <TextView
+                    android:id="@+id/home_map_tv"
                     style="@style/homeBtnLabel"
                     android:text="@string/str_menu_map" />
 
@@ -78,6 +80,7 @@
                     android:src="@drawable/guida" />
 
                 <TextView
+                    android:id="@+id/home_guida_tv"
                     style="@style/homeBtnLabel"
                     android:text="@string/guide_short" />
             </RelativeLayout>
@@ -93,6 +96,7 @@
                     android:src="@drawable/credits" />
 
                 <TextView
+                    android:id="@+id/home_licenze_tv"
                     style="@style/homeBtnLabel"
                     android:text="@string/licenze_versioni_short" />
             </RelativeLayout>
