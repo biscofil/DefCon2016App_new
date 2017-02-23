@@ -88,16 +88,15 @@ public class Details_activity extends AppCompatActivity {
         int id_struttura = i.getIntExtra("id_struttura", -1);
         final Struttura s = new Struttura();
 
-        //titolo
-        ((CollapsingToolbarLayout) findViewById(R.id.toolbar_layout)).setTitle(s.nome);
-
         ((EcoMe) getApplication())._xhr_interface.volleyRequestObject(
                 getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.struttura_method) + "/" + id_struttura,
                 new XhrInterface.VolleyListener() {
                     @Override
                     public void onResponseObject(JSONObject object) {
-                        final Struttura s = new Struttura();
                         s.parse_storico(object);
+
+                        //titolo
+                        ((CollapsingToolbarLayout) findViewById(R.id.toolbar_layout)).setTitle(s.nome);
 
                         if (s != null) {
                             //immagine header

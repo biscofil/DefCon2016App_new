@@ -98,7 +98,7 @@
                                 android:layout_weight="1.09"
                                 android:textStyle="normal|bold"
                                 android:textSize="30sp"
-                                android:gravity="top"
+                                android:gravity="bottom"
                                 android:textColor="@color/colorPrimaryDark" />
 
                             <TextView
@@ -109,7 +109,7 @@
                                 android:layout_weight="1"
                                 android:textAlignment="center"
                                 android:textStyle="normal|bold"
-                                android:gravity="bottom" />
+                                android:gravity="top" />
 
                         </LinearLayout>
 
