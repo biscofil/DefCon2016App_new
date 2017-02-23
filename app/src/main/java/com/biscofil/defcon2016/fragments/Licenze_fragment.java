@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.biscofil.defcon2016.EcoMe;
+import com.biscofil.defcon2016.MainActivity;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.lib.Libreria;
 import com.biscofil.defcon2016.lib.Licenza;
@@ -40,6 +42,10 @@ public class Licenze_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_licenze, container, false);
         getActivity().setTitle(getString(R.string.licenze_fragment_title));
+
+        final Menu menuNav = ((MainActivity) getActivity()).getDrawer().getMenu();
+        menuNav.findItem(R.id.menu_license).setChecked(true);
+
         listView = (ListView) rootView.findViewById(R.id.list_licenze);
         lv_librerie = (ListView) rootView.findViewById(R.id.lv_librerie);
 

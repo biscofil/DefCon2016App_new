@@ -1,6 +1,7 @@
 package com.biscofil.defcon2016.fragments;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,8 +27,10 @@ import android.widget.Toast;
 
 import com.biscofil.defcon2016.Details_activity;
 import com.biscofil.defcon2016.EcoMe;
+import com.biscofil.defcon2016.MainActivity;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.lib.Struttura;
+import com.biscofil.defcon2016.lib.XhrInterface;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -34,9 +38,15 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -49,16 +59,74 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
     MapView mMapView;
     Context mContext;
     private GoogleMap mMap;
-    private boolean locationEnabled = false;
+
+    private boolean locationEnabled;
+
+    public Map<Integer, Struttura> strutture = new HashMap<>();
+    public LatLng mapCenter = new LatLng(41.8919300, 12.5113300); //roma
 
     public Map_fragment() {
         setHasOptionsMenu(true);
     }
 
+    public void aggiornaDati() {
+        Activity act = getActivity();
+        strutture = new HashMap<>();
+
+        ((EcoMe) getActivity().getApplication())._xhr_interface.volleyRequestArray(
+                act.getString(R.string.web_url) + act.getString(R.string.xhr_controller) + act.getString(R.string.strutture_method),
+                new XhrInterface.VolleyListener() {
+                    @Override
+                    public void onResponseObject(JSONObject obj) {
+
+                    }
+
+                    @Override
+                    public void onResponseArray(JSONArray data) {
+                        for (int i = 0; i < data.length(); i++) {
+                            JSONObject object = null;
+                            try {
+                                object = data.getJSONObject(i);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            Struttura s = new Struttura();
+                            try {
+                                s.punteggio = object.getDouble("last_value");
+                            } catch (JSONException e) {
+                                s.no_data = true;
+                            }
+                            try {
+                                int id = object.getInt("id");
+                                s.id = id;
+                                s.nome = object.getString("nome");
+                                s.lat_lng = new LatLng(object.getDouble("lat"), object.getDouble("lng"));
+                                strutture.put(id, s);
+                            } catch (Exception e) {
+                                Log.e("ECOME", e.getLocalizedMessage());
+                            }
+                        }
+                        mMap.clear();
+                        addMarkers();
+                    }
+
+                    @Override
+                    public void onResponseErrr(String err) {
+                        Toast.makeText(getContext(), err, Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
         getActivity().setTitle(getString(R.string.mappa_fragment_title));
+
+        final Menu menuNav = ((MainActivity) getActivity()).getDrawer().getMenu();
+        menuNav.findItem(R.id.menu_map).setChecked(true);
+
         mContext = getContext();
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
@@ -71,6 +139,9 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
 
         mMapView.getMapAsync(this);
         setHasOptionsMenu(true);
+
+        aggiornaDati();
+
         return rootView;
     }
 
@@ -109,7 +180,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
             Snackbar.make(getView(), R.string.sto_aggiornando, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
 
-            ((EcoMe) getActivity().getApplication()).aggiornaDati(getActivity());
+            aggiornaDati();
            /*aggiunto*/
             initializeLocationStatus();
             return true;
@@ -125,7 +196,6 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
                 // If request is cancelled, the result arrays are empty.
                 if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     mMap.setMyLocationEnabled(false);
-
                     return;
                 } else {
                     mMap.setMyLocationEnabled(true);
@@ -170,7 +240,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
             mMap.setOnMarkerClickListener(this);
             mMap.getUiSettings().setMapToolbarEnabled(false);
 
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(((EcoMe) getActivity().getApplication()).mapCenter, 6));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 6));
 
             addMarkers();
             initializeLocationStatus();
@@ -187,7 +257,7 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     public void addMarkers() {
-        Iterator it = ((EcoMe) getActivity().getApplication()).strutture.entrySet().iterator();
+        Iterator it = strutture.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             int id = (Integer) pair.getKey();

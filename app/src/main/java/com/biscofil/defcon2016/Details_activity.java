@@ -87,12 +87,11 @@ public class Details_activity extends AppCompatActivity {
 
         Intent i = getIntent();
         int id_struttura = i.getIntExtra("id_struttura", -1);
-        final Struttura s = ((EcoMe) getApplication()).strutture.get(id_struttura);
+        final Struttura s = new Struttura();
 
         //titolo
         ((CollapsingToolbarLayout) findViewById(R.id.toolbar_layout)).setTitle(s.nome);
 
-        //new DetailsDownloadTask(this, id_struttura).execute();
         ((EcoMe) getApplication())._xhr_interface.volleyRequestObject(
                 getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.struttura_method) + "/" + id_struttura,
                 new XhrInterface.VolleyListener() {

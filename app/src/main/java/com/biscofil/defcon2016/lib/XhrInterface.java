@@ -8,6 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.biscofil.defcon2016.EcoMe;
+import com.biscofil.defcon2016.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -92,7 +93,7 @@ public class XhrInterface {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        vl.onResponseErrr(error.getMessage());
+                        vl.onResponseErrr(mApp.getString(R.string.error_connection_server));
                     }
                 });
         ((EcoMe) mApp).addToRequestQueue(jsObjRequest);

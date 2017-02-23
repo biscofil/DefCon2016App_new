@@ -30,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
 
+    public NavigationView getDrawer() {
+        return nvDrawer;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +57,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         Menu menuNav = nvDrawer.getMenu();
-        MenuItem nav_item2 = menuNav.findItem(R.id.menu_map);
-        nav_item2.setEnabled(!((EcoMe) getApplication()).offlineMode);
+
+        menuNav.findItem(R.id.menu_map).setEnabled(!((EcoMe) getApplication()).offlineMode);
+        menuNav.findItem(R.id.menu_meter).setEnabled(!((EcoMe) getApplication()).offlineMode);
+        menuNav.findItem(R.id.menu_guida).setEnabled(!((EcoMe) getApplication()).offlineMode);
+        menuNav.findItem(R.id.menu_calc).setEnabled(!((EcoMe) getApplication()).offlineMode);
 
         if (null == savedInstanceState) {
-            setFragmentContent(this, Menu_fragment.class, true);
+            MenuItem nav_item_home = menuNav.findItem(R.id.menu_menu);
+            setFragmentContent(this, Menu_fragment.class, nav_item_home, true);
         }
     }
 
@@ -69,28 +79,28 @@ public class MainActivity extends AppCompatActivity {
         } else if (!menuItem.isChecked()) {
             switch (menuItem.getItemId()) {
                 case R.id.menu_menu:
-                    setFragmentContent(this, Menu_fragment.class, false);
+                    setFragmentContent(this, Menu_fragment.class, menuItem, true);
                     break;
                 case R.id.menu_meter:
-                    setFragmentContent(this, Meter_fragment.class, false);
+                    setFragmentContent(this, Meter_fragment.class, menuItem, false);
                     break;
                 case R.id.menu_map:
-                    setFragmentContent(this, Map_fragment.class, false);
+                    setFragmentContent(this, Map_fragment.class, menuItem, false);
                     break;
                 case R.id.menu_guida:
-                    setFragmentContent(this, Guida_fragment.class, false);
+                    setFragmentContent(this, Guida_fragment.class, menuItem, false);
                     break;
                 case R.id.menu_calc:
-                    setFragmentContent(this, GuidaCalcoloIndice_fragment.class, false);
+                    setFragmentContent(this, GuidaCalcoloIndice_fragment.class, menuItem, false);
                     break;
                 case R.id.menu_license:
-                    setFragmentContent(this, Licenze_fragment.class, false);
+                    setFragmentContent(this, Licenze_fragment.class, menuItem, false);
                     break;
                 case R.id.menu_credits:
-                    setFragmentContent(this, Credits_fragment.class, false);
+                    setFragmentContent(this, Credits_fragment.class, menuItem, false);
                     break;
                 default:
-                    setFragmentContent(this, Map_fragment.class, false);
+                    setFragmentContent(this, Map_fragment.class, menuItem, false);
             }
             menuItem.setChecked(true);
             setTitle(menuItem.getTitle());

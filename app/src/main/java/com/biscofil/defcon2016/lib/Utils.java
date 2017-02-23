@@ -9,31 +9,38 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.biscofil.defcon2016.R;
 
 public class Utils {
 
-    public static Fragment setFragmentContent(AppCompatActivity act, Class fragmentClass, boolean first) {
-        return setFragmentContent(act.getSupportFragmentManager(), fragmentClass, first);
+    public static Fragment setFragmentContent(AppCompatActivity act, Class fragmentClass, MenuItem mi, boolean first) {
+        return set_fragment_content(act.getSupportFragmentManager(), fragmentClass, mi, first);
     }
 
-    public static Fragment setFragmentContent(Fragment f, Class fragmentClass, boolean first) {
-        return setFragmentContent(f.getActivity().getSupportFragmentManager(), fragmentClass, first);
+    public static Fragment setFragmentContent(Fragment f, Class fragmentClass, MenuItem mi, boolean first) {
+        return set_fragment_content(f.getActivity().getSupportFragmentManager(), fragmentClass, mi, first);
     }
 
 
-    private static Fragment setFragmentContent(FragmentManager fm, Class fragmentClass, boolean first) {
+    private static Fragment set_fragment_content(FragmentManager fm, Class fragmentClass, MenuItem item, boolean first) {
         try {
+            item.setChecked(true);
+
             Fragment fragment = (Fragment) fragmentClass.newInstance();
             FragmentTransaction ft = fm.beginTransaction();
             ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
 
-            //if (first) {
-            ft.replace(R.id.flContent, fragment).commit();
-            /*} else {
+            //TODO ELIMINARE CRONOLOGIA; back porta a menu
+            if (first) {
+                for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                    fm.popBackStack();
+                }
+                ft.replace(R.id.flContent, fragment).commit();
+            } else {
                 ft.replace(R.id.flContent, fragment).addToBackStack(null).commit();
-            }*/
+            }
             return fragment;
         } catch (InstantiationException e) {
             e.printStackTrace();

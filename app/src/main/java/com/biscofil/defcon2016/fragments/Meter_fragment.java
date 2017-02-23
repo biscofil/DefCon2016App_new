@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.biscofil.defcon2016.DetailsCalcoloDialog;
 import com.biscofil.defcon2016.EcoMe;
+import com.biscofil.defcon2016.MainActivity;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.gps.GPSTracker;
 import com.biscofil.defcon2016.lib.XhrInterface;
@@ -52,6 +54,10 @@ public class Meter_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_meter, container, false);
         getActivity().setTitle(getString(R.string.meter_fragment_title));
+
+        final Menu menuNav = ((MainActivity) getActivity()).getDrawer().getMenu();
+        menuNav.findItem(R.id.menu_meter).setChecked(true);
+
         this.mContext = getContext();
 
         btn = (Button) rootView.findViewById(R.id.btn_meter_update);
