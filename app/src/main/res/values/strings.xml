@@ -66,7 +66,7 @@
     <string name="tutorial_title" translatable="false">Tutorial</string>
     <string name="contiue_offline">Continua</string>
     <string name="exit_offline">Esci</string>
-    <string name="scarico_dettagli">Scarico i dettagli...</string>
+    <string name="scarico_dettagli">Scarico i dettagli</string>
     <string name="app_require_gps">Questa app necessita del GPS</string>
     <string name="gps_title_attention">Attenzione!</string>
     <string name="gps_operation_no_valid">Operazione non valida!</string>
@@ -87,4 +87,7 @@
     <string name="gps_alert_title">Attenzione!</string>
     <string name="gps_alert_body">Operazione non valida!</string>
     <string name="error_connection_server">Errore nella comunicazione con il server</string>
+    <string name="dettagli">Dettagli</string>
+    <string name="aggiorna">Aggiorna</string>
+    <string name="meter_points">PUNTEGGIO</string>
 </resources>
