@@ -10,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -218,7 +217,7 @@ public class Details_activity extends AppCompatActivity {
                 .setToolTip(new ToolTip()
                         .setTitle(getString(R.string.tutorial_title))
                         .setDescription(getString(R.string.tutorial_details_web))
-                        .setGravity(Gravity.BOTTOM | Gravity.LEFT)
+                        //.setGravity(Gravity.BOTTOM | Gravity.LEFT)
                         .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorComplement, null))
                 )
                 .playLater(fab);
@@ -227,7 +226,7 @@ public class Details_activity extends AppCompatActivity {
                 .setToolTip(new ToolTip()
                         .setTitle(getString(R.string.tutorial_title))
                         .setDescription(getString(R.string.tutorial_details_details))
-                        .setGravity(Gravity.TOP)
+                        //.setGravity(Gravity.TOP)
                         .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorComplement, null))
                 )
                 .playLater(rb);
