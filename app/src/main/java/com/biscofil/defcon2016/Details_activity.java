@@ -3,7 +3,6 @@ package com.biscofil.defcon2016;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -19,6 +18,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -30,6 +30,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -86,12 +87,87 @@ public class Details_activity extends AppCompatActivity {
 
         Intent i = getIntent();
         int id_struttura = i.getIntExtra("id_struttura", -1);
-        Struttura s = ((EcoMe) getApplication()).strutture.get(id_struttura);
+        final Struttura s = ((EcoMe) getApplication()).strutture.get(id_struttura);
 
         //titolo
         ((CollapsingToolbarLayout) findViewById(R.id.toolbar_layout)).setTitle(s.nome);
 
-        new DetailsDownloadTask(this, id_struttura).execute();
+        //new DetailsDownloadTask(this, id_struttura).execute();
+        ((EcoMe) getApplication())._xhr_interface.volleyRequestObject(
+                getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.struttura_method) + "/" + id_struttura,
+                new XhrInterface.VolleyListener() {
+                    @Override
+                    public void onResponseObject(JSONObject object) {
+                        final Struttura s = new Struttura();
+                        s.parse_storico(object);
+
+                        if (s != null) {
+                            //immagine header
+                            NetworkImageView backdrop = (NetworkImageView) findViewById(R.id.backdrop);
+                            ImageLoader mImageLoader = CustomVolleyRequestQueue.getInstance(Details_activity.this)
+                                    .getImageLoader();
+                            final String url = s.url_img;
+                            mImageLoader.get(url, ImageLoader.getImageListener(backdrop, R.drawable.campo_sm, R.drawable.campo_sm));
+                            backdrop.setImageUrl(url, mImageLoader);
+
+                            //descrizione
+                            ((TextView) findViewById(R.id.details_text)).setText(s.descrizione);
+
+                            //bottone
+                            setup_fab(s);
+
+                            //punteggio
+                            if (s.no_data) {
+                                graph.setVisibility(View.GONE);
+                                tv_punteggio_val.setText("-");
+                                tv_data_calcolo_val.setText("-");
+                                tv_ora_calcolo_val.setText("-");
+                                rb.setRating(0);
+                            } else {
+                                rb.setMax(5);
+                                rb.setStepSize(0.5f);
+                                rb.setRating((float) s.punteggio);
+
+                                //str punteggio
+                                rb.setOnTouchListener(new View.OnTouchListener() {
+                                    @Override
+                                    public boolean onTouch(View v, MotionEvent event) {
+                                        DetailsCalcoloDialog cp = new DetailsCalcoloDialog();
+                                        cp.setStruttura(s.lat_lng);
+                                        cp.show(getSupportFragmentManager(), "BISCO");
+                                        return false;
+                                    }
+                                });
+                                String[] splited = s.data_dati.split("\\s+");
+                                tv_punteggio_val.setText("" + s.punteggio);
+                                tv_data_calcolo_val.setText(splited[0]);
+                                tv_ora_calcolo_val.setText(splited[1]);
+                            }
+
+                            //storico
+                            if (!s.storico.isEmpty()) {
+                                setup_graph(s);
+                                graph.invalidate();
+                            } else {
+                                graph.setVisibility(View.GONE);
+                            }
+
+                            if (((EcoMe) getApplication()).tutorialHandler.isFirstTimeHere(this.getClass())) {
+                                runOverlay_ContinueMethod();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onResponseArray(JSONArray arr) {
+
+                    }
+
+                    @Override
+                    public void onResponseErrr(String err) {
+                        Toast.makeText(getApplicationContext(), err, Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     @Override
@@ -136,97 +212,6 @@ public class Details_activity extends AppCompatActivity {
             }
         });
 
-    }
-
-    private class DetailsDownloadTask extends AsyncTask<Void, Void, Struttura> {
-        Activity act;
-        int _id;
-
-        public DetailsDownloadTask(Activity act, int id) {
-            this.act = act;
-            _id = id;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(final Struttura s) {
-            super.onPostExecute(s);
-            //snack.dismiss();
-
-            if (s != null) {
-                //immagine header
-                NetworkImageView backdrop = (NetworkImageView) findViewById(R.id.backdrop);
-                ImageLoader mImageLoader = CustomVolleyRequestQueue.getInstance(act)
-                        .getImageLoader();
-                final String url = s.url_img;
-                mImageLoader.get(url, ImageLoader.getImageListener(backdrop, R.drawable.campo_sm, R.drawable.campo_sm));
-                backdrop.setImageUrl(url, mImageLoader);
-
-                //descrizione
-                ((TextView) findViewById(R.id.details_text)).setText(s.descrizione);
-
-                //bottone
-                setup_fab(s);
-
-                //punteggio
-                if (s.no_data) {
-                    graph.setVisibility(View.GONE);
-                    tv_punteggio_val.setText("-");
-                    tv_data_calcolo_val.setText("-");
-                    tv_ora_calcolo_val.setText("-");
-                    rb.setRating(0);
-                } else {
-                    rb.setMax(5);
-                    rb.setStepSize(0.5f);
-                    rb.setRating((float) s.punteggio);
-
-                    //str punteggio
-                    rb.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            DetailsCalcoloDialog cp = new DetailsCalcoloDialog();
-                            cp.setStruttura(s.lat_lng);
-                            cp.show(getSupportFragmentManager(), "BISCO");
-                            return false;
-                        }
-                    });
-                    String[] splited = s.data_dati.split("\\s+");
-                    tv_punteggio_val.setText("" + s.punteggio);
-                    tv_data_calcolo_val.setText(splited[0]);
-                    tv_ora_calcolo_val.setText(splited[1]);
-                }
-
-                //storico
-                if (!s.storico.isEmpty()) {
-                    setup_graph(s);
-                    graph.invalidate();
-                } else {
-                    graph.setVisibility(View.GONE);
-                }
-
-                if (((EcoMe) getApplication()).tutorialHandler.isFirstTimeHere(this.getClass())) {
-                    runOverlay_ContinueMethod();
-                }
-            }
-        }
-
-        @Override
-        protected Struttura doInBackground(Void... params) {
-            String url = getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.struttura_method) + "/" + _id;
-            try {
-                JSONObject object = new XhrInterface().getObject(url);
-                Struttura out = new Struttura();
-                out.parse_storico(object);
-                return out;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
     }
 
     private void runOverlay_ContinueMethod() {

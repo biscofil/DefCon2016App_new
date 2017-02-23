@@ -27,6 +27,7 @@ public class Menu_fragment extends Fragment {
         btn_home_meter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO get menu, set clicked on item
                 setFragmentContent(Menu_fragment.this, Meter_fragment.class, false);
             }
         });
@@ -35,13 +36,13 @@ public class Menu_fragment extends Fragment {
         btn_home_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO get menu, set clicked on item
                 setFragmentContent(Menu_fragment.this, Map_fragment.class, false);
             }
         });
 
         if (((EcoMe) getActivity().getApplication()).offlineMode) {
             btn_home_meter.setEnabled(false);
-
             btn_home_map.setEnabled(false);
         }
 
@@ -49,6 +50,7 @@ public class Menu_fragment extends Fragment {
         btn_home_licenze.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO get menu, set clicked on item
                 setFragmentContent(Menu_fragment.this, Licenze_fragment.class, false);
             }
         });
@@ -57,6 +59,7 @@ public class Menu_fragment extends Fragment {
         btn_home_guida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO get menu, set clicked on item
                 setFragmentContent(Menu_fragment.this, Guida_fragment.class, false);
             }
         });
@@ -64,5 +67,6 @@ public class Menu_fragment extends Fragment {
 
         return rootView;
     }
+
 
 }

@@ -15,11 +15,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.biscofil.defcon2016.lib.XhrInterface;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -59,16 +57,15 @@ public class DetailsCalcoloDialog extends DialogFragment {
 
         final ProgressBar loading_dialog_details = (ProgressBar) view.findViewById(R.id.loading_dialog_details);
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
+        ((EcoMe) getActivity().getApplication())._xhr_interface.volleyRequestObject(
+                url,
+                new XhrInterface.VolleyListener() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponseObject(JSONObject response) {
                         JSONObject dati = null;
                         JSONObject indici = null;
                         try {
-                            dati = response.getJSONObject("dati");
-                            indici = dati.getJSONObject("indici");
+                            indici = response.getJSONObject("indici");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -95,7 +92,7 @@ public class DetailsCalcoloDialog extends DialogFragment {
                         }
 
                         try {
-                            HistoryAdapter adapter = new HistoryAdapter(getActivity(), dati.getJSONArray("raw"));
+                            HistoryAdapter adapter = new HistoryAdapter(getActivity(), response.getJSONArray("raw"));
                             search_ins_listview.setAdapter(adapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -104,14 +101,19 @@ public class DetailsCalcoloDialog extends DialogFragment {
                         loading_dialog_details.setVisibility(View.GONE);
                         search_ins_listview.setVisibility(View.VISIBLE);
                     }
-                }, new Response.ErrorListener() {
 
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                });
+                    public void onResponseArray(JSONArray arr) {
 
-        EcoMe.getInstance().addToRequestQueue(jsObjRequest);
+                    }
+
+                    @Override
+                    public void onResponseErrr(String err) {
+                        Toast.makeText(getContext(), err, Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+
         return builder.create();
     }
 

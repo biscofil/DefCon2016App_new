@@ -1,19 +1,16 @@
 package com.biscofil.defcon2016.lib;
 
+import android.app.Application;
 import android.util.Log;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.biscofil.defcon2016.EcoMe;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class XhrInterface {
 
@@ -24,43 +21,81 @@ public class XhrInterface {
     public static int xhr_error_result = 0;
     public static int xhr_success_result = 1;
 
-    public JSONObject getObject(String path) throws Exception {
-        JSONObject obj = commonRequest(path);
-        return obj.getJSONObject(xhr_data);
+    private Application mApp;
+
+    public XhrInterface(Application a) {
+        mApp = a;
     }
 
-    public JSONArray getArray(String path) throws Exception {
-        JSONObject obj = commonRequest(path);
-        return obj.getJSONArray(xhr_data);
+    public interface VolleyListener {
+        void onResponseObject(JSONObject obj);
+
+        void onResponseArray(JSONArray arr);
+
+        void onResponseErrr(String err);
     }
 
-    private JSONObject commonRequest(String path) throws Exception {
-        try {
-            URL url = new URL(path);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            if (conn.getResponseCode() == HttpsURLConnection.HTTP_OK) {
-                InputStream it = new BufferedInputStream(conn.getInputStream());
-                InputStreamReader read = new InputStreamReader(it);
-                BufferedReader buff = new BufferedReader(read);
-                StringBuilder dta = new StringBuilder();
-                String chunks;
-                while ((chunks = buff.readLine()) != null) {
-                    dta.append(chunks);
-                }
-                JSONObject obj = new JSONObject(dta.toString());
-                if (obj.getInt(xhr_result) == xhr_success_result) {
-                    return obj;
-                } else if (obj.getInt(xhr_result) == xhr_error_result) {
-                    throw new Exception(obj.getString(xhr_error));
-                } else {
-                    throw new Exception("Formato non supportato");
-                }
-            } else {
-                throw new Exception("Impossibile contattare " + path);
+    public void volleyRequestObject(String path, final VolleyListener vl) {
+        _download(path, vl, false);
+    }
+
+    public void volleyRequestArray(String path, final VolleyListener vl) {
+        _download(path, vl, true);
+    }
+
+    private void _download(final String path, final VolleyListener vl, final boolean _array) {
+        commonRequestVolleyObject(path, new VolleyListener() {
+            @Override
+            public void onResponseObject(JSONObject obj) {
+                _check_result_int(obj, vl, _array);
             }
-        } catch (IOException e) {
-            Log.e("ECOME", e.getLocalizedMessage());
-        }
-        return null;
+
+            @Override
+            public void onResponseArray(JSONArray arr) {
+                //non richiesto
+            }
+
+            @Override
+            public void onResponseErrr(String err) {
+                Log.e("ECOME", path);
+                vl.onResponseErrr(err);
+            }
+        });
     }
+
+    private void _check_result_int(JSONObject obj, final VolleyListener vl, boolean _array) {
+        try {
+            if (obj.getInt(xhr_result) == xhr_success_result) {
+                if (_array) {
+                    vl.onResponseArray(obj.getJSONArray(xhr_data));
+                } else {
+                    vl.onResponseObject(obj.getJSONObject(xhr_data));
+                }
+            } else if (obj.getInt(xhr_result) == xhr_error_result) {
+                vl.onResponseErrr(obj.getString(xhr_error));
+            } else {
+                vl.onResponseErrr("Formato non supportato");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            vl.onResponseErrr(e.getMessage());
+        }
+    }
+
+    private void commonRequestVolleyObject(String path, final VolleyListener vl) {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, path, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        vl.onResponseObject(response);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        vl.onResponseErrr(error.getMessage());
+                    }
+                });
+        ((EcoMe) mApp).addToRequestQueue(jsObjRequest);
+    }
+
 }

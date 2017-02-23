@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +13,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.biscofil.defcon2016.EcoMe;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.lib.Libreria;
 import com.biscofil.defcon2016.lib.Licenza;
 import com.biscofil.defcon2016.lib.XhrInterface;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -60,63 +61,55 @@ public class Licenze_fragment extends Fragment {
             }
         });
 
-        new MyTask(this, getActivity(), listView).execute();
+        //new MyTask(this, getActivity(), listView).execute();
+        final Activity act = getActivity();
+
+        ((EcoMe) getActivity().getApplication())._xhr_interface.volleyRequestArray(
+                getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.xhr_licenze),
+                new XhrInterface.VolleyListener() {
+                    @Override
+                    public void onResponseObject(JSONObject obj) {
+
+                    }
+
+                    @Override
+                    public void onResponseArray(JSONArray data) {
+                        final List l = new LinkedList();
+                        for (int i = 0; i < data.length(); i++) {
+                            JSONObject object = null;
+                            try {
+                                object = data.getJSONObject(i);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            Licenza lic = new Licenza();
+                            lic.parse(object);
+                            l.add(lic);
+                        }
+
+                        LicenzeAdapter adapter = new LicenzeAdapter(act, R.layout.licenze_row, l);
+                        listView.setAdapter(adapter);
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Licenza o = (Licenza) l.get(position);
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(o.link_licenza));
+                                startActivity(i);
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onResponseErrr(String err) {
+                        Toast.makeText(getContext(), err, Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+
         return rootView;
     }
-
-
-    private class MyTask extends AsyncTask<Void, Void, List> {
-
-        ListView listView;
-        Fragment fra;
-        Activity act;
-
-        public MyTask(Fragment f, Activity a, ListView lv) {
-            fra = f;
-            act = a;
-            listView = lv;
-        }
-
-        @Override
-        protected void onPostExecute(final List l) {
-            super.onPostExecute(l);
-            LicenzeAdapter adapter = new LicenzeAdapter(act, R.layout.licenze_row, l);
-            listView.setAdapter(adapter);
-
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Licenza o = (Licenza) l.get(position);
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(o.link_licenza));
-                    startActivity(i);
-                }
-            });
-        }
-
-        @Override
-        protected List doInBackground(Void... params) {
-            try {
-                try {
-                    String url = getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.xhr_licenze);
-                    JSONArray data = new XhrInterface().getArray(url);
-                    List list = new LinkedList();
-                    for (int i = 0; i < data.length(); i++) {
-                        JSONObject object = data.getJSONObject(i);
-                        Licenza l = new Licenza();
-                        l.parse(object);
-                        list.add(l);
-                    }
-                    return list;
-                } catch (Exception e) {
-                    Log.e("ECOME", e.getLocalizedMessage());
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
 
     private class LicenzeAdapter extends ArrayAdapter<Licenza> {
 

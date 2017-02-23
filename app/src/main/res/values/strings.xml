@@ -81,4 +81,9 @@
     <string name="gps_not_active_title">GPS disabilitato</string>
     <string name="gps_alert_settings">Impostazioni</string>
     <string name="gps_alert_cancel">Annulla</string>
+    <string name="try_later_gps">Posizione non accurata, ritenta tra un istante</string>
+    <string name="gps_to_value_method" translatable="false">gps_to_value/</string>
+    <string name="app_require_gps_toast">This app need your location</string>
+    <string name="gps_alert_title">Attenzione!</string>
+    <string name="gps_alert_body">Operazione non valida!</string>
 </resources>

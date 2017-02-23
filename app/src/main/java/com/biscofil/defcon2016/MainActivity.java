@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         MenuItem nav_item2 = menuNav.findItem(R.id.menu_map);
         nav_item2.setEnabled(!((EcoMe) getApplication()).offlineMode);
 
-
         if (null == savedInstanceState) {
             setFragmentContent(this, Menu_fragment.class, true);
         }

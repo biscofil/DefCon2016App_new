@@ -53,4 +53,8 @@
     <string name="gps_alert_settings">Settings</string>
     <string name="gps_not_active_title">GPS disabled</string>
     <string name="gps_not_active">GPS is disabled, do you want to open settings?</string>
+    <string name="app_require_gps_toast">This app need your location</string>
+    <string name="try_later_gps">Please wait few seconds and then retry</string>
+    <string name="gps_alert_title">Warning</string>
+    <string name="gps_alert_body">Invalid operation!</string>
 </resources>
