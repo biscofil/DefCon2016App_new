@@ -2,8 +2,8 @@ package com.biscofil.defcon2016;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -24,19 +24,17 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.biscofil.defcon2016.lib.CustomVolleyRequestQueue;
 import com.biscofil.defcon2016.lib.Struttura;
 import com.biscofil.defcon2016.lib.XhrInterface;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
+import im.dacer.androidcharts.LineView;
 import tourguide.tourguide.ChainTourGuide;
 import tourguide.tourguide.Overlay;
 import tourguide.tourguide.Sequence;
@@ -45,7 +43,8 @@ import tourguide.tourguide.ToolTip;
 public class Details_activity extends AppCompatActivity {
 
     public Activity mActivity;
-    LineChart graph;
+    //LineChart graph;
+    LineView lineView;
     RatingBar rb;
     FloatingActionButton fab;
 
@@ -62,8 +61,10 @@ public class Details_activity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
 
         rb = (RatingBar) findViewById(R.id.ratingBar);
-        graph = (LineChart) findViewById(R.id.chart);
+        //graph = (LineChart) findViewById(R.id.chart);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        lineView = (LineView) findViewById(R.id.line_view);
 
         tv_punteggio_val = (TextView) findViewById(R.id.tv_punteggio_val);
         tv_data_calcolo_val = (TextView) findViewById(R.id.tv_data_calcolo_val);
@@ -115,12 +116,13 @@ public class Details_activity extends AppCompatActivity {
 
                             //punteggio
                             if (s.no_data) {
-                                graph.setVisibility(View.GONE);
+                                lineView.setVisibility(View.GONE);//
                                 tv_punteggio_val.setText("-");
                                 tv_data_calcolo_val.setText("-");
                                 tv_ora_calcolo_val.setText("-");
                                 rb.setRating(0);
                             } else {
+                                tv_punteggio_val.setText("" + s.punteggio);
                                 rb.setMax(5);
                                 rb.setStepSize(0.5f);
                                 rb.setRating((float) s.punteggio);
@@ -135,18 +137,24 @@ public class Details_activity extends AppCompatActivity {
                                         return false;
                                     }
                                 });
-                                String[] splited = s.data_dati.split("\\s+");
-                                tv_punteggio_val.setText("" + s.punteggio);
-                                tv_data_calcolo_val.setText(splited[0]);
-                                tv_ora_calcolo_val.setText(splited[1]);
+
+                                SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                SimpleDateFormat dt_data = new SimpleDateFormat("dd/MM/yyyy");
+                                SimpleDateFormat dt_ora = new SimpleDateFormat("HH:mm:ss");
+                                try {
+                                    Date date = dt.parse(s.data_dati);
+                                    tv_data_calcolo_val.setText(dt_data.format(date));
+                                    tv_ora_calcolo_val.setText(dt_ora.format(date));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
                             }
 
                             //storico
                             if (!s.storico.isEmpty()) {
                                 setup_graph(s);
-                                graph.invalidate();
                             } else {
-                                graph.setVisibility(View.GONE);
+                                lineView.setVisibility(View.GONE);
                             }
 
                             if (((EcoMe) getApplication()).tutorialHandler.isFirstTimeHere(this.getClass())) {
@@ -179,22 +187,33 @@ public class Details_activity extends AppCompatActivity {
     }
 
     public void setup_graph(Struttura s) {
-        List<Entry> entries = new ArrayList<Entry>();
-        float x = 0;
-        for (Map.Entry<Date, Double> entry : s.storico.entrySet()) {
-            double dd = entry.getValue();
-            entries.add(new Entry(x, ((float) dd)));
-            x++;
-        }
+        if (!s.storico.isEmpty()) {
 
-        LineDataSet dataSet = new LineDataSet(entries, getString(R.string.punteggio)); // add entries to dataset
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            dataSet.setColor(getColor(R.color.colorPrimary));
-            dataSet.setValueTextColor(getColor(R.color.colorPrimaryDark)); // styling, ...
-        }
+            ArrayList<Float> dataListF3 = new ArrayList<>();
+            ArrayList<String> data_labels = new ArrayList<>();
 
-        LineData lineData = new LineData(dataSet);
-        graph.setData(lineData);
+            SimpleDateFormat dt1 = new SimpleDateFormat("HH:mm dd/MM");
+
+            for (Map.Entry<Date, Double> entry : s.storico.entrySet()) {
+                double dd = entry.getValue();
+                dataListF3.add((float) (dd));
+                Date dat = entry.getKey();
+                data_labels.add(dt1.format(dat));
+            }
+
+            ArrayList<ArrayList<Float>> dataListFs = new ArrayList<>();
+            dataListFs.add(dataListF3);
+
+            lineView.setDrawDotLine(false); //optional
+            lineView.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
+            lineView.setBottomTextList(data_labels);
+            int color = Color.parseColor("#248635");
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                color = getColor(R.color.colorPrimary);
+            }
+            lineView.setColorArray(new int[]{color});
+            lineView.setFloatDataList(dataListFs);
+        }
     }
 
     public void setup_fab(final Struttura s) {

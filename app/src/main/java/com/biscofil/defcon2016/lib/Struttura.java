@@ -10,8 +10,8 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Struttura {
 
@@ -32,7 +32,9 @@ public class Struttura {
     public void parse_slim(JSONObject object) {
         try {
             punteggio = object.getDouble("last_value");
+            no_data = false;
         } catch (Exception e) {
+            punteggio = -1;
             no_data = true;
         }
         try {
@@ -58,32 +60,27 @@ public class Struttura {
 
     public void parse_storico(JSONObject object) {
         parse_full(object);
-
-        storico = new HashMap<>();
-
+        storico = new TreeMap<>();
         try {
             JSONArray arr = object.getJSONArray("storico");
-
             for (int i = 0; i < arr.length(); i++) {
                 JSONObject obj = arr.getJSONObject(i);
                 Date date = parseTimestamp(obj.getString("last_value_date"));
                 Double value = obj.getDouble("last_value");
                 storico.put(date, value);
             }
-
         } catch (Exception e) {
         }
     }
 
     private Date parseTimestamp(String dtStart) {
-        //2017-02-18 20:14:49
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date date = format.parse(dtStart);
-            System.out.println(date);
+            return date;
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return new Date();
+        return null;
     }
 }

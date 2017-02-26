@@ -30,86 +30,86 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
+                    android:isIndicator="true"
                     android:numStars="5"
                     android:rating="4.5"
-                    android:stepSize="0.1"
-                    android:isIndicator="true" />
+                    android:stepSize="0.1" />
 
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
                             android:text="@string/punteggio"
-                            android:layout_weight="1"
-                            android:textAlignment="center"
-                            android:layout_marginBottom="5dp" />
+                            android:textAlignment="center" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="@string/dati_risalenti_a"
                             android:layout_gravity="bottom"
-                            android:textAlignment="center"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
-                            android:layout_marginBottom="5dp" />
+                            android:text="@string/dati_risalenti_a"
+                            android:textAlignment="center" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:text="0.0"
+                            android:id="@+id/tv_punteggio_val"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tv_punteggio_val"
+                            android:layout_weight="1"
+                            android:text="0.0"
                             android:textAlignment="center"
-                            tools:text="0.0"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="60sp"
                             android:textStyle="normal|bold"
-                            android:layout_weight="1"
-                            android:textColor="@color/colorPrimaryDark" />
+                            tools:text="0.0" />
 
                         <LinearLayout
-                            android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
                             <TextView
-                                android:text="-"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
                                 android:id="@+id/tv_data_calcolo_val"
-                                android:textAlignment="center"
-                                android:layout_weight="1.09"
-                                android:textStyle="normal|bold"
-                                android:textSize="30sp"
-                                android:gravity="bottom"
-                                android:textColor="@color/colorPrimaryDark" />
-
-                            <TextView
-                                android:text="00:00"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/tv_ora_calcolo_val"
-                                android:layout_weight="1"
+                                android:layout_weight="1.09"
+                                android:gravity="bottom"
+                                android:text="-"
                                 android:textAlignment="center"
-                                android:textStyle="normal|bold"
-                                android:gravity="top" />
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="30sp"
+                                android:textStyle="normal|bold" />
+
+                            <TextView
+                                android:id="@+id/tv_ora_calcolo_val"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="top"
+                                android:text="00:00"
+                                android:textAlignment="center"
+                                android:textStyle="normal|bold" />
 
                         </LinearLayout>
 
@@ -126,10 +126,17 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp">
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart"
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="wrap_content">
+
+                <view
+                    android:id="@+id/line_view"
+                    class="im.dacer.androidcharts.LineView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp" />
+            </HorizontalScrollView>
+
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
