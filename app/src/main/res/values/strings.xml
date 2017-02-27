@@ -5,12 +5,7 @@
     <string name="navigation_drawer_close">Apri menu</string>
 
     <string name="action_settings">Impostazioni</string>
-    <string name="tools">Strumenti</string>
-    <string name="slideshow">Slideshow</string>
-    <string name="gallery">Galleria</string>
-    <string name="share">Condividi</string>
     <string name="sito_web">Sito web</string>
-    <string name="hello_world">Ciao mondo!</string>
 
     <string name="title_activity_loading">EcoMe</string>
     <string name="action_refresh">Aggiorna</string>
@@ -41,7 +36,6 @@
     <string name="credits_creators_value" translatable="false">App progettata e realizzata da:</string>
     <string name="str_menu_map">Mappa</string>
     <string name="str_menu_meter">Meter</string>
-    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor srsus odio. Nam vehicula Aenean convallis risus enim, sed interdum risus consequat sed. Cras interdum viverra urna et venenatis.</string>
     <string name="punteggio">Punteggio</string>
     <string name="dati_risalenti_a">Dati risalenti a</string>
     <string name="descrizione_struttura">Descrizione</string>
@@ -90,4 +84,8 @@
     <string name="dettagli">Dettagli</string>
     <string name="aggiorna">Aggiorna</string>
     <string name="meter_points">PUNTEGGIO</string>
+    <string name="licenze_opendata">Licenze OpenData:</string>
+    <string name="licenze_librerie">Licenze Librerie:</string>
+    <string name="card_license">ECOme utilizza diverse librerie e OpenData con diverse licenze. In questa pagina è possibile consultarle singolarmente.</string>
+    <string name="desc_meter">Puoi controllare la qualità dell\'aria del luogo in cui ti trovi grazie al GPS. La tua posizione verrà utilizzata per interrogare il database sul server e il punteggio finale sarà visualizzato nell\'indicatore.</string>
 </resources>

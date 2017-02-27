@@ -11,6 +11,8 @@ import android.webkit.WebView;
 import com.biscofil.defcon2016.MainActivity;
 import com.biscofil.defcon2016.R;
 
+import java.util.Locale;
+
 public class GuidaCalcoloIndice_fragment extends Fragment {
 
     public GuidaCalcoloIndice_fragment() {
@@ -24,8 +26,10 @@ public class GuidaCalcoloIndice_fragment extends Fragment {
         final Menu menuNav = ((MainActivity) getActivity()).getDrawer().getMenu();
         menuNav.findItem(R.id.menu_calc).setChecked(true);
 
+        String lang = Locale.getDefault().getDisplayLanguage();
+
         WebView calcolo_webview = (WebView) rootView.findViewById(R.id.calcolo_webview);
-        calcolo_webview.loadUrl(getString(R.string.web_url) + getString(R.string.webview_calcolo_url));
+        calcolo_webview.loadUrl(getString(R.string.web_url) + getString(R.string.webview_calcolo_url) + "/" + lang);
         return rootView;
     }
 }

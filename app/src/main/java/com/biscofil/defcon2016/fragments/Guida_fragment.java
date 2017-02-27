@@ -11,6 +11,8 @@ import android.webkit.WebView;
 import com.biscofil.defcon2016.MainActivity;
 import com.biscofil.defcon2016.R;
 
+import java.util.Locale;
+
 public class Guida_fragment extends Fragment {
 
     public Guida_fragment() {
@@ -24,8 +26,10 @@ public class Guida_fragment extends Fragment {
         final Menu menuNav = ((MainActivity) getActivity()).getDrawer().getMenu();
         menuNav.findItem(R.id.menu_guida).setChecked(true);
 
+        String lang = Locale.getDefault().getDisplayLanguage();
+
         WebView guida_webview = (WebView) rootView.findViewById(R.id.guida_webview);
-        guida_webview.loadUrl(getString(R.string.web_url) + getString(R.string.webview_guida_url));
+        guida_webview.loadUrl(getString(R.string.web_url) + getString(R.string.webview_guida_url) + "/" + lang);
         return rootView;
     }
 
