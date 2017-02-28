@@ -26,7 +26,7 @@
         android:cropToPadding="false"
         android:gravity="center"
         android:keepScreenOn="true"
-        app:srcCompat="@drawable/icon_512_bordo"
+        app:srcCompat="@drawable/icon_bordo"
         android:layout_above="@+id/loading_info" />
 
 
