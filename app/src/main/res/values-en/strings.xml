@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Setting</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="sito_web">Website</string>
     <string name="action_refresh">Refresh</string>
     <string name="title_activity_loading">EcoMe</string>
-    <string name="checking_connection">Checking connection</string>
-    <string name="downloading_data">Downloading data</string>
     <string name="loading">Loading</string>
-    <string name="title_activity_maps">Map</string>
-    <string name="sidney">Marker in Rome</string>
     <string name="title_activity_details">Details</string>
-    <string name="downloading_structures_data">Downloading structures data</string>
     <string name="guida_uso">Guide</string>
     <string name="licenze_versioni">Licenses</string>
     <string name="str_menu_tec">Index calculation</string>
@@ -32,13 +26,8 @@
     <string name="guide_short">Guide</string>
     <string name="licenze_versioni_short">Licenses</string>
     <string name="no_internet">Cannot reach the server!</string>
-    <string name="tutorial_link_struttura">Tap to open website</string>
     <string name="contiue_offline">Continue offline</string>
     <string name="exit_offline">Exit</string>
-    <string name="scarico_dettagli">Downloading details</string>
-    <string name="gps_operation_no_valid">Invalid operation!</string>
-    <string name="gps_title_attention">Attention!</string>
-    <string name="app_require_gps">This app need your location</string>
     <string name="close_details_dialog">Close</string>
     <string name="tutorial_details_web">Check out the website</string>
     <string name="tutorial_meter_details">Once the position is known, you can inspect single values used for the math</string>

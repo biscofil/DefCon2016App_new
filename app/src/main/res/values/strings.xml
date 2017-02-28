@@ -4,23 +4,16 @@
     <string name="navigation_drawer_open">Apri menu</string>
     <string name="navigation_drawer_close">Apri menu</string>
 
-    <string name="action_settings">Impostazioni</string>
     <string name="sito_web">Sito web</string>
 
     <string name="title_activity_loading">EcoMe</string>
     <string name="action_refresh">Aggiorna</string>
-    <string name="checking_connection">Controllo la connessione</string>
-    <string name="downloading_data">Scarico i dati</string>
     <string name="loading">Caricamento</string>
-    <string name="title_activity_maps">Map</string>
     <string name="xhr_controller" translatable="false">xhr/</string>
-    <string name="data_method" translatable="false">xhr_data</string>
     <string name="web_url" translatable="false">http://defcon2016.altervista.org/index.php/</string>
-    <string name="sidney">Marcatore a Roma</string>
     <string name="title_activity_details">Dettagli</string>
     <string name="strutture_method" translatable="false">xhr_strutture</string>
     <string name="struttura_method" translatable="false">xhr_struttura</string>
-    <string name="downloading_structures_data">Scarico i dati delle strutture</string>
 
     <string name="guida_uso">Guida all\'uso</string>
     <string name="licenze_versioni">Licenze e versioni</string>
@@ -56,15 +49,9 @@
     <string name="linkedin_bisconcin" translatable="false">https://www.linkedin.com/in/filippobisconcin/</string>
     <string name="linkedin_cabianca" translatable="false">https://www.linkedin.com/in/marco-cabianca-21a45812a/</string>
     <string name="linkedin_busolin" translatable="false">https://www.linkedin.com/in/francesco-busolin-729b17129/</string>
-    <string name="tutorial_link_struttura">Premi per andare al sito della struttura</string>
     <string name="tutorial_title" translatable="false">Tutorial</string>
     <string name="contiue_offline">Continua</string>
     <string name="exit_offline">Esci</string>
-    <string name="scarico_dettagli">Scarico i dettagli</string>
-    <string name="app_require_gps">Questa app necessita del GPS</string>
-    <string name="gps_title_attention">Attenzione!</string>
-    <string name="gps_operation_no_valid">Operazione non valida!</string>
-    <string name="url_gps_2_value" translatable="false">http://defcon2016.altervista.org/index.php/xhr/gps_to_value/</string>
     <string name="xhr_details_calcolo" translatable="false">xhr_details_calcolo/</string>
     <string name="close_details_dialog">Chiudi</string>
     <string name="tuorial_refresh_meter">Controlla la qualità del luogo in cui ti trovi utilizzando la tua posizione.</string>

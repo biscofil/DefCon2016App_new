@@ -4,19 +4,11 @@
     <color name="colorPrimaryDark">#004A0D</color>
     <color name="colorPrimaryLight">#6CBF7A</color>
 
-    <color name="colorSecondary">#1E626B</color>
-    <color name="colorSecondaryDark">#01343B</color>
-    <color name="colorSecondaryLight">#579199</color>
-
-    <color name="colorSecondary2">#af6c2f</color>
-    <color name="colorSecondary2Dark">#612F00</color>
     <color name="colorSecondary2Light">#F9C18D</color>
 
     <color name="colorComplement">#AF382F</color>
-    <color name="colorComplementDark">#610700</color>
-    <color name="colorComplementLight">#F9958D</color>
 
-    <color name="loading_bg">#ffffff</color><!-- #0099cc -->
+    <!-- #0099cc -->
     <color name="black_overlay">#66000000</color>
     <color name="colorGrey">#66dedede</color>
 
