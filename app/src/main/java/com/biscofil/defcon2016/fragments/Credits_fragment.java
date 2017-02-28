@@ -3,29 +3,20 @@ package com.biscofil.defcon2016.fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.biscofil.defcon2016.MainActivity;
 import com.biscofil.defcon2016.R;
+import com.biscofil.defcon2016.lib.PageFragment;
 
-public class Credits_fragment extends Fragment {
+public class Credits_fragment extends PageFragment {
 
     public Credits_fragment() {
+        super(R.layout.fragment_credits, R.string.credits_fragment_title, R.id.menu_credits);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_credits, container, false);
-        getActivity().setTitle(getString(R.string.credits_fragment_title));
-
-        final Menu menuNav = ((MainActivity) getActivity()).getDrawer().getMenu();
-        menuNav.findItem(R.id.menu_credits).setChecked(true);
-
+    public void doWhatever(View rootView, Bundle sBundle) {
         Button btn_cabianca = (Button) rootView.findViewById(R.id.btn_cabianca);
         btn_cabianca.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,9 +47,6 @@ public class Credits_fragment extends Fragment {
                 startActivity(i);
             }
         });
-
-
-        return rootView;
     }
 
 }

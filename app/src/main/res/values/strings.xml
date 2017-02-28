@@ -75,4 +75,5 @@
     <string name="licenze_librerie">Licenze Librerie:</string>
     <string name="card_license">ECOme utilizza diverse librerie e OpenData con diverse licenze. In questa pagina è possibile consultarle singolarmente.</string>
     <string name="desc_meter">Puoi controllare la qualità dell\'aria del luogo in cui ti trovi grazie al GPS. La tua posizione verrà utilizzata per interrogare il database sul server e il punteggio finale sarà visualizzato nell\'indicatore.</string>
+    <string name="home_fragment_title">Home</string>
 </resources>

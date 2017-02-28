@@ -1,18 +1,13 @@
 package com.biscofil.defcon2016.fragments;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
@@ -20,9 +15,9 @@ import android.widget.Toast;
 
 import com.biscofil.defcon2016.DetailsCalcoloDialog;
 import com.biscofil.defcon2016.EcoMe;
-import com.biscofil.defcon2016.MainActivity;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.gps.GPSTracker;
+import com.biscofil.defcon2016.lib.PageFragment;
 import com.biscofil.defcon2016.lib.XhrInterface;
 import com.biscofil.defcon2016.views.MyArcProgress;
 import com.google.android.gms.maps.model.LatLng;
@@ -38,28 +33,20 @@ import tourguide.tourguide.ToolTip;
 
 import static com.biscofil.defcon2016.EcoMe.MY_PERMISSIONS_REQUEST_FINE_LOCATION;
 
-public class Meter_fragment extends Fragment {
+public class Meter_fragment extends PageFragment {
 
     private Animation mEnterAnimation, mExitAnimation;
     GPSTracker gps;
     LatLng position;
     private Button btn, btn_info;
     public MyArcProgress arcProgress;
-    private Context mContext;
 
     public Meter_fragment() {
+        super(R.layout.fragment_meter, R.string.meter_fragment_title, R.id.menu_meter);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_meter, container, false);
-        getActivity().setTitle(getString(R.string.meter_fragment_title));
-
-        final Menu menuNav = ((MainActivity) getActivity()).getDrawer().getMenu();
-        menuNav.findItem(R.id.menu_meter).setChecked(true);
-
-        this.mContext = getContext();
-
+    public void doWhatever(View rootView, Bundle savedInstanceState) {
         btn = (Button) rootView.findViewById(R.id.btn_meter_update);
         btn_info = (Button) rootView.findViewById(R.id.btn_meter_details);
 
@@ -121,7 +108,7 @@ public class Meter_fragment extends Fragment {
             }
         });
 
-          /* setup enter and exit animation */
+        /* setup enter and exit animation */
         mEnterAnimation = new AlphaAnimation(0f, 1f);
         mEnterAnimation.setDuration(600);
         mEnterAnimation.setFillAfter(true);
@@ -133,8 +120,6 @@ public class Meter_fragment extends Fragment {
         if (((EcoMe) getActivity().getApplication()).tutorialHandler.isFirstTimeHere(this.getClass())) {
             runOverlay_ContinueMethod();
         }
-
-        return rootView;
     }
 
     public void richiesta_sito() {

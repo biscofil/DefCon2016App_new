@@ -2,34 +2,24 @@ package com.biscofil.defcon2016.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.biscofil.defcon2016.EcoMe;
-import com.biscofil.defcon2016.MainActivity;
 import com.biscofil.defcon2016.R;
+import com.biscofil.defcon2016.lib.PageFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.biscofil.defcon2016.lib.Utils.setFragmentContent;
 
-public class Menu_fragment extends Fragment {
+public class Menu_fragment extends PageFragment {
 
     public Menu_fragment() {
+        super(R.layout.fragment_menu, R.string.home_fragment_title, R.id.menu_menu);
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_menu, container, false);
-        getActivity().setTitle("Home");
-
-        final Menu menuNav = ((MainActivity) getActivity()).getDrawer().getMenu();
-        menuNav.findItem(R.id.menu_menu).setChecked(true);
-
+    public void doWhatever(View rootView, Bundle b) {
         CircleImageView btn_home_meter = (CircleImageView) rootView.findViewById(R.id.home_meter);
         btn_home_meter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,9 +65,6 @@ public class Menu_fragment extends Fragment {
             btn_home_guida.setColorFilter(Color.argb(127, 255, 255, 255));
             rootView.findViewById(R.id.home_guida_tv).setVisibility(View.INVISIBLE);
         }
-
-        return rootView;
     }
-
 
 }

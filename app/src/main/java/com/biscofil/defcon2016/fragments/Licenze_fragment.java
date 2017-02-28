@@ -1,13 +1,10 @@
 package com.biscofil.defcon2016.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,10 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.biscofil.defcon2016.EcoMe;
-import com.biscofil.defcon2016.MainActivity;
 import com.biscofil.defcon2016.R;
 import com.biscofil.defcon2016.lib.Libreria;
 import com.biscofil.defcon2016.lib.Licenza;
+import com.biscofil.defcon2016.lib.PageFragment;
 import com.biscofil.defcon2016.lib.XhrInterface;
 
 import org.json.JSONArray;
@@ -31,21 +28,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Licenze_fragment extends Fragment {
+public class Licenze_fragment extends PageFragment {
 
     ListView listView, lv_librerie;
 
     public Licenze_fragment() {
+        super(R.layout.fragment_licenze, R.string.licenze_fragment_title, R.id.menu_license);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_licenze, container, false);
-        getActivity().setTitle(getString(R.string.licenze_fragment_title));
-
-        final Menu menuNav = ((MainActivity) getActivity()).getDrawer().getMenu();
-        menuNav.findItem(R.id.menu_license).setChecked(true);
-
+    public void doWhatever(View rootView, Bundle sBundle) {
         listView = (ListView) rootView.findViewById(R.id.list_licenze);
         lv_librerie = (ListView) rootView.findViewById(R.id.lv_librerie);
 
@@ -66,9 +58,6 @@ public class Licenze_fragment extends Fragment {
                 startActivity(i);
             }
         });
-
-        //new MyTask(this, getActivity(), listView).execute();
-        final Activity act = getActivity();
 
         ((EcoMe) getActivity().getApplication())._xhr_interface.volleyRequestArray(
                 getString(R.string.web_url) + getString(R.string.xhr_controller) + getString(R.string.xhr_licenze),
@@ -93,7 +82,7 @@ public class Licenze_fragment extends Fragment {
                             l.add(lic);
                         }
 
-                        LicenzeAdapter adapter = new LicenzeAdapter(act, R.layout.licenze_row, l);
+                        LicenzeAdapter adapter = new LicenzeAdapter(mAct, R.layout.licenze_row, l);
                         listView.setAdapter(adapter);
 
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -113,8 +102,6 @@ public class Licenze_fragment extends Fragment {
                     }
                 }
         );
-
-        return rootView;
     }
 
     private class LicenzeAdapter extends ArrayAdapter<Licenza> {

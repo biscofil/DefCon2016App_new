@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.biscofil.defcon2016.R;
+import com.biscofil.defcon2016.fragments.Menu_fragment;
 
 public class Utils {
 
@@ -23,28 +24,43 @@ public class Utils {
         return set_fragment_content(f.getActivity().getSupportFragmentManager(), fragmentClass, mi, first);
     }
 
-
     private static Fragment set_fragment_content(FragmentManager fm, Class fragmentClass, MenuItem item, boolean first) {
         try {
             item.setChecked(true);
-
-            Fragment fragment = (Fragment) fragmentClass.newInstance();
             FragmentTransaction ft = fm.beginTransaction();
-            ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+            String _tag = fragmentClass.getSimpleName();
+            Fragment fragment = fm.findFragmentByTag(_tag);
 
-            //TODO ELIMINARE CRONOLOGIA; back porta a menu
-            if (first) {
-                for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-                    fm.popBackStack();
-                }
-                ft.replace(R.id.flContent, fragment).commit();
+            if (fragment == null) {
+                fragment = (Fragment) fragmentClass.newInstance();
+                //Log.d("BISCO",_tag + " non trovato, devo instanziare...");
             } else {
-                ft.replace(R.id.flContent, fragment).addToBackStack(null).commit();
+                //Log.d("BISCO",_tag + " trovato, non instanzio...");
             }
+
+            if (first) {
+               /* for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                    fm.popBackStack();
+                }*/
+            } else {
+                Fragment old = fm.findFragmentById(R.id.flContent);
+                if (null == old || old.getClass().equals(Menu_fragment.class)) {
+                    ft.addToBackStack(null);
+                } else {
+
+                }
+            }
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            //ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+            ft.replace(R.id.flContent, fragment, _tag);
+            ft.commit();
+
             return fragment;
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
